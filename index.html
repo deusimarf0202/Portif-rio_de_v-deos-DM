@@ -3,936 +3,1264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VideoForge — Portfólio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<title>DM · Portfólio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#080810;--bg2:#0e0e1a;--bg3:#13131f;--surface:#1a1a28;--surface2:#222235;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
-  --accent:#7c5cfc;--accent2:#a78bfa;--accent3:#c4b5fd;
-  --pink:#f472b6;--cyan:#22d3ee;--gold:#fbbf24;
-  --text:#f0eeff;--text2:#a09abe;--text3:#5e5c7a;--success:#4ade80;
-  --radius:16px;--radius-sm:10px;--radius-xs:6px;
-  --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060608;
+  --surface:#0d0d12;
+  --surface2:#13131a;
+  --surface3:#1a1a24;
+  --border:#ffffff0f;
+  --border2:#ffffff1a;
+  --accent:#c8f135;
+  --accent2:#a8d420;
+  --text:#f0f0f0;
+  --text2:#9898b0;
+  --text3:#5a5a70;
+  --red:#ff4d4d;
+  --yellow:#ffd166;
+  --radius:14px;
+  --radius2:10px;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-h1,h2,h3,h4{font-family:'Syne',sans-serif;}
-
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
-
-.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orbFloat 8s ease-in-out infinite alternate;}
-.orb1{width:400px;height:400px;top:-100px;left:-100px;background:rgba(124,92,252,0.12);}
-.orb2{width:300px;height:300px;top:60%;right:-80px;background:rgba(244,114,182,0.08);animation-delay:3s;}
-.orb3{width:250px;height:250px;bottom:10%;left:30%;background:rgba(34,211,238,0.07);animation-delay:5s;}
-@keyframes orbFloat{0%{transform:translate(0,0) scale(1)}100%{transform:translate(20px,20px) scale(1.1)}}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,16,0.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
-.logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.logo-sub{font-size:12px;color:var(--text3);margin-top:1px;font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0;}
-
-.btn{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:9px 20px;border-radius:var(--radius-xs);border:none;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:8px;}
-.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2);}
-.btn-ghost:hover{background:var(--surface);color:var(--text);}
-.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(124,92,252,0.35);}
-.btn-primary:hover{background:#6d4fe0;transform:translateY(-1px);box-shadow:0 6px 28px rgba(124,92,252,0.5);}
-.btn-sm{padding:6px 14px;font-size:13px;}
-.btn-danger{background:rgba(244,114,182,0.12);color:var(--pink);border:1px solid rgba(244,114,182,0.25);}
-.btn-danger:hover{background:rgba(244,114,182,0.2);}
-
-main{padding-top:80px;position:relative;z-index:1;}
-
-/* Hero / Profile */
-.hero{padding:64px 40px 48px;max-width:1000px;margin:0 auto;animation:fadeUp 0.7s ease both;}
-.profile-bar{display:flex;align-items:flex-start;gap:28px;margin-bottom:40px;}
-.avatar-wrap{position:relative;flex-shrink:0;}
-.avatar{width:88px;height:88px;border-radius:50%;background:var(--surface2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:32px;font-weight:700;color:var(--text3);overflow:hidden;cursor:pointer;transition:var(--transition);}
-.avatar:hover{border-color:rgba(124,92,252,0.5);}
-.avatar img{width:100%;height:100%;object-fit:cover;}
-.avatar-edit{position:absolute;bottom:2px;right:2px;width:24px;height:24px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition);}
-.avatar-edit:hover{transform:scale(1.15);}
-.profile-info{flex:1;}
-.profile-name{font-size:28px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;}
-.profile-name:hover .edit-hint{opacity:1;}
-.edit-hint{font-size:12px;color:var(--accent2);font-weight:400;letter-spacing:0;opacity:0;transition:var(--transition);}
-.profile-bio{color:var(--text2);font-size:15px;line-height:1.6;max-width:560px;cursor:pointer;}
-.profile-bio:hover{color:var(--text);}
-.profile-placeholder{color:var(--text3);font-style:italic;}
-.stats-row{display:flex;gap:32px;margin-top:20px;}
-.stat{text-align:center;}
-.stat-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;}
-.stat-label{font-size:12px;color:var(--text3);margin-top:3px;}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-
-/* Section */
-.portfolio-section{padding:0 32px 80px;max-width:1400px;margin:0 auto;}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
-.section-title{font-size:20px;font-weight:700;}
-.filter-tabs{display:flex;gap:4px;background:var(--surface);border-radius:var(--radius-xs);padding:4px;}
-.filter-tab{padding:7px 14px;border-radius:6px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text2);background:transparent;transition:var(--transition);}
-.filter-tab.active{background:var(--surface2);color:var(--text);}
-.filter-tab:hover:not(.active){color:var(--text);}
-
-/* Grid */
-.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
-
-/* Empty state */
-.empty-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px;text-align:center;}
-.empty-icon-wrap{width:96px;height:96px;border-radius:24px;background:var(--surface);border:1px dashed var(--border2);display:flex;align-items:center;justify-content:center;margin-bottom:24px;animation:pulse 3s ease infinite;}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(124,92,252,0)}50%{box-shadow:0 0 0 12px rgba(124,92,252,0.06)}}
-.empty-state h3{font-size:20px;font-weight:700;margin-bottom:10px;}
-.empty-state p{color:var(--text3);font-size:14px;margin-bottom:28px;max-width:320px;line-height:1.7;}
-
-/* Card */
-.video-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:var(--transition);animation:fadeUp 0.5s ease both;position:relative;}
-.video-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 0 1px rgba(124,92,252,0.1);}
-.thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg3);}
-.thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);}
-.video-card:hover .thumb img{transform:scale(1.05);}
-.thumb-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--text3);font-size:13px;}
-.thumb-ph svg{opacity:0.3;transition:var(--transition);}
-.video-card:hover .thumb-ph svg{opacity:0.55;transform:scale(1.08);}
-.thumb-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--transition);}
-.video-card:hover .thumb-overlay{opacity:1;}
-.play-btn{width:56px;height:56px;border-radius:50%;background:rgba(124,92,252,0.9);display:flex;align-items:center;justify-content:center;transform:scale(0.7);transition:var(--transition);box-shadow:0 0 28px rgba(124,92,252,0.5);}
-.video-card:hover .play-btn{transform:scale(1);}
-.play-btn svg{margin-left:3px;}
-.thumb-badges{position:absolute;top:10px;left:10px;display:flex;gap:6px;}
-.badge{padding:3px 9px;border-radius:100px;font-size:10px;font-weight:600;letter-spacing:0.5px;backdrop-filter:blur(8px);text-transform:uppercase;}
-.badge-private{background:rgba(244,114,182,0.2);color:var(--pink);border:1px solid rgba(244,114,182,0.3);}
-.badge-public{background:rgba(74,222,128,0.2);color:var(--success);border:1px solid rgba(74,222,128,0.3);}
-.badge-dur{background:rgba(0,0,0,0.65);color:var(--text);border:1px solid rgba(255,255,255,0.1);position:absolute;bottom:10px;right:10px;}
-
-.card-body{padding:18px;}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;line-height:1.35;flex:1;margin-right:10px;}
-.card-menu{position:relative;}
-.menu-btn{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:var(--transition);flex-shrink:0;}
-.menu-btn:hover{background:var(--surface2);color:var(--text);}
-.dropdown{position:absolute;right:0;top:36px;z-index:50;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:5px;min-width:155px;box-shadow:0 16px 40px rgba(0,0,0,0.45);opacity:0;transform:translateY(-8px) scale(0.95);pointer-events:none;transition:var(--transition);transform-origin:top right;}
-.dropdown.open{opacity:1;transform:none;pointer-events:auto;}
-.di{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--text2);transition:var(--transition);border:none;background:transparent;width:100%;text-align:left;}
-.di:hover{background:var(--surface);color:var(--text);}
-.di.danger:hover{color:var(--pink);}
-.dd-sep{height:1px;background:var(--border);margin:4px 0;}
-
-.card-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.tech-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
-.tech-tag{padding:3px 9px;border-radius:100px;font-size:11px;font-weight:500;background:rgba(124,92,252,0.1);color:var(--accent2);border:1px solid rgba(124,92,252,0.18);}
-.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:13px;border-top:1px solid var(--border);}
-.meta-row{display:flex;align-items:center;gap:12px;}
-.meta-item{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text3);}
-.stars{display:flex;gap:1px;}
-.star{font-size:13px;color:var(--gold);cursor:pointer;transition:var(--transition);}
-.star.off{color:var(--text3);}
-.star:hover{transform:scale(1.3);}
-.card-btns{display:flex;gap:7px;}
-.icon-btn{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:var(--transition);}
-.icon-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--border2);}
-.icon-btn.liked{color:var(--pink);border-color:rgba(244,114,182,0.3);background:rgba(244,114,182,0.08);}
-
-/* Modal */
-.backdrop{position:fixed;inset:0;z-index:200;background:rgba(8,8,16,0.93);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:0.3s ease;}
-.backdrop.open{opacity:1;pointer-events:auto;}
-.modal{background:var(--surface);border-radius:20px;border:1px solid var(--border2);width:100%;max-width:900px;max-height:90vh;overflow-y:auto;transform:translateY(28px) scale(0.97);transition:0.35s cubic-bezier(0.4,0,0.2,1);box-shadow:0 40px 100px rgba(0,0,0,0.65),0 0 0 1px rgba(124,92,252,0.08);}
-.backdrop.open .modal{transform:none;}
-.modal::-webkit-scrollbar{width:4px;}
-.modal::-webkit-scrollbar-thumb{background:var(--border2);border-radius:100px;}
-.modal-video{aspect-ratio:16/9;background:var(--bg);border-radius:20px 20px 0 0;overflow:hidden;position:relative;}
-.modal-video video{width:100%;height:100%;object-fit:contain;background:#000;}
-.modal-video-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--text2);font-size:15px;background:rgba(8,8,16,0.6);}
-.modal-video-ph img.bg-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.3;z-index:0;}
-.modal-video-ph>*{position:relative;z-index:1;}
-.modal-play{width:76px;height:76px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition);box-shadow:0 0 40px rgba(124,92,252,0.45);}
-.modal-play:hover{transform:scale(1.1);box-shadow:0 0 60px rgba(124,92,252,0.65);}
-.modal-play svg{margin-left:4px;}
-
-.modal-body{padding:30px;}
-.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
-.modal-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-0.5px;line-height:1.2;flex:1;margin-right:16px;}
-.mclose{width:38px;height:38px;border-radius:9px;border:1px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:var(--transition);flex-shrink:0;}
-.mclose:hover{background:var(--surface2);color:var(--text);}
-.modal-meta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px;}
-.pi{display:flex;align-items:center;gap:6px;font-size:12px;padding:5px 12px;border-radius:100px;}
-.pi-pub{background:rgba(74,222,128,0.1);color:var(--success);border:1px solid rgba(74,222,128,0.25);}
-.pi-priv{background:rgba(244,114,182,0.1);color:var(--pink);border:1px solid rgba(244,114,182,0.25);}
-.modal-acts{display:flex;gap:8px;margin-left:auto;}
-
-/* Rating box */
-.rating-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px;margin-bottom:22px;}
-.rating-label{font-size:12px;color:var(--text2);font-weight:500;margin-bottom:10px;letter-spacing:0.3px;}
-.modal-stars{display:flex;gap:5px;}
-.mstar{font-size:22px;color:var(--gold);cursor:pointer;transition:var(--transition);}
-.mstar.off{color:var(--text3);}
-.mstar:hover{transform:scale(1.3);}
-.rating-info{font-size:12px;color:var(--text3);margin-top:8px;}
-
-/* Tabs */
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:22px;}
-.tab{padding:11px 18px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text3);cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--transition);}
-.tab.active{color:var(--accent2);border-bottom-color:var(--accent);}
-.tab:hover:not(.active){color:var(--text2);}
-.tab-content{display:none;}
-.tab-content.active{display:block;animation:fadeIn 0.3s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-/* Tech chips */
-.tech-grid{display:flex;flex-wrap:wrap;gap:9px;}
-.tech-chip{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:var(--radius-sm);background:var(--bg3);border:1px solid var(--border);font-size:13px;font-weight:500;transition:var(--transition);}
-.tech-chip:hover{border-color:rgba(124,92,252,0.3);background:rgba(124,92,252,0.05);}
-.tdot{width:8px;height:8px;border-radius:50%;}
-
-/* Comments */
-.comment-form{margin-bottom:24px;}
-.comment-ta{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 15px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:vertical;min-height:76px;transition:var(--transition);outline:none;}
-.comment-ta:focus{border-color:rgba(124,92,252,0.4);box-shadow:0 0 0 3px rgba(124,92,252,0.08);}
-.comment-ta::placeholder{color:var(--text3);}
-.cf-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
-.cc{font-size:12px;color:var(--text3);}
-.comments-list{display:flex;flex-direction:column;gap:14px;}
-.comment{display:flex;gap:12px;padding:14px;border-radius:var(--radius-sm);background:var(--bg3);border:1px solid var(--border);animation:fadeIn 0.3s ease;transition:var(--transition);}
-.comment:hover{border-color:var(--border2);}
-.cavatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;}
-.chead{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
-.cauthor{font-size:13px;font-weight:600;}
-.cdate{font-size:11px;color:var(--text3);}
-.ctext{font-size:13px;color:var(--text2);line-height:1.6;}
-.cacts{display:flex;gap:10px;margin-top:8px;}
-.cact{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);cursor:pointer;transition:var(--transition);border:none;background:transparent;}
-.cact:hover{color:var(--text2);}
-.cact.liked{color:var(--pink);}
-.no-comments{text-align:center;padding:36px;color:var(--text3);font-size:13px;border:1px dashed var(--border);border-radius:var(--radius-sm);}
-
-/* Upload modal */
-.upload-modal{background:var(--surface);border-radius:20px;border:1px solid var(--border2);width:100%;max-width:660px;transform:translateY(28px) scale(0.97);transition:0.35s cubic-bezier(0.4,0,0.2,1);box-shadow:0 40px 100px rgba(0,0,0,0.65);overflow:hidden;max-height:90vh;overflow-y:auto;}
-.upload-modal::-webkit-scrollbar{width:4px;}
-.upload-modal::-webkit-scrollbar-thumb{background:var(--border2);border-radius:100px;}
-.backdrop.open .upload-modal{transform:none;}
-.uhead{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid var(--border);}
-.utitle{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;}
-.ubody{padding:26px;}
-.upload-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:44px 20px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;}
-.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:rgba(124,92,252,0.04);}
-.upload-zone p{color:var(--text2);font-size:14px;margin-bottom:5px;}
-.upload-zone span{color:var(--text3);font-size:12px;}
-.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
-.file-selected{display:none;margin-top:10px;padding:11px 13px;background:rgba(124,92,252,0.07);border:1px solid rgba(124,92,252,0.2);border-radius:9px;font-size:13px;align-items:center;gap:9px;color:var(--accent2);}
-.progress-wrap{margin-top:10px;height:3px;background:var(--border);border-radius:100px;overflow:hidden;display:none;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--pink));width:0%;transition:width 0.2s ease;border-radius:100px;}
-
-.fg{margin-bottom:18px;}
-.fl{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:7px;letter-spacing:0.3px;}
-.fi{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;transition:var(--transition);outline:none;}
-.fi:focus{border-color:rgba(124,92,252,0.4);box-shadow:0 0 0 3px rgba(124,92,252,0.08);}
-.fi::placeholder{color:var(--text3);}
-textarea.fi{resize:vertical;min-height:84px;}
-.ptoggle{display:flex;gap:7px;}
-.pbtn{flex:1;padding:9px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text2);transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:7px;}
-.pbtn.ap{background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.35);color:var(--success);}
-.pbtn.av{background:rgba(244,114,182,0.08);border-color:rgba(244,114,182,0.35);color:var(--pink);}
-.tags-inp{display:flex;flex-wrap:wrap;gap:7px;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 11px;min-height:42px;cursor:text;transition:var(--transition);}
-.tags-inp.foc{border-color:rgba(124,92,252,0.4);box-shadow:0 0 0 3px rgba(124,92,252,0.08);}
-.tpill{display:flex;align-items:center;gap:4px;background:rgba(124,92,252,0.14);color:var(--accent2);border:1px solid rgba(124,92,252,0.18);padding:3px 9px;border-radius:100px;font-size:12px;font-weight:500;}
-.tremove{cursor:pointer;opacity:0.6;font-size:13px;line-height:1;}
-.tremove:hover{opacity:1;}
-.tinput{background:transparent;border:none;outline:none;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;flex:1;min-width:80px;}
-.ufoot{display:flex;gap:10px;justify-content:flex-end;padding:18px 26px;border-top:1px solid var(--border);}
-
-/* Profile edit inline */
-.inline-edit{display:none;width:100%;background:var(--bg3);border:1px solid rgba(124,92,252,0.4);border-radius:var(--radius-sm);padding:9px 13px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:inherit;outline:none;box-shadow:0 0 0 3px rgba(124,92,252,0.08);}
-.inline-edit.visible{display:block;}
-
-/* Toast */
-.toast{position:fixed;bottom:28px;right:28px;z-index:300;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:13px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(0,0,0,0.4);transform:translateY(18px);opacity:0;transition:0.3s cubic-bezier(0.4,0,0.2,1);font-size:13px;max-width:280px;}
-.toast.show{transform:none;opacity:1;}
-.ticon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ts .ticon{background:rgba(74,222,128,0.18);color:var(--success);}
-.ti .ticon{background:rgba(124,92,252,0.18);color:var(--accent2);}
-
-::-webkit-scrollbar{width:5px;height:5px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:100px;}
-
-@media(max-width:700px){
-  nav{padding:12px 18px;}
-  .hero{padding:52px 18px 36px;}
-  .portfolio-section{padding:0 18px 60px;}
-  .video-grid{grid-template-columns:1fr;}
-  .stats-row{gap:20px;}
-  .profile-bar{gap:18px;}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
 }
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s ease;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;mix-blend-mode:difference}
+body:has(a:hover,button:hover,[role=button]:hover) #cursor-ring{transform:translate(-50%,-50%) scale(1.8);border-color:var(--accent);opacity:.5}
+
+/* NOISE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:.4
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:4px}
+
+/* LANDING */
+#landing{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;z-index:2;
+  padding:2rem;text-align:center;
+}
+.landing-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,#c8f13512 0%,transparent 70%);
+  pointer-events:none;
+}
+.landing-lines{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;
+}
+.landing-lines span{
+  position:absolute;left:50%;top:0;
+  width:1px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);
+  opacity:.12;transform-origin:top center;
+  animation:linePulse 4s infinite;
+}
+@keyframes linePulse{0%,100%{opacity:.06;height:0;top:0}50%{opacity:.18;height:100vh}}
+.tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface2);border:1px solid var(--border2);
+  padding:6px 16px;border-radius:999px;
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text2);margin-bottom:2rem;
+  animation:fadeDown .8s ease both;
+}
+.tag-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.landing-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3.5rem,10vw,8rem);
+  font-weight:800;line-height:.92;
+  letter-spacing:-.03em;
+  animation:fadeUp .9s ease .2s both;
+}
+.landing-title span{color:var(--accent)}
+.landing-sub{
+  font-size:clamp(1rem,2vw,1.2rem);color:var(--text2);
+  max-width:480px;margin:1.5rem auto 2.5rem;
+  line-height:1.7;font-weight:300;
+  animation:fadeUp .9s ease .4s both;
+}
+.landing-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--accent);color:#060608;
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:1rem;letter-spacing:.04em;
+  padding:16px 40px;border-radius:999px;
+  border:none;cursor:none;
+  transition:transform .2s,box-shadow .2s;
+  animation:fadeUp .9s ease .6s both;
+  position:relative;overflow:hidden;
+}
+.landing-cta::before{
+  content:'';position:absolute;inset:0;
+  background:white;opacity:0;
+  transition:opacity .2s;
+}
+.landing-cta:hover{transform:scale(1.04);box-shadow:0 0 40px var(--accent)44}
+.landing-cta:hover::before{opacity:.08}
+.landing-cta:active{transform:scale(.98)}
+.cta-arrow{font-size:1.2rem;transition:transform .2s}
+.landing-cta:hover .cta-arrow{transform:translateX(4px)}
+
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--text3);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  animation:fadeIn 1s ease 1.2s both;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--text3),transparent);animation:scrollLine 2s infinite}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* MAIN APP */
+#app{display:none;min-height:100vh;position:relative;z-index:2}
+
+/* NAVBAR */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,var(--bg)60%,transparent);
+  backdrop-filter:blur(0);
+  transition:backdrop-filter .3s,background .3s;
+}
+nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;
+  letter-spacing:-.02em;cursor:none;
+}
+.nav-logo span{color:var(--accent)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text2);font-size:13px;font-family:'Space Grotesk',sans-serif;
+  padding:10px 18px;border-radius:999px;cursor:none;
+  transition:all .2s;
+}
+.nav-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3)}
+.nav-btn.accent{background:var(--accent);color:#060608;border-color:transparent;font-weight:600}
+.nav-btn.accent:hover{background:var(--accent2);box-shadow:0 0 20px var(--accent)44}
+
+/* HERO */
+.hero{padding:140px 40px 60px;max-width:1400px;margin:0 auto}
+.hero-top{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:60px}
+.hero-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:.8rem}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.03em}
+.hero-name span{color:var(--accent)}
+.hero-desc{color:var(--text2);max-width:340px;line-height:1.7;font-size:.95rem;font-weight:300}
+
+.stats-bar{
+  display:flex;gap:0;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+}
+.stat-item{
+  padding:20px 32px;flex:1;border-right:1px solid var(--border);
+  transition:background .2s;
+}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:var(--surface3)}
+.stat-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;color:var(--text)}
+.stat-label{font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+
+/* GRID */
+.section{padding:0 40px 80px;max-width:1400px;margin:0 auto}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.section-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-.01em}
+.section-count{
+  font-size:11px;color:var(--text3);
+  background:var(--surface2);border:1px solid var(--border);
+  padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+}
+
+.video-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:20px;
+}
+
+/* VIDEO CARD */
+.video-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  cursor:none;transition:transform .25s,border-color .25s,box-shadow .25s;
+  animation:cardIn .5s ease both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.video-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 20px 60px #00000044}
+
+.card-thumb{
+  position:relative;aspect-ratio:16/9;overflow:hidden;
+  background:var(--surface2);
+}
+.card-thumb video,.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.video-card:hover .card-thumb video,.video-card:hover .card-thumb img{transform:scale(1.04)}
+.card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,#060608cc 0%,transparent 60%);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .25s;
+}
+.video-card:hover .card-overlay{opacity:1}
+.play-btn{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  transform:scale(.8);transition:transform .25s;
+  box-shadow:0 0 30px var(--accent)44;
+}
+.video-card:hover .play-btn{transform:scale(1)}
+.play-icon{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #060608;margin-left:3px}
+
+.card-duration{
+  position:absolute;bottom:10px;right:10px;
+  background:#06060888;backdrop-filter:blur(8px);
+  padding:4px 10px;border-radius:6px;
+  font-size:11px;color:white;font-weight:500;letter-spacing:.04em;
+}
+.card-badge{
+  position:absolute;top:10px;left:10px;
+  background:var(--accent);color:#060608;
+  padding:4px 10px;border-radius:6px;
+  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
+
+.card-body{padding:18px}
+.card-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+.card-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text3);margin-bottom:14px}
+.card-meta-dot{width:3px;height:3px;background:var(--text3);border-radius:50%}
+
+.card-actions{display:flex;align-items:center;gap:8px}
+.card-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:8px;font-size:12px;font-family:'Space Grotesk',sans-serif;
+  border:1px solid var(--border);background:transparent;color:var(--text2);
+  cursor:none;transition:all .18s;
+}
+.card-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}
+.card-btn.watch{background:var(--accent);color:#060608;border-color:transparent;font-weight:600;margin-left:auto}
+.card-btn.watch:hover{background:var(--accent2);box-shadow:0 0 16px var(--accent)44}
+.card-btn svg{flex-shrink:0}
+.rating-display{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--yellow)}
+.rating-display span{color:var(--text3)}
+
+/* EMPTY STATE */
+.empty-state{
+  grid-column:1/-1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 20px;color:var(--text3);text-align:center;gap:16px;
+}
+.empty-icon{font-size:3rem;opacity:.3}
+.empty-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text2)}
+.empty-sub{font-size:.9rem;max-width:300px;line-height:1.6}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;background:#060608e8;backdrop-filter:blur(20px);
+  z-index:1000;display:none;align-items:center;justify-content:center;
+  padding:20px;opacity:0;transition:opacity .3s;
+}
+.modal-overlay.open{display:flex;opacity:1}
+.modal{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:20px;width:100%;max-width:860px;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(20px);transition:transform .3s;
+  position:relative;
+}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--surface2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;color:var(--text2);transition:all .18s;z-index:1;
+  font-size:18px;line-height:1;
+}
+.modal-close:hover{background:var(--surface3);color:var(--text)}
+.modal-video{width:100%;aspect-ratio:16/9;background:#000;border-radius:20px 20px 0 0;overflow:hidden}
+.modal-video video,.modal-video iframe{width:100%;height:100%;border:none}
+.modal-video-placeholder{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:var(--surface2);color:var(--text3);gap:12px;
+  font-size:.9rem;
+}
+.modal-body{padding:24px 28px}
+.modal-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:8px}
+.modal-meta{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text3);margin-bottom:20px}
+.modal-desc{color:var(--text2);line-height:1.7;font-size:.95rem;margin-bottom:24px}
+
+/* RATING */
+.rating-section{margin-bottom:24px}
+.rating-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.stars{display:flex;gap:6px}
+.star{
+  font-size:1.5rem;cursor:none;transition:transform .15s;
+  filter:grayscale(1);opacity:.3;
+}
+.star:hover,.star.active{filter:none;opacity:1;transform:scale(1.15)}
+.star:hover ~ .star{filter:grayscale(1)!important;opacity:.3!important;transform:none!important}
+
+/* COMMENTS */
+.comments-section{}
+.comments-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.comment-form{display:flex;gap:10px;margin-bottom:20px}
+.comment-input{
+  flex:1;background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);padding:12px 16px;border-radius:var(--radius2);
+  font-family:'Space Grotesk',sans-serif;font-size:.9rem;
+  transition:border-color .18s;outline:none;resize:none;min-height:48px;
+}
+.comment-input::placeholder{color:var(--text3)}
+.comment-input:focus{border-color:var(--border2)}
+.comment-send{
+  background:var(--accent);color:#060608;border:none;
+  padding:12px 20px;border-radius:var(--radius2);cursor:none;
+  font-weight:600;font-family:'Syne',sans-serif;font-size:.85rem;
+  transition:all .18s;white-space:nowrap;
+}
+.comment-send:hover{background:var(--accent2);box-shadow:0 0 16px var(--accent)44}
+.comment-name-input{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);padding:10px 14px;border-radius:var(--radius2);
+  font-family:'Space Grotesk',sans-serif;font-size:.85rem;
+  transition:border-color .18s;outline:none;width:160px;
+}
+.comment-name-input:focus{border-color:var(--border2)}
+.comment-name-input::placeholder{color:var(--text3)}
+
+.comment-item{
+  padding:14px 0;border-bottom:1px solid var(--border);
+  animation:fadeIn .3s ease;
+}
+.comment-item:last-child{border-bottom:none}
+.comment-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.comment-author{display:flex;align-items:center;gap:8px}
+.comment-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--surface3);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--accent);
+}
+.comment-name{font-size:13px;font-weight:500}
+.comment-date{font-size:11px;color:var(--text3)}
+.comment-text{font-size:.9rem;color:var(--text2);line-height:1.6}
+.comment-actions{display:flex;gap:6px;align-items:center}
+.ban-btn{
+  font-size:10px;background:transparent;border:1px solid var(--red)44;
+  color:var(--red);padding:3px 10px;border-radius:6px;cursor:none;
+  transition:all .18s;letter-spacing:.04em;
+}
+.ban-btn:hover{background:var(--red)22;border-color:var(--red)}
+.delete-comment-btn{
+  font-size:10px;background:transparent;border:1px solid var(--border);
+  color:var(--text3);padding:3px 10px;border-radius:6px;cursor:none;
+  transition:all .18s;
+}
+.delete-comment-btn:hover{background:var(--surface2);color:var(--text)}
+.banned-notice{
+  background:var(--red)15;border:1px solid var(--red)33;
+  color:var(--red);padding:10px 14px;border-radius:var(--radius2);
+  font-size:.85rem;text-align:center;margin-top:12px;
+}
+
+/* DOWNLOAD BTN */
+.download-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text2);padding:10px 18px;border-radius:var(--radius2);
+  cursor:none;font-size:.85rem;transition:all .18s;font-family:'Space Grotesk',sans-serif;
+}
+.download-btn:hover{background:var(--surface3);border-color:var(--border2);color:var(--text)}
+
+/* ADD VIDEO MODAL */
+.add-modal{max-width:600px}
+.form-group{margin-bottom:18px}
+.form-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:8px}
+.form-input,.form-textarea,.form-select{
+  width:100%;background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);padding:12px 16px;border-radius:var(--radius2);
+  font-family:'Space Grotesk',sans-serif;font-size:.9rem;
+  transition:border-color .18s;outline:none;
+}
+.form-textarea{resize:vertical;min-height:90px}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent)88}
+.form-select{appearance:none;cursor:none}
+.form-select option{background:var(--surface)}
+.form-hint{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.submit-btn{
+  width:100%;background:var(--accent);color:#060608;border:none;
+  padding:14px;border-radius:var(--radius2);cursor:none;
+  font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;
+  transition:all .2s;margin-top:8px;letter-spacing:.02em;
+}
+.submit-btn:hover{background:var(--accent2);box-shadow:0 0 24px var(--accent)44}
+.submit-btn:active{transform:scale(.99)}
+
+/* LOGIN MODAL */
+.login-modal{max-width:420px}
+.login-header{text-align:center;padding:32px 28px 0}
+.login-icon{
+  width:60px;height:60px;border-radius:16px;background:var(--accent)22;
+  border:1px solid var(--accent)44;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;font-size:1.6rem;
+}
+.login-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:8px}
+.login-sub{font-size:.9rem;color:var(--text3)}
+.login-form{padding:24px 28px}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:30px;right:30px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{
+  background:var(--surface2);border:1px solid var(--border2);
+  padding:14px 20px;border-radius:var(--radius2);
+  font-size:.9rem;color:var(--text);
+  transform:translateX(120%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;max-width:320px;
+  display:flex;align-items:center;gap:10px;
+}
+.toast.show{transform:translateX(0)}
+.toast.success{border-color:var(--accent)44}
+.toast.error{border-color:var(--red)44}
+.toast-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.toast.success .toast-dot{background:var(--accent)}
+.toast.error .toast-dot{background:var(--red)}
+
+/* BANNED PAGE */
+#banned-page{
+  display:none;position:fixed;inset:0;
+  background:var(--bg);z-index:9990;
+  align-items:center;justify-content:center;
+  flex-direction:column;gap:16px;text-align:center;padding:20px;
+}
+#banned-page h2{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--red)}
+#banned-page p{color:var(--text3);max-width:360px;line-height:1.7}
+#banned-page .ban-icon{font-size:4rem;margin-bottom:8px}
+
+/* OWNER BADGE */
+.owner-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent)22;border:1px solid var(--accent)44;
+  color:var(--accent);padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+
+/* MODAL ACTIONS BAR */
+.modal-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+
+/* CATEGORIES */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filter-btn{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text3);padding:8px 16px;border-radius:999px;
+  font-size:12px;cursor:none;transition:all .18s;font-family:'Space Grotesk',sans-serif;
+  letter-spacing:.04em;
+}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#060608;border-color:transparent;font-weight:600}
+
+/* MARQUEE */
+.marquee-wrap{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  overflow:hidden;white-space:nowrap;padding:14px 0;margin-bottom:60px;
+}
+.marquee-inner{display:inline-flex;animation:marquee 20s linear infinite}
+.marquee-item{
+  padding:0 24px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--text3);display:flex;align-items:center;gap:12px;
+}
+.marquee-item::after{content:'·';margin-left:0;color:var(--accent)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* PROGRESS BAR */
+.video-progress{
+  position:absolute;bottom:0;left:0;
+  height:2px;background:var(--accent);
+  width:0;transition:width .1s linear;
+}
+
+/* OWNER PANEL */
+.owner-panel{
+  background:var(--surface2);border:1px solid var(--accent)22;
+  border-radius:var(--radius);padding:20px 24px;
+  margin-bottom:40px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.owner-panel-left{display:flex;align-items:center;gap:14px}
+.owner-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--accent)22;border:2px solid var(--accent)44;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);
+}
+.owner-name{font-weight:600;font-size:.95rem}
+.owner-email{font-size:12px;color:var(--text3)}
+.owner-panel-right{display:flex;gap:10px;flex-wrap:wrap}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .hero{padding:120px 20px 40px}
+  .section{padding:0 20px 60px}
+  .video-grid{grid-template-columns:1fr}
+  .stats-bar{flex-direction:column}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border)}
+  .stat-item:last-child{border-bottom:none}
+  .form-row{grid-template-columns:1fr}
+}
+
+/* SKELETON */
+.skeleton{
+  background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s infinite;
+  border-radius:6px;
+}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
 </style>
 </head>
 <body>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-<nav>
-  <div>
-    <div class="logo" id="nav-logo">VideoForge</div>
-    <div class="logo-sub" id="nav-sub">portfólio de vídeos</div>
-  </div>
-  <button class="btn btn-primary" onclick="openUpload()">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    Adicionar Vídeo
+<!-- BANNED PAGE -->
+<div id="banned-page">
+  <div class="ban-icon">🚫</div>
+  <h2>Acesso Bloqueado</h2>
+  <p>Você foi banido permanentemente do portfólio por violar as regras de comentários.</p>
+</div>
+
+<!-- LANDING -->
+<section id="landing">
+  <div class="landing-bg"></div>
+  <div class="landing-lines" id="landingLines"></div>
+  <div class="tag"><span class="tag-dot"></span> Portfólio Visual · 2024</div>
+  <h1 class="landing-title">DM<br><span>Studio.</span></h1>
+  <p class="landing-sub">Criações audiovisuais com propósito. Explore o trabalho, avalie e deixe sua impressão.</p>
+  <button class="landing-cta" onclick="enterPortfolio()">
+    Ver Portfólio <span class="cta-arrow">→</span>
   </button>
-</nav>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
 
-<main>
+<!-- MAIN APP -->
+<div id="app">
+  <nav id="navbar">
+    <div class="nav-logo">DM<span>.</span></div>
+    <div class="nav-actions" id="navActions">
+      <button class="nav-btn" onclick="openLoginModal()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Área do Dono
+      </button>
+    </div>
+  </nav>
+
   <div class="hero">
-    <div class="profile-bar">
-      <div class="avatar-wrap">
-        <div class="avatar" id="avatar-el" onclick="triggerAvatarUpload()" title="Clique para alterar foto">
-          <span id="avatar-initials">?</span>
-          <img id="avatar-img" src="" alt="" style="display:none">
-        </div>
-        <div class="avatar-edit" onclick="triggerAvatarUpload()" title="Alterar foto">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </div>
-        <input type="file" id="avatar-file" accept="image/*" style="display:none" onchange="loadAvatar(event)">
+    <div class="hero-top">
+      <div>
+        <div class="hero-label">Portfólio Audiovisual</div>
+        <h2 class="hero-name">Criações<br><span>em Vídeo.</span></h2>
       </div>
-      <div class="profile-info">
-        <div class="profile-name" onclick="editName()" title="Clique para editar">
-          <span id="profile-name-text" class="profile-placeholder">Seu nome aqui</span>
-          <span class="edit-hint">✎ editar</span>
-        </div>
-        <input class="inline-edit" id="name-input" type="text" placeholder="Seu nome completo" onblur="saveName()" onkeydown="if(event.key==='Enter')saveName()">
-        <div id="profile-bio-text" class="profile-bio profile-placeholder" onclick="editBio()" title="Clique para editar">Clique aqui para adicionar uma bio...</div>
-        <textarea class="inline-edit" id="bio-input" placeholder="Fale sobre você, sua área, experiência..." rows="3" onblur="saveBio()"></textarea>
-        <div class="stats-row">
-          <div class="stat"><div class="stat-num" id="st-total">0</div><div class="stat-label">Vídeos</div></div>
-          <div class="stat"><div class="stat-num" id="st-pub">0</div><div class="stat-label">Públicos</div></div>
-          <div class="stat"><div class="stat-num" id="st-avg">—</div><div class="stat-label">Avaliação</div></div>
-          <div class="stat"><div class="stat-num" id="st-views">0</div><div class="stat-label">Visualizações</div></div>
-        </div>
-      </div>
+      <p class="hero-desc">Cada vídeo é uma história. Assista, avalie e compartilhe sua experiência com este trabalho.</p>
+    </div>
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-item"><div class="stat-num" id="statVideos">0</div><div class="stat-label">Vídeos</div></div>
+      <div class="stat-item"><div class="stat-num" id="statRating">—</div><div class="stat-label">Avaliação Média</div></div>
+      <div class="stat-item"><div class="stat-num" id="statComments">0</div><div class="stat-label">Comentários</div></div>
+      <div class="stat-item"><div class="stat-num" id="statDownloads">0</div><div class="stat-label">Downloads</div></div>
     </div>
   </div>
 
-  <div class="portfolio-section">
+  <div class="marquee-wrap">
+    <div class="marquee-inner" id="marqueeInner"></div>
+  </div>
+
+  <div class="section">
+    <div id="ownerPanel"></div>
     <div class="section-header">
-      <h2 class="section-title">Meus Vídeos</h2>
-      <div class="filter-tabs">
-        <button class="filter-tab active" onclick="setFilter('all',this)">Todos</button>
-        <button class="filter-tab" onclick="setFilter('public',this)">Públicos</button>
-        <button class="filter-tab" onclick="setFilter('private',this)">Privados</button>
-      </div>
+      <h3 class="section-title">Todos os Vídeos</h3>
+      <span class="section-count" id="videoCount">0 vídeos</span>
     </div>
-    <div class="video-grid" id="grid"></div>
-  </div>
-</main>
-
-<!-- View Modal -->
-<div class="backdrop" id="view-modal" onclick="bdClick(event,'view-modal')">
-  <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-video" id="mv-area"></div>
-    <div class="modal-body" id="mv-body"></div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" onclick="filterVideos('all',this)">Todos</button>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
   </div>
 </div>
 
-<!-- Upload Modal -->
-<div class="backdrop" id="up-modal" onclick="bdClick(event,'up-modal')">
-  <div class="upload-modal" onclick="event.stopPropagation()">
-    <div class="uhead">
-      <h3 class="utitle">Adicionar Vídeo</h3>
-      <button class="mclose" onclick="closeModal('up-modal')">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="ubody">
-      <div class="upload-zone" id="upzone" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
-        <div style="margin-bottom:14px;opacity:0.4">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="5" width="22" height="14" rx="2"/><polygon points="10 9 15 12 10 15 10 9"/></svg>
-        </div>
-        <p>Arraste o arquivo de vídeo ou <strong style="color:var(--accent2)">clique para selecionar</strong></p>
-        <span>MP4, MOV, AVI, MKV, WebM — máx. 2 GB</span>
-        <input type="file" accept="video/*" id="vid-file" onchange="onFileChange(event)">
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="videoModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('videoModal')">×</button>
+    <div class="modal-video" id="modalVideoContainer"></div>
+    <div class="modal-body">
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-meta" id="modalMeta"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-actions" id="modalActions"></div>
+      <div class="rating-section">
+        <div class="rating-title">Sua avaliação</div>
+        <div class="stars" id="starRating"></div>
       </div>
-      <div class="file-selected" id="file-sel">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-        <span id="file-name"></span>
+      <div class="comments-section">
+        <div class="comments-title">Comentários</div>
+        <div id="commentFormArea"></div>
+        <div id="commentsList"></div>
       </div>
-      <div class="progress-wrap" id="prog-wrap"><div class="progress-fill" id="prog-fill"></div></div>
-
-      <div style="margin-top:22px">
-        <div class="fg">
-          <label class="fl">Título *</label>
-          <input type="text" class="fi" id="f-title" placeholder="Nome do vídeo ou projeto">
-        </div>
-        <div class="fg">
-          <label class="fl">Descrição</label>
-          <textarea class="fi" id="f-desc" placeholder="Descreva o vídeo, o processo, os objetivos..."></textarea>
-        </div>
-        <div class="fg">
-          <label class="fl">Tecnologias e Ferramentas Utilizadas</label>
-          <div class="tags-inp" id="tags-box" onclick="document.getElementById('tag-in').focus()">
-            <input type="text" class="tinput" id="tag-in" placeholder="ex: Premiere Pro — pressione Enter" onkeydown="tagKey(event)" onfocus="document.getElementById('tags-box').classList.add('foc')" onblur="document.getElementById('tags-box').classList.remove('foc')">
-          </div>
-        </div>
-        <div class="fg" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div>
-            <label class="fl">Duração</label>
-            <input type="text" class="fi" id="f-dur" placeholder="ex: 2:34">
-          </div>
-          <div>
-            <label class="fl">URL da Thumbnail</label>
-            <input type="text" class="fi" id="f-thumb" placeholder="https://...">
-          </div>
-        </div>
-        <div class="fg">
-          <label class="fl">URL do Vídeo (para reprodução)</label>
-          <input type="text" class="fi" id="f-url" placeholder="https://youtube.com/... ou link direto de vídeo">
-        </div>
-        <div class="fg">
-          <label class="fl">Visibilidade</label>
-          <div class="ptoggle">
-            <button class="pbtn ap" id="btn-pub" onclick="setPriv('public')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              Público
-            </button>
-            <button class="pbtn" id="btn-priv" onclick="setPriv('private')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Privado
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="ufoot">
-      <button class="btn btn-ghost" onclick="closeModal('up-modal')">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveVideo()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        Salvar Vídeo
-      </button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"><div class="ticon" id="ti"></div><span id="tm"></span></div>
+<!-- ADD VIDEO MODAL -->
+<div class="modal-overlay" id="addVideoModal">
+  <div class="modal add-modal">
+    <button class="modal-close" onclick="closeModal('addVideoModal')">×</button>
+    <div class="modal-body" style="padding-top:32px">
+      <h2 class="modal-title">Adicionar Vídeo</h2>
+      <p style="color:var(--text3);font-size:.9rem;margin-bottom:24px">Cole o link do YouTube ou Vimeo, ou insira a URL direta do arquivo de vídeo.</p>
+      <div class="form-group">
+        <label class="form-label">Título *</label>
+        <input type="text" class="form-input" id="f-title" placeholder="Nome do projeto">
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL do Vídeo *</label>
+        <input type="text" class="form-input" id="f-url" placeholder="https://youtube.com/watch?v=... ou https://vimeo.com/...">
+        <div class="form-hint">YouTube, Vimeo ou URL direta de .mp4</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Thumbnail (URL da imagem)</label>
+        <input type="text" class="form-input" id="f-thumb" placeholder="https://exemplo.com/imagem.jpg">
+        <div class="form-hint">Opcional — se não informar, será usada a thumb do YouTube automaticamente</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Categoria</label>
+          <select class="form-select form-input" id="f-cat">
+            <option value="Geral">Geral</option>
+            <option value="Edição">Edição</option>
+            <option value="Motion">Motion</option>
+            <option value="Curta">Curta</option>
+            <option value="Clip">Clip</option>
+            <option value="Corporativo">Corporativo</option>
+            <option value="Documentário">Documentário</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Duração (ex: 3:24)</label>
+          <input type="text" class="form-input" id="f-dur" placeholder="0:00">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-textarea" id="f-desc" placeholder="Fale sobre este projeto..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL para Download</label>
+        <input type="text" class="form-input" id="f-dl" placeholder="Link direto para download do arquivo">
+        <div class="form-hint">Opcional — URL de download do vídeo original</div>
+      </div>
+      <button class="submit-btn" onclick="submitVideo()">Publicar Vídeo</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal login-modal">
+    <button class="modal-close" onclick="closeModal('loginModal')">×</button>
+    <div class="login-header">
+      <div class="login-icon">🔐</div>
+      <h2 class="login-title">Área Restrita</h2>
+      <p class="login-sub">Apenas o dono do portfólio pode entrar</p>
+    </div>
+    <div class="login-form">
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-input" id="loginEmail" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input type="password" class="form-input" id="loginPass" placeholder="••••••••">
+        <div class="form-hint">Senha padrão inicial: <strong style="color:var(--text2)">dm2024</strong> (altere depois)</div>
+      </div>
+      <button class="submit-btn" onclick="doLogin()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
-// ── State ──────────────────────────────────────────────
-const S = {
-  videos: JSON.parse(localStorage.getItem('vf_videos')||'[]'),
-  profile: JSON.parse(localStorage.getItem('vf_profile')||'{"name":"","bio":"","avatar":""}'),
-  filter: 'all',
-  privSel: 'public',
-  tags: [],
-  curVid: null
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const OWNER_EMAIL = 'dm_202617@gmail.com';
+const OWNER_PASS  = 'dm2024';
+const LS = {
+  get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } },
+  set: (k,v) => localStorage.setItem(k, JSON.stringify(v)),
 };
 
-const TC = ['#7c5cfc','#f472b6','#22d3ee','#fbbf24','#4ade80','#fb923c','#a78bfa','#34d399'];
+let state = {
+  videos: LS.get('dm_videos') || [],
+  comments: LS.get('dm_comments') || {},
+  ratings: LS.get('dm_ratings') || {},
+  banned: LS.get('dm_banned') || [],
+  downloads: LS.get('dm_downloads') || 0,
+  isOwner: false,
+  currentVideo: null,
+  activeFilter: 'all',
+};
 
 function save() {
-  localStorage.setItem('vf_videos', JSON.stringify(S.videos));
-  localStorage.setItem('vf_profile', JSON.stringify(S.profile));
+  LS.set('dm_videos', state.videos);
+  LS.set('dm_comments', state.comments);
+  LS.set('dm_ratings', state.ratings);
+  LS.set('dm_banned', state.banned);
+  LS.set('dm_downloads', state.downloads);
 }
 
-// ── Profile ────────────────────────────────────────────
-function initProfile() {
-  const p = S.profile;
-  if(p.name) {
-    document.getElementById('profile-name-text').textContent = p.name;
-    document.getElementById('profile-name-text').classList.remove('profile-placeholder');
-    const initials = p.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    document.getElementById('avatar-initials').textContent = initials;
-    document.getElementById('nav-logo').textContent = p.name;
+// ─── CURSOR ──────────────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px';
+  ring.style.top = e.clientY + 'px';
+});
+
+// ─── NAVBAR SCROLL ────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ─── LANDING LINES ───────────────────────────────────────────────────────────
+const ll = document.getElementById('landingLines');
+for (let i = 0; i < 8; i++) {
+  const s = document.createElement('span');
+  const offset = (i - 3.5) * 140;
+  s.style.cssText = `left:calc(50% + ${offset}px);animation-delay:${i*0.3}s`;
+  ll.appendChild(s);
+}
+
+// ─── MARQUEE ─────────────────────────────────────────────────────────────────
+function buildMarquee() {
+  const items = ['Edição de Vídeo','Motion Design','Color Grading','Storytelling Visual','Pós-Produção','Sound Design','Animação','Cinematografia'];
+  const inner = document.getElementById('marqueeInner');
+  const doubled = [...items,...items];
+  inner.innerHTML = doubled.map(t => `<span class="marquee-item">${t}</span>`).join('');
+}
+
+// ─── ENTER PORTFOLIO ─────────────────────────────────────────────────────────
+function enterPortfolio() {
+  const landing = document.getElementById('landing');
+  const app = document.getElementById('app');
+  landing.style.transition = 'opacity .5s,transform .5s';
+  landing.style.opacity = '0';
+  landing.style.transform = 'scale(1.03)';
+  setTimeout(() => {
+    landing.style.display = 'none';
+    app.style.display = 'block';
+    renderAll();
+    window.scrollTo(0, 0);
+  }, 500);
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderAll() {
+  buildMarquee();
+  renderOwnerPanel();
+  renderFilters();
+  renderGrid();
+  updateStats();
+  updateNavActions();
+}
+
+function updateNavActions() {
+  const el = document.getElementById('navActions');
+  if (state.isOwner) {
+    el.innerHTML = `
+      <span class="owner-badge">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Dono
+      </span>
+      <button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Adicionar Vídeo</button>
+      <button class="nav-btn" onclick="logout()">Sair</button>`;
+  } else {
+    el.innerHTML = `<button class="nav-btn" onclick="openLoginModal()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Área do Dono</button>`;
   }
-  if(p.bio) {
-    document.getElementById('profile-bio-text').textContent = p.bio;
-    document.getElementById('profile-bio-text').classList.remove('profile-placeholder');
+}
+
+function renderOwnerPanel() {
+  const el = document.getElementById('ownerPanel');
+  if (state.isOwner) {
+    el.innerHTML = `
+      <div class="owner-panel">
+        <div class="owner-panel-left">
+          <div class="owner-avatar">DM</div>
+          <div>
+            <div class="owner-name">DM Studio <span class="owner-badge" style="font-size:10px">Dono</span></div>
+            <div class="owner-email">${OWNER_EMAIL}</div>
+          </div>
+        </div>
+        <div class="owner-panel-right">
+          <button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Novo Vídeo</button>
+        </div>
+      </div>`;
+  } else {
+    el.innerHTML = '';
   }
-  if(p.avatar) {
-    const img = document.getElementById('avatar-img');
-    img.src = p.avatar; img.style.display='block';
-    document.getElementById('avatar-initials').style.display='none';
-  }
 }
 
-function editName() {
-  const inp = document.getElementById('name-input');
-  inp.value = S.profile.name;
-  inp.classList.add('visible');
-  inp.focus();
-  document.getElementById('profile-name-text').style.display='none';
+function renderFilters() {
+  const cats = ['all', ...new Set(state.videos.map(v => v.category))];
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = cats.map(c => `
+    <button class="filter-btn${state.activeFilter===c?' active':''}"
+      onclick="filterVideos('${c}',this)">
+      ${c==='all'?'Todos':c}
+    </button>`).join('');
 }
 
-function saveName() {
-  const val = document.getElementById('name-input').value.trim();
-  document.getElementById('name-input').classList.remove('visible');
-  document.getElementById('profile-name-text').style.display='';
-  if(!val) return;
-  S.profile.name = val;
-  document.getElementById('profile-name-text').textContent = val;
-  document.getElementById('profile-name-text').classList.remove('profile-placeholder');
-  const initials = val.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  document.getElementById('avatar-initials').textContent = initials;
-  document.getElementById('nav-logo').textContent = val;
-  save(); toast('Nome atualizado!','s');
+function filterVideos(cat, btn) {
+  state.activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderGrid();
 }
 
-function editBio() {
-  const ta = document.getElementById('bio-input');
-  ta.value = S.profile.bio;
-  ta.classList.add('visible');
-  ta.focus();
-  document.getElementById('profile-bio-text').style.display='none';
-}
+function renderGrid() {
+  const grid = document.getElementById('videoGrid');
+  const filtered = state.activeFilter === 'all'
+    ? state.videos
+    : state.videos.filter(v => v.category === state.activeFilter);
 
-function saveBio() {
-  const val = document.getElementById('bio-input').value.trim();
-  document.getElementById('bio-input').classList.remove('visible');
-  document.getElementById('profile-bio-text').style.display='';
-  if(!val) return;
-  S.profile.bio = val;
-  document.getElementById('profile-bio-text').textContent = val;
-  document.getElementById('profile-bio-text').classList.remove('profile-placeholder');
-  save(); toast('Bio atualizada!','s');
-}
+  document.getElementById('videoCount').textContent = `${filtered.length} vídeo${filtered.length!==1?'s':''}`;
 
-function triggerAvatarUpload() { document.getElementById('avatar-file').click(); }
-
-function loadAvatar(e) {
-  const f = e.target.files[0];
-  if(!f) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    S.profile.avatar = ev.target.result;
-    const img = document.getElementById('avatar-img');
-    img.src = ev.target.result; img.style.display='block';
-    document.getElementById('avatar-initials').style.display='none';
-    save(); toast('Foto atualizada!','s');
-  };
-  r.readAsDataURL(f);
-}
-
-// ── Stats ──────────────────────────────────────────────
-function updateStats() {
-  const vs = S.videos;
-  const pub = vs.filter(v=>v.privacy==='public');
-  const rated = vs.filter(v=>v.ratingCount>0);
-  const avg = rated.length ? (rated.reduce((s,v)=>s+v.rating,0)/rated.length).toFixed(1) : '—';
-  const views = pub.reduce((s,v)=>s+v.views,0);
-  document.getElementById('st-total').textContent = vs.length;
-  document.getElementById('st-pub').textContent = pub.length;
-  document.getElementById('st-avg').textContent = avg;
-  document.getElementById('st-views').textContent = views;
-}
-
-// ── Grid ───────────────────────────────────────────────
-function render() {
-  const grid = document.getElementById('grid');
-  const list = S.filter==='all' ? S.videos : S.videos.filter(v=>v.privacy===S.filter);
-
-  if(!list.length) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-icon-wrap">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--text3)"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-      </div>
-      <h3>${S.filter==='all'?'Nenhum vídeo ainda':'Nenhum vídeo '+(S.filter==='public'?'público':'privado')}</h3>
-      <p>${S.filter==='all'?'Adicione seu primeiro vídeo clicando no botão acima. Seu portfólio ficará aqui.':'Altere o filtro ou adicione um novo vídeo.'}</p>
-      ${S.filter==='all'?`<button class="btn btn-primary" onclick="openUpload()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Adicionar Vídeo
-      </button>`:''}
-    </div>`;
-    updateStats(); return;
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        <div class="empty-title">Nenhum vídeo ainda</div>
+        <div class="empty-sub">${state.isOwner?'Adicione seu primeiro vídeo clicando em "+ Adicionar Vídeo"':'Em breve novos conteúdos serão publicados.'}</div>
+      </div>`;
+    return;
   }
 
-  grid.innerHTML = list.map((v,i) => `
-    <div class="video-card" style="animation-delay:${i*0.06}s">
-      <div class="thumb" onclick="openView(${v.id})">
-        ${v.thumb
-          ? `<img src="${v.thumb}" alt="${esc(v.title)}" loading="lazy">`
-          : `<div class="thumb-ph"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><span>Sem thumbnail</span></div>`}
-        <div class="thumb-overlay"><div class="play-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
-        <div class="thumb-badges"><span class="badge ${v.privacy==='public'?'badge-public':'badge-private'}">${v.privacy==='public'?'Público':'Privado'}</span></div>
-        ${v.duration?`<span class="badge badge-dur">${esc(v.duration)}</span>`:''}
+  grid.innerHTML = filtered.map((v, i) => buildCard(v, i)).join('');
+}
+
+function getEmbedUrl(url) {
+  if (!url) return null;
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&rel=0`;
+  // Vimeo
+  const vmMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vmMatch) return `https://player.vimeo.com/video/${vmMatch[1]}?autoplay=1`;
+  return null;
+}
+
+function getYtThumb(url) {
+  const m = url && url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  if (m) return `https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg`;
+  return null;
+}
+
+function avgRating(vid) {
+  const r = state.ratings[vid] || {};
+  const vals = Object.values(r);
+  if (!vals.length) return null;
+  return (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+}
+
+function buildCard(v, i) {
+  const thumb = v.thumbnail || getYtThumb(v.url) || '';
+  const rating = avgRating(v.id);
+  const comments = (state.comments[v.id]||[]).length;
+  const delay = (i%6)*0.07;
+  return `
+    <div class="video-card" style="animation-delay:${delay}s" onclick="openVideo('${v.id}')">
+      <div class="card-thumb">
+        ${thumb ? `<img src="${thumb}" alt="${v.title}" loading="lazy">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:2rem">🎬</div>`}
+        <div class="card-overlay">
+          <div class="play-btn"><div class="play-icon"></div></div>
+        </div>
+        ${v.duration?`<div class="card-duration">${v.duration}</div>`:''}
+        ${v.category&&v.category!=='Geral'?`<div class="card-badge">${v.category}</div>`:''}
       </div>
       <div class="card-body">
-        <div class="card-top">
-          <h3 class="card-title" onclick="openView(${v.id})">${esc(v.title)}</h3>
-          <div class="card-menu">
-            <button class="menu-btn" onclick="event.stopPropagation();toggleDrop(${v.id})">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
-            </button>
-            <div class="dropdown" id="drop-${v.id}">
-              <button class="di" onclick="dlVideo(${v.id})">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Baixar
-              </button>
-              <button class="di" onclick="flipPrivacy(${v.id})">
-                ${v.privacy==='public'
-                  ?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Tornar Privado'
-                  :'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Tornar Público'}
-              </button>
-              <div class="dd-sep"></div>
-              <button class="di danger" onclick="delVideo(${v.id})">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                Excluir
-              </button>
-            </div>
-          </div>
+        <div class="card-title">${v.title}</div>
+        <div class="card-meta">
+          <span>${v.date}</span>
+          ${rating?`<span class="card-meta-dot"></span><span style="color:var(--yellow)">★ ${rating}</span>`:''}
+          ${comments?`<span class="card-meta-dot"></span><span>${comments} comentário${comments!==1?'s':''}</span>`:''}
         </div>
-        ${v.desc?`<p class="card-desc">${esc(v.desc)}</p>`:''}
-        ${v.tech.length?`<div class="tech-tags">${v.tech.slice(0,4).map(t=>`<span class="tech-tag">${esc(t)}</span>`).join('')}${v.tech.length>4?`<span class="tech-tag">+${v.tech.length-4}</span>`:''}</div>`:''}
-        <div class="card-footer">
-          <div class="meta-row">
-            <div class="stars">${[1,2,3,4,5].map(n=>`<span class="star${n<=v.rating?' ':' off'}" onclick="quickRate(${v.id},${n});event.stopPropagation()">★</span>`).join('')}</div>
-            <span class="meta-item">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              ${v.comments.length}
-            </span>
+        <div class="card-actions">
+          <div class="card-btn">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ${rating||'—'}
           </div>
-          <div class="card-btns">
-            <button class="icon-btn ${v.liked?'liked':''}" onclick="toggleLike(${v.id});event.stopPropagation()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="${v.liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            </button>
-            <button class="icon-btn" onclick="dlVideo(${v.id});event.stopPropagation()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
+          <div class="card-btn">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            ${comments}
           </div>
+          <div class="card-btn watch">Assistir →</div>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+}
+
+function updateStats() {
+  const allRatings = state.videos.flatMap(v => Object.values(state.ratings[v.id]||{}));
+  const avg = allRatings.length ? (allRatings.reduce((a,b)=>a+b,0)/allRatings.length).toFixed(1) : '—';
+  const totalComments = state.videos.reduce((a,v)=>a+(state.comments[v.id]||[]).length, 0);
+  document.getElementById('statVideos').textContent = state.videos.length;
+  document.getElementById('statRating').textContent = avg === '—' ? '—' : `${avg}★`;
+  document.getElementById('statComments').textContent = totalComments;
+  document.getElementById('statDownloads').textContent = state.downloads;
+}
+
+// ─── VIDEO MODAL ──────────────────────────────────────────────────────────────
+function openVideo(id) {
+  const v = state.videos.find(x => x.id === id);
+  if (!v) return;
+  state.currentVideo = v;
+
+  const embed = getEmbedUrl(v.url);
+  const el = document.getElementById('modalVideoContainer');
+  if (embed) {
+    el.innerHTML = `<iframe src="${embed}" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;
+  } else if (v.url && v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
+    el.innerHTML = `<video src="${v.url}" controls style="width:100%;height:100%"></video>`;
+  } else {
+    el.innerHTML = `<div class="modal-video-placeholder">🎬<span>Clique em "Assistir" para abrir externamente</span></div>`;
+  }
+
+  document.getElementById('modalTitle').textContent = v.title;
+  document.getElementById('modalMeta').innerHTML = `
+    <span>${v.date}</span>
+    <span>·</span>
+    <span>${v.category}</span>
+    ${v.duration?`<span>·</span><span>${v.duration}</span>`:''}
+    <span>·</span>
+    <span style="color:var(--yellow)">★ ${avgRating(v.id)||'Sem avaliações'}</span>`;
+  document.getElementById('modalDesc').textContent = v.description || '';
+
+  const actions = document.getElementById('modalActions');
+  let actHtml = '';
+  if (v.url && !getEmbedUrl(v.url) && !v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
+    actHtml += `<a href="${v.url}" target="_blank" class="download-btn" onclick="trackView()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Abrir Vídeo
+    </a>`;
+  }
+  if (v.downloadUrl) {
+    actHtml += `<a href="${v.downloadUrl}" download class="download-btn" onclick="trackDownload('${v.id}')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Baixar Vídeo
+    </a>`;
+  }
+  if (state.isOwner) {
+    actHtml += `<button class="download-btn" style="color:var(--red);border-color:var(--red)33" onclick="deleteVideo('${v.id}')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      Excluir
+    </button>`;
+  }
+  actions.innerHTML = actHtml;
+
+  renderStars(v.id);
+  renderComments(v.id);
+  openModal('videoModal');
+}
+
+function trackDownload(id) {
+  state.downloads = (state.downloads||0)+1;
+  save();
   updateStats();
 }
 
-// ── View Modal ─────────────────────────────────────────
-function openView(id) {
-  const v = S.videos.find(x=>x.id===id);
-  if(!v){return;}
-  S.curVid = id;
-  v.views = (v.views||0) + 1;
-  save();
-
-  // Video area
-  let videoHTML = '';
-  if(v.url) {
-    // Try to embed youtube/vimeo or use native video
-    const ytMatch = v.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
-    const viMatch = v.url.match(/vimeo\.com\/(\d+)/);
-    if(ytMatch) {
-      videoHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${ytMatch[1]}" frameborder="0" allowfullscreen style="border:none;width:100%;height:100%;"></iframe>`;
-    } else if(viMatch) {
-      videoHTML = `<iframe width="100%" height="100%" src="https://player.vimeo.com/video/${viMatch[1]}" frameborder="0" allowfullscreen style="border:none;width:100%;height:100%;"></iframe>`;
-    } else {
-      videoHTML = `<video controls style="width:100%;height:100%;background:#000"><source src="${esc(v.url)}">Seu navegador não suporta vídeo HTML5.</video>`;
-    }
-  } else {
-    videoHTML = `
-      ${v.thumb?`<img class="bg-thumb" src="${esc(v.thumb)}" alt="">`:''}
-      <div class="modal-play" onclick="toast('Adicione uma URL de vídeo para reproduzir.','i')">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-      <p style="color:rgba(255,255,255,0.6);font-size:13px">Nenhuma URL de vídeo configurada</p>`;
+function renderStars(vid) {
+  const container = document.getElementById('starRating');
+  const myRating = (state.ratings[vid]||{})[getSessionId()] || 0;
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    html += `<span class="star${i<=myRating?' active':''}" data-val="${i}" onclick="rateVideo('${vid}',${i})" style="color:var(--yellow)">★</span>`;
   }
+  container.innerHTML = html;
 
-  document.getElementById('mv-area').innerHTML = videoHTML;
-  if(!v.url) document.getElementById('mv-area').querySelector('div.modal-play')||null;
-
-  // Body
-  const avgTxt = v.ratingCount>0 ? `${v.ratingCount} avaliação${v.ratingCount!==1?'ões':''} · Média ${v.rating.toFixed(1)}` : 'Sem avaliações ainda';
-  document.getElementById('mv-body').innerHTML = `
-    <div class="modal-head">
-      <h2 class="modal-title">${esc(v.title)}</h2>
-      <button class="mclose" onclick="closeModal('view-modal')">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="modal-meta-row">
-      <span class="pi ${v.privacy==='public'?'pi-pub':'pi-priv'}">
-        ${v.privacy==='public'
-          ?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Público'
-          :'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privado'}
-      </span>
-      ${v.duration?`<span style="font-size:12px;color:var(--text3)">⏱ ${esc(v.duration)}</span>`:''}
-      <span style="font-size:12px;color:var(--text3)">👁 ${v.views} visualizações</span>
-      <div class="modal-acts">
-        <button class="btn btn-ghost btn-sm ${v.liked?'liked':''}" onclick="toggleLike(${v.id},true)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="${v.liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          ${v.likes}
-        </button>
-        <button class="btn btn-primary btn-sm" onclick="dlVideo(${v.id})">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Baixar
-        </button>
-      </div>
-    </div>
-
-    <div class="rating-box">
-      <div class="rating-label">AVALIE ESTE VÍDEO</div>
-      <div class="modal-stars" id="mstars">${[1,2,3,4,5].map(n=>`<span class="mstar${n<=v.rating?' ':' off'}" onmouseover="hoverS(${v.id},${n})" onmouseout="resetS(${v.id})" onclick="doRate(${v.id},${n})">★</span>`).join('')}</div>
-      <div class="rating-info" id="rinfo">${avgTxt}</div>
-    </div>
-
-    <div class="tabs">
-      <button class="tab active" onclick="swTab(event,'t-about')">Sobre</button>
-      <button class="tab" onclick="swTab(event,'t-tech')">Tecnologias${v.tech.length?` (${v.tech.length})`:''}</button>
-      <button class="tab" onclick="swTab(event,'t-comm')">Comentários <span style="background:rgba(124,92,252,0.14);color:var(--accent2);padding:1px 7px;border-radius:100px;font-size:10px;margin-left:5px">${v.comments.length}</span></button>
-    </div>
-
-    <div class="tab-content active" id="t-about">
-      ${v.desc?`<p style="color:var(--text2);line-height:1.8;font-size:15px">${esc(v.desc)}</p>`:
-      `<p style="color:var(--text3);font-size:14px;font-style:italic">Sem descrição.</p>`}
-    </div>
-
-    <div class="tab-content" id="t-tech">
-      ${v.tech.length?`<div class="tech-grid">${v.tech.map((t,i)=>`
-        <div class="tech-chip"><div class="tdot" style="background:${TC[i%TC.length]}"></div>${esc(t)}</div>
-      `).join('')}</div>`:`<p style="color:var(--text3);font-size:14px;font-style:italic">Nenhuma tecnologia cadastrada.</p>`}
-    </div>
-
-    <div class="tab-content" id="t-comm">
-      <div class="comment-form">
-        <textarea class="comment-ta" id="new-comm" placeholder="Deixe um comentário..." maxlength="500" oninput="document.getElementById('comm-cc').textContent=this.value.length+'/500'"></textarea>
-        <div class="cf-footer">
-          <span class="cc" id="comm-cc">0/500</span>
-          <button class="btn btn-primary btn-sm" onclick="postComment(${v.id})">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            Comentar
-          </button>
-        </div>
-      </div>
-      <div class="comments-list" id="comm-list">${renderComments(v)}</div>
-    </div>
-  `;
-
-  openModal('view-modal');
-}
-
-function renderComments(v) {
-  if(!v.comments.length) return `<div class="no-comments">Nenhum comentário ainda. Seja o primeiro!</div>`;
-  return v.comments.map(c=>`
-    <div class="comment" id="c-${c.id}">
-      <div class="cavatar" style="background:${c.color}22;color:${c.color}">${c.av}</div>
-      <div style="flex:1">
-        <div class="chead"><span class="cauthor">${esc(c.author)}</span><span class="cdate">${c.date}</span></div>
-        <p class="ctext">${esc(c.text)}</p>
-        <div class="cacts">
-          <button class="cact ${c.liked?'liked':''}" onclick="likeComm(${v.id},${c.id})">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="${c.liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            ${c.likes}
-          </button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// ── Actions ────────────────────────────────────────────
-function hoverS(id,n){document.querySelectorAll('.mstar').forEach((s,i)=>{s.className='mstar'+(i<n?' ':' off');});}
-function resetS(id){const v=S.videos.find(x=>x.id===id);if(!v)return;document.querySelectorAll('.mstar').forEach((s,i)=>{s.className='mstar'+(i<v.rating?' ':' off');});}
-
-function doRate(id, n) {
-  const v = S.videos.find(x=>x.id===id);
-  if(!v) return;
-  v.rating = n;
-  v.ratingCount = (v.ratingCount||0) + 1;
-  save(); render();
-  document.getElementById('rinfo').textContent = `${v.ratingCount} avaliação${v.ratingCount!==1?'ões':''} · Média ${v.rating.toFixed(1)}`;
-  toast(`Avaliado com ${n} estrela${n!==1?'s':''}! ⭐`,'s');
-}
-
-function quickRate(id,n){doRate(id,n);}
-
-function postComment(id) {
-  const v = S.videos.find(x=>x.id===id);
-  const txt = document.getElementById('new-comm').value.trim();
-  if(!txt){toast('Escreva algo antes de comentar.','i');return;}
-  const name = S.profile.name || 'Visitante';
-  const av = name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)||'?';
-  v.comments.unshift({id:Date.now(),author:name,av,color:TC[Math.floor(Math.random()*TC.length)],text:txt,date:'agora mesmo',likes:0,liked:false});
-  document.getElementById('new-comm').value='';
-  document.getElementById('comm-cc').textContent='0/500';
-  document.getElementById('comm-list').innerHTML=renderComments(v);
-  save(); render(); toast('Comentário publicado!','s');
-}
-
-function likeComm(vid,cid){
-  const v=S.videos.find(x=>x.id===vid);
-  const c=v?.comments.find(x=>x.id===cid);
-  if(!c)return;
-  c.liked=!c.liked; c.likes+=c.liked?1:-1;
-  document.getElementById('comm-list').innerHTML=renderComments(v);
-  save();
-}
-
-function toggleLike(id, fromModal){
-  const v=S.videos.find(x=>x.id===id);
-  if(!v)return;
-  v.liked=!v.liked; v.likes=(v.likes||0)+(v.liked?1:-1);
-  save(); render();
-  toast(v.liked?'Adicionado aos favoritos ❤️':'Removido dos favoritos','i');
-  if(fromModal) openView(id);
-}
-
-function dlVideo(id){
-  const v=S.videos.find(x=>x.id===id);
-  closeDrops();
-  if(v?.url){
-    const a=document.createElement('a');
-    a.href=v.url; a.download=v.title||'video'; a.target='_blank'; a.click();
-  }
-  toast(`📥 Iniciando download: ${v?.title||'vídeo'}...`,'s');
-}
-
-function flipPrivacy(id){
-  const v=S.videos.find(x=>x.id===id);
-  if(!v)return;
-  v.privacy=v.privacy==='public'?'private':'public';
-  closeDrops(); save(); render();
-  toast(`Vídeo agora é ${v.privacy==='public'?'público':'privado'}.`,'s');
-}
-
-function delVideo(id){
-  if(!confirm('Excluir este vídeo do portfólio?'))return;
-  S.videos=S.videos.filter(v=>v.id!==id);
-  closeDrops(); save(); render(); toast('Vídeo excluído.','i');
-}
-
-// ── Upload form ────────────────────────────────────────
-function onFileChange(e){
-  const f=e.target.files[0]; if(!f)return;
-  document.getElementById('file-sel').style.display='flex';
-  document.getElementById('file-name').textContent=f.name;
-  const pw=document.getElementById('prog-wrap');
-  const pf=document.getElementById('prog-fill');
-  pw.style.display='block'; let w=0;
-  const t=setInterval(()=>{w+=Math.random()*20; if(w>=100){w=100;clearInterval(t);} pf.style.width=w+'%';},80);
-  // Store object URL for playback
-  document.getElementById('f-url').value = URL.createObjectURL(f);
-}
-
-function handleDrop(e){
-  e.preventDefault();
-  document.getElementById('upzone').classList.remove('drag');
-  const f=e.dataTransfer.files[0];
-  if(f&&f.type.startsWith('video/')){
-    document.getElementById('file-sel').style.display='flex';
-    document.getElementById('file-name').textContent=f.name;
-    document.getElementById('f-url').value=URL.createObjectURL(f);
-  }
-}
-
-function setPriv(p){
-  S.privSel=p;
-  document.getElementById('btn-pub').className='pbtn'+(p==='public'?' ap':'');
-  document.getElementById('btn-priv').className='pbtn'+(p==='private'?' av':'');
-}
-
-function tagKey(e){
-  if(e.key==='Enter'||e.key===','){
-    e.preventDefault();
-    const v=e.target.value.trim().replace(/,$/,'');
-    if(v&&!S.tags.includes(v)){S.tags.push(v);renderTagPills();}
-    e.target.value='';
-  } else if(e.key==='Backspace'&&!e.target.value&&S.tags.length){
-    S.tags.pop(); renderTagPills();
-  }
-}
-
-function renderTagPills(){
-  const b=document.getElementById('tags-box');
-  const inp=document.getElementById('tag-in');
-  b.innerHTML='';
-  S.tags.forEach((t,i)=>{
-    const p=document.createElement('div'); p.className='tpill';
-    p.innerHTML=`${esc(t)}<span class="tremove" onclick="S.tags.splice(${i},1);renderTagPills()">×</span>`;
-    b.appendChild(p);
+  const stars = container.querySelectorAll('.star');
+  stars.forEach((s,i) => {
+    s.addEventListener('mouseover', () => stars.forEach((x,j) => { x.style.filter=j<=i?'none':'grayscale(1)'; x.style.opacity=j<=i?'1':'.3'; }));
+    s.addEventListener('mouseout', () => {
+      const cur = (state.ratings[vid]||{})[getSessionId()] || 0;
+      stars.forEach((x,j) => { x.style.filter=j<cur?'none':'grayscale(1)'; x.style.opacity=j<cur?'1':'.3'; });
+    });
   });
-  b.appendChild(inp); inp.focus();
 }
 
-function saveVideo(){
-  const title=document.getElementById('f-title').value.trim();
-  if(!title){toast('Adicione um título.','i');return;}
-  const v={
-    id:Date.now(), title,
-    desc:document.getElementById('f-desc').value.trim(),
-    tech:[...S.tags],
-    duration:document.getElementById('f-dur').value.trim(),
-    privacy:S.privSel,
-    thumb:document.getElementById('f-thumb').value.trim(),
-    url:document.getElementById('f-url').value.trim(),
-    rating:0, ratingCount:0, views:0, likes:0, liked:false, comments:[]
-  };
-  S.videos.unshift(v);
-  save(); render(); closeModal('up-modal'); resetForm();
-  toast('Vídeo adicionado ao portfólio!','s');
+function rateVideo(vid, val) {
+  if (!state.ratings[vid]) state.ratings[vid] = {};
+  state.ratings[vid][getSessionId()] = val;
+  save();
+  renderStars(vid);
+  renderGrid();
+  updateStats();
+  renderComments(vid);
+  // Update modal meta
+  const m = document.getElementById('modalMeta');
+  if (m) {
+    const v = state.videos.find(x=>x.id===vid);
+    if (v) {
+      m.innerHTML = `<span>${v.date}</span><span>·</span><span>${v.category}</span>${v.duration?`<span>·</span><span>${v.duration}</span>`:''}<span>·</span><span style="color:var(--yellow)">★ ${avgRating(vid)||'—'}</span>`;
+    }
+  }
+  toast('Avaliação registrada!','success');
 }
 
-function resetForm(){
-  ['f-title','f-desc','f-dur','f-thumb','f-url'].forEach(id=>document.getElementById(id).value='');
-  S.tags=[]; S.privSel='public'; setPriv('public');
-  document.getElementById('file-sel').style.display='none';
-  document.getElementById('prog-wrap').style.display='none';
-  document.getElementById('prog-fill').style.width='0%';
-  renderTagPills();
+function renderComments(vid) {
+  const isBanned = state.banned.includes(getSessionId());
+  const formArea = document.getElementById('commentFormArea');
+  const list = document.getElementById('commentsList');
+  const comments = state.comments[vid] || [];
+
+  if (isBanned) {
+    formArea.innerHTML = `<div class="banned-notice">🚫 Você foi banido e não pode comentar.</div>`;
+  } else {
+    formArea.innerHTML = `
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <input class="comment-name-input" id="commentName" placeholder="Seu nome">
+      </div>
+      <div class="comment-form">
+        <textarea class="comment-input" id="commentText" placeholder="Deixe seu comentário..."></textarea>
+        <button class="comment-send" onclick="submitComment('${vid}')">Enviar</button>
+      </div>`;
+  }
+
+  if (!comments.length) {
+    list.innerHTML = `<p style="color:var(--text3);font-size:.85rem;text-align:center;padding:20px 0">Seja o primeiro a comentar!</p>`;
+    return;
+  }
+
+  list.innerHTML = comments.map(c => `
+    <div class="comment-item" id="comment-${c.id}">
+      <div class="comment-header">
+        <div class="comment-author">
+          <div class="comment-avatar">${c.author.charAt(0).toUpperCase()}</div>
+          <div>
+            <div class="comment-name">${escHtml(c.author)}</div>
+            <div class="comment-date">${c.date}</div>
+          </div>
+        </div>
+        <div class="comment-actions">
+          ${state.isOwner ? `
+            <button class="delete-comment-btn" onclick="deleteComment('${vid}','${c.id}')">Excluir</button>
+            <button class="ban-btn" onclick="banUser('${vid}','${c.id}','${c.sessionId}')">🚫 Banir</button>
+          ` : ''}
+        </div>
+      </div>
+      <div class="comment-text">${escHtml(c.text)}</div>
+    </div>`).join('');
 }
 
-// ── Modals ─────────────────────────────────────────────
-function openUpload(){openModal('up-modal');}
-function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
-function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
-function bdClick(e,id){if(e.target.id===id)closeModal(id);}
+function submitComment(vid) {
+  const nameEl = document.getElementById('commentName');
+  const textEl = document.getElementById('commentText');
+  const author = (nameEl?.value||'').trim() || 'Anônimo';
+  const text = (textEl?.value||'').trim();
+  if (!text) { toast('Escreva algo antes de enviar!','error'); return; }
 
-// ── Tabs ───────────────────────────────────────────────
-function swTab(e,tid){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  e.target.classList.add('active');
-  document.getElementById(tid).classList.add('active');
+  if (!state.comments[vid]) state.comments[vid] = [];
+  state.comments[vid].push({
+    id: Date.now().toString(36),
+    author, text,
+    sessionId: getSessionId(),
+    date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})
+  });
+  save();
+  renderComments(vid);
+  renderGrid();
+  updateStats();
+  toast('Comentário adicionado!','success');
 }
 
-// ── Filter ─────────────────────────────────────────────
-function setFilter(f,btn){
-  S.filter=f;
-  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  render();
+function deleteComment(vid, cid) {
+  if (!state.isOwner) return;
+  state.comments[vid] = (state.comments[vid]||[]).filter(c=>c.id!==cid);
+  save();
+  renderComments(vid);
+  renderGrid();
+  updateStats();
+  toast('Comentário removido.','success');
 }
 
-// ── Dropdowns ──────────────────────────────────────────
-function toggleDrop(id){
-  const d=document.getElementById('drop-'+id);
-  const open=d.classList.contains('open');
-  closeDrops();
-  if(!open)d.classList.add('open');
-}
-function closeDrops(){document.querySelectorAll('.dropdown').forEach(d=>d.classList.remove('open'));}
-document.addEventListener('click',closeDrops);
-
-// ── Toast ──────────────────────────────────────────────
-let tt;
-function toast(msg,type='s'){
-  const el=document.getElementById('toast');
-  const ic=document.getElementById('ti');
-  document.getElementById('tm').textContent=msg;
-  el.className=`toast t${type} show`;
-  ic.innerHTML=type==='s'
-    ?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
-    :'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-  clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),3500);
+function banUser(vid, cid, sessionId) {
+  if (!state.isOwner) return;
+  if (!confirm('Banir este usuário permanentemente? Ele não poderá mais comentar.')) return;
+  if (!state.banned.includes(sessionId)) state.banned.push(sessionId);
+  deleteComment(vid, cid);
+  save();
+  toast('Usuário banido permanentemente.','error');
 }
 
-// ── Utils ──────────────────────────────────────────────
-function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function deleteVideo(id) {
+  if (!state.isOwner) return;
+  if (!confirm('Excluir este vídeo permanentemente?')) return;
+  state.videos = state.videos.filter(v=>v.id!==id);
+  delete state.comments[id];
+  delete state.ratings[id];
+  save();
+  closeModal('videoModal');
+  renderAll();
+  toast('Vídeo excluído.','success');
+}
 
-// ── Keyboard ───────────────────────────────────────────
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeModal('view-modal');closeModal('up-modal');}
+// ─── ADD VIDEO ────────────────────────────────────────────────────────────────
+function submitVideo() {
+  const title = document.getElementById('f-title').value.trim();
+  const url   = document.getElementById('f-url').value.trim();
+  const thumb = document.getElementById('f-thumb').value.trim();
+  const cat   = document.getElementById('f-cat').value;
+  const dur   = document.getElementById('f-dur').value.trim();
+  const desc  = document.getElementById('f-desc').value.trim();
+  const dl    = document.getElementById('f-dl').value.trim();
+
+  if (!title || !url) { toast('Título e URL são obrigatórios!','error'); return; }
+
+  state.videos.unshift({
+    id: Date.now().toString(36),
+    title, url,
+    thumbnail: thumb || getYtThumb(url) || '',
+    category: cat,
+    duration: dur,
+    description: desc,
+    downloadUrl: dl,
+    date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
+  });
+  save();
+  closeModal('addVideoModal');
+  ['f-title','f-url','f-thumb','f-dur','f-desc','f-dl'].forEach(id => document.getElementById(id).value='');
+  renderAll();
+  toast('Vídeo publicado com sucesso!','success');
+}
+
+// ─── LOGIN ────────────────────────────────────────────────────────────────────
+function openLoginModal() {
+  openModal('loginModal');
+}
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('loginPass').value;
+  if (email === OWNER_EMAIL && pass === OWNER_PASS) {
+    state.isOwner = true;
+    closeModal('loginModal');
+    renderAll();
+    toast('Bem-vindo, DM! 🎬','success');
+  } else {
+    toast('E-mail ou senha incorretos.','error');
+  }
+}
+
+function logout() {
+  state.isOwner = false;
+  renderAll();
+  toast('Você saiu da área do dono.','success');
+}
+
+// ─── MODALS ───────────────────────────────────────────────────────────────────
+function openModal(id) {
+  const el = document.getElementById(id);
+  el.style.display = 'flex';
+  requestAnimationFrame(() => el.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  const el = document.getElementById(id);
+  el.classList.remove('open');
+  setTimeout(() => { el.style.display='none'; document.body.style.overflow=''; }, 300);
+  if (id === 'videoModal') {
+    // Stop video
+    const vc = document.getElementById('modalVideoContainer');
+    vc.innerHTML = '';
+  }
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
 });
 
-// ── Init ───────────────────────────────────────────────
-initProfile();
-render();
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['videoModal','addVideoModal','loginModal'].forEach(id => {
+      if (document.getElementById(id).classList.contains('open')) closeModal(id);
+    });
+  }
+  if (e.key === 'Enter' && document.getElementById('loginModal').classList.contains('open')) doLogin();
+});
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function toast(msg, type='success') {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<div class="toast-dot"></div><span>${msg}</span>`;
+  container.appendChild(el);
+  requestAnimationFrame(() => { setTimeout(() => el.classList.add('show'), 10); });
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 400); }, 3000);
+}
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
+function getSessionId() {
+  let sid = sessionStorage.getItem('dm_sid') || localStorage.getItem('dm_sid');
+  if (!sid) {
+    sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    sessionStorage.setItem('dm_sid', sid);
+    localStorage.setItem('dm_sid', sid);
+  }
+  return sid;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── BANNED CHECK ─────────────────────────────────────────────────────────────
+(function checkBan() {
+  if (state.banned.includes(getSessionId())) {
+    document.getElementById('banned-page').style.display = 'flex';
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('app').style.display = 'none';
+  }
+})();
 </script>
 </body>
 </html>
