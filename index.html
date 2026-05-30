@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DM · Portfólio</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -33,6 +32,7 @@ body{
   overflow-x:hidden;
   cursor:none;
 }
+@media(max-width:768px){body{cursor:auto}}
 #cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s ease;mix-blend-mode:difference}
 #cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;mix-blend-mode:difference}
 body:has(a:hover,button:hover,[role=button]:hover) #cursor-ring{transform:translate(-50%,-50%) scale(1.8);opacity:.5}
@@ -67,7 +67,7 @@ body::before{
 .landing-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,10vw,8rem);font-weight:800;line-height:.92;letter-spacing:-.03em;animation:fadeUp .9s ease .2s both}
 .landing-title span{color:var(--accent)}
 .landing-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--text2);max-width:480px;margin:1.5rem auto 2.5rem;line-height:1.7;font-weight:300;animation:fadeUp .9s ease .4s both}
-.landing-cta{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#060608;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em;padding:16px 40px;border-radius:999px;border:none;cursor:none;transition:transform .2s,box-shadow .2s;animation:fadeUp .9s ease .6s both;position:relative;overflow:hidden}
+.landing-cta{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#060608;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em;padding:16px 40px;border-radius:999px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .9s ease .6s both;position:relative;overflow:hidden}
 .landing-cta:hover{transform:scale(1.04);box-shadow:0 0 40px var(--accent)44}
 .landing-cta:active{transform:scale(.98)}
 .cta-arrow{font-size:1.2rem;transition:transform .2s}
@@ -82,13 +82,13 @@ body::before{
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,var(--bg)60%,transparent);transition:backdrop-filter .3s,background .3s}
 nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-.02em;cursor:none}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-.02em;cursor:pointer}
 .nav-logo span{color:var(--accent)}
 .nav-left{display:flex;align-items:center;gap:14px}
-.nav-back{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);color:var(--text3);font-size:12px;padding:8px 14px;border-radius:999px;cursor:none;transition:all .2s;letter-spacing:.04em}
+.nav-back{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);color:var(--text3);font-size:12px;padding:8px 14px;border-radius:999px;cursor:pointer;transition:all .2s;letter-spacing:.04em}
 .nav-back:hover{color:var(--text);border-color:var(--border2);background:var(--surface3)}
 .nav-actions{display:flex;align-items:center;gap:12px}
-.nav-btn{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);font-size:13px;font-family:'Space Grotesk',sans-serif;padding:10px 18px;border-radius:999px;cursor:none;transition:all .2s}
+.nav-btn{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);font-size:13px;font-family:'Space Grotesk',sans-serif;padding:10px 18px;border-radius:999px;cursor:pointer;transition:all .2s}
 .nav-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3)}
 .nav-btn.accent{background:var(--accent);color:#060608;border-color:transparent;font-weight:600}
 .nav-btn.accent:hover{background:var(--accent2);box-shadow:0 0 20px var(--accent)44}
@@ -118,7 +118,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
 
 /* CARD */
-.video-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:none;transition:transform .25s,border-color .25s,box-shadow .25s;animation:cardIn .5s ease both}
+.video-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;animation:cardIn .5s ease both}
 @keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .video-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 20px 60px #00000044}
 .card-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--surface2)}
@@ -136,7 +136,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .card-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text3);margin-bottom:14px}
 .card-meta-dot{width:3px;height:3px;background:var(--text3);border-radius:50%}
 .card-actions{display:flex;align-items:center;gap:8px}
-.card-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:12px;font-family:'Space Grotesk',sans-serif;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:none;transition:all .18s}
+.card-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:12px;font-family:'Space Grotesk',sans-serif;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .18s}
 .card-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}
 .card-btn.watch{background:var(--accent);color:#060608;border-color:transparent;font-weight:600;margin-left:auto}
 .card-btn.watch:hover{background:var(--accent2);box-shadow:0 0 16px var(--accent)44}
@@ -152,7 +152,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .modal-overlay.open{display:flex;opacity:1}
 .modal{background:var(--surface);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:860px;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform .3s;position:relative}
 .modal-overlay.open .modal{transform:translateY(0)}
-.modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;color:var(--text2);transition:all .18s;z-index:1;font-size:18px;line-height:1}
+.modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .18s;z-index:1;font-size:18px;line-height:1}
 .modal-close:hover{background:var(--surface3);color:var(--text)}
 .modal-video{width:100%;aspect-ratio:16/9;background:#000;border-radius:20px 20px 0 0;overflow:hidden}
 .modal-video video,.modal-video iframe{width:100%;height:100%;border:none}
@@ -167,7 +167,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .rating-section{margin-bottom:24px}
 .rating-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
 .stars{display:flex;gap:6px}
-.star{font-size:1.5rem;cursor:none;transition:transform .15s;filter:grayscale(1);opacity:.3;color:var(--yellow)}
+.star{font-size:1.5rem;cursor:pointer;transition:transform .15s;filter:grayscale(1);opacity:.3;color:var(--yellow)}
 .star.active{filter:none;opacity:1}
 
 /* COMMENTS */
@@ -176,7 +176,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .comment-input{flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:var(--radius2);font-family:'Space Grotesk',sans-serif;font-size:.9rem;transition:border-color .18s;outline:none;resize:none;min-height:48px}
 .comment-input::placeholder{color:var(--text3)}
 .comment-input:focus{border-color:var(--border2)}
-.comment-send{background:var(--accent);color:#060608;border:none;padding:12px 20px;border-radius:var(--radius2);cursor:none;font-weight:600;font-family:'Syne',sans-serif;font-size:.85rem;transition:all .18s;white-space:nowrap}
+.comment-send{background:var(--accent);color:#060608;border:none;padding:12px 20px;border-radius:var(--radius2);cursor:pointer;font-weight:600;font-family:'Syne',sans-serif;font-size:.85rem;transition:all .18s;white-space:nowrap}
 .comment-send:hover{background:var(--accent2);box-shadow:0 0 16px var(--accent)44}
 .comment-name-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius2);font-family:'Space Grotesk',sans-serif;font-size:.85rem;transition:border-color .18s;outline:none;width:160px}
 .comment-name-input:focus{border-color:var(--border2)}
@@ -191,14 +191,14 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .comment-date{font-size:11px;color:var(--text3)}
 .comment-text{font-size:.9rem;color:var(--text2);line-height:1.6}
 .comment-actions{display:flex;gap:6px;align-items:center}
-.ban-btn{font-size:10px;background:transparent;border:1px solid var(--red)44;color:var(--red);padding:3px 10px;border-radius:6px;cursor:none;transition:all .18s;letter-spacing:.04em}
+.ban-btn{font-size:10px;background:transparent;border:1px solid var(--red)44;color:var(--red);padding:3px 10px;border-radius:6px;cursor:pointer;transition:all .18s;letter-spacing:.04em}
 .ban-btn:hover{background:var(--red)22;border-color:var(--red)}
-.delete-comment-btn{font-size:10px;background:transparent;border:1px solid var(--border);color:var(--text3);padding:3px 10px;border-radius:6px;cursor:none;transition:all .18s}
+.delete-comment-btn{font-size:10px;background:transparent;border:1px solid var(--border);color:var(--text3);padding:3px 10px;border-radius:6px;cursor:pointer;transition:all .18s}
 .delete-comment-btn:hover{background:var(--surface2);color:var(--text)}
 .banned-notice{background:var(--red)15;border:1px solid var(--red)33;color:var(--red);padding:10px 14px;border-radius:var(--radius2);font-size:.85rem;text-align:center;margin-top:12px}
 
 /* DOWNLOAD BTN */
-.download-btn{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:10px 18px;border-radius:var(--radius2);cursor:none;font-size:.85rem;transition:all .18s;font-family:'Space Grotesk',sans-serif;text-decoration:none}
+.download-btn{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:10px 18px;border-radius:var(--radius2);cursor:pointer;font-size:.85rem;transition:all .18s;font-family:'Space Grotesk',sans-serif;text-decoration:none}
 .download-btn:hover{background:var(--surface3);border-color:var(--border2);color:var(--text)}
 
 /* ADD VIDEO MODAL */
@@ -209,15 +209,14 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .form-textarea{resize:vertical;min-height:90px}
 .form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
 .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent)88}
-.form-select{appearance:none;cursor:none}
+.form-select{appearance:none;cursor:pointer}
 .form-select option{background:var(--surface)}
-.form-hint{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.submit-btn{width:100%;background:var(--accent);color:#060608;border:none;padding:14px;border-radius:var(--radius2);cursor:none;font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;transition:all .2s;margin-top:8px;letter-spacing:.02em}
+.submit-btn{width:100%;background:var(--accent);color:#060608;border:none;padding:14px;border-radius:var(--radius2);cursor:pointer;font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;transition:all .2s;margin-top:8px;letter-spacing:.02em}
 .submit-btn:hover{background:var(--accent2);box-shadow:0 0 24px var(--accent)44}
 .submit-btn:active{transform:scale(.99)}
 
-/* LOGIN MODAL — Google only */
+/* LOGIN MODAL */
 .login-modal{max-width:400px}
 .login-header{text-align:center;padding:40px 28px 24px}
 .login-icon{width:64px;height:64px;border-radius:18px;background:var(--accent)22;border:1px solid var(--accent)44;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem}
@@ -225,6 +224,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .login-sub{font-size:.9rem;color:var(--text3);line-height:1.5}
 .login-body{padding:0 28px 36px;display:flex;flex-direction:column;align-items:center;gap:16px}
 .login-note{font-size:11px;color:var(--text3);text-align:center;line-height:1.6;max-width:280px}
+.login-error{font-size:12px;color:var(--red);text-align:center;padding:10px 14px;background:var(--red)11;border:1px solid var(--red)33;border-radius:var(--radius2);width:100%;display:none}
 
 /* OWNER BADGE */
 .owner-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent)22;border:1px solid var(--accent)44;color:var(--accent);padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
@@ -237,7 +237,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 
 /* FILTER */
 .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.filter-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text3);padding:8px 16px;border-radius:999px;font-size:12px;cursor:none;transition:all .18s;font-family:'Space Grotesk',sans-serif;letter-spacing:.04em}
+.filter-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text3);padding:8px 16px;border-radius:999px;font-size:12px;cursor:pointer;transition:all .18s;font-family:'Space Grotesk',sans-serif;letter-spacing:.04em}
 .filter-btn:hover,.filter-btn.active{background:var(--accent);color:#060608;border-color:transparent;font-weight:600}
 
 /* MARQUEE */
@@ -273,6 +273,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   .stat-item{border-right:none;border-bottom:1px solid var(--border)}
   .stat-item:last-child{border-bottom:none}
   .form-row{grid-template-columns:1fr}
+  #cursor,#cursor-ring{display:none}
 }
 </style>
 </head>
@@ -426,24 +427,26 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
     <button class="modal-close" onclick="closeModal('loginModal')">×</button>
     <div class="login-header">
       <div class="login-icon">🎬</div>
-      <h2 class="login-title">Área do Dono</h2>
-      <p class="login-sub">Entre com sua conta Google para acessar os controles do portfólio</p>
+      <h2 class="login-title">Entrar com Google</h2>
+      <p class="login-sub">Entre com sua conta Google para comentar com seu nome e foto</p>
     </div>
     <div class="login-body">
-      <div id="googleSignInBtn"></div>
-      <p class="login-note">Apenas a conta autorizada tem acesso à área de administração. Visitantes podem comentar, avaliar e baixar sem login.</p>
+      <div id="googleSignInBtn" style="min-height:44px;display:flex;align-items:center;justify-content:center"></div>
+      <div class="login-error" id="loginError"></div>
+      <p class="login-note">Qualquer conta Google pode entrar para comentar com nome e foto. Apenas a conta do dono tem poderes de administração.</p>
     </div>
   </div>
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- Google Identity Services — carregado de forma síncrona para garantir disponibilidade -->
+<script src="https://accounts.google.com/gsi/client"></script>
+
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-// IMPORTANTE: Substitua pelo seu Client ID real do Google Cloud Console.
-// Em console.cloud.google.com → APIs → Credenciais → Criar ID do cliente OAuth 2.0
-// Tipo: Aplicativo da Web. Adicione a origem do seu domínio em "Origens autorizadas".
-const GOOGLE_CLIENT_ID = '937353860850-r3kk5o4hrggv95rrjtdoufag6gfocvt9.apps.googleusercontent.com.apps.googleusercontent.com';
+// Client ID corrigido (sem a duplicação do sufixo)
+const GOOGLE_CLIENT_ID = '937353860850-r3kk5o4hrggv95rrjtdoufag6gfocvt9.apps.googleusercontent.com';
 const OWNER_EMAIL = 'dm_202617@gmail.com';
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
@@ -525,47 +528,43 @@ function goToPortfolio() {
 function goToLanding() { showPage('landing'); }
 
 // ─── GOOGLE SIGN-IN ───────────────────────────────────────────────────────────
-window.addEventListener('load', () => {
-  if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: handleGoogleCredential,
-      auto_select: false,
-      cancel_on_tap_outside: true,
-    });
-    google.accounts.id.renderButton(
-      document.getElementById('googleSignInBtn'),
-      {
-        theme: 'outline',
-        size: 'large',
-        shape: 'pill',
-        width: 300,
-        text: 'signin_with',
-        logo_alignment: 'left',
-      }
-    );
-  } else {
-    // SDK ainda carregando — tenta novamente após breve delay
-    setTimeout(() => {
-      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-        google.accounts.id.initialize({
-          client_id: GOOGLE_CLIENT_ID,
-          callback: handleGoogleCredential,
-          auto_select: false,
-        });
-        google.accounts.id.renderButton(
-          document.getElementById('googleSignInBtn'),
-          { theme:'outline', size:'large', shape:'pill', width:300, text:'signin_with', logo_alignment:'left' }
-        );
-      } else {
-        document.getElementById('googleSignInBtn').innerHTML =
-          `<p style="color:var(--text3);font-size:.85rem;text-align:center;line-height:1.6">
-            O SDK do Google ainda está carregando.<br>Recarregue a página e tente novamente.
-           </p>`;
-      }
-    }, 2000);
+// Inicializa o Google Identity Services assim que o script estiver pronto
+function initGoogleSignIn() {
+  if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+    // Tenta novamente em 500ms caso o script ainda não tenha carregado
+    setTimeout(initGoogleSignIn, 500);
+    return;
   }
-});
+
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: true,
+  });
+
+  renderGoogleButton();
+}
+
+function renderGoogleButton() {
+  const container = document.getElementById('googleSignInBtn');
+  if (!container) return;
+  if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) return;
+  google.accounts.id.renderButton(container, {
+    theme: 'outline',
+    size: 'large',
+    shape: 'pill',
+    width: 300,
+    text: 'signin_with',
+    logo_alignment: 'left',
+    locale: 'pt-BR',
+  });
+}
+
+// Chama a inicialização quando a página carrega
+document.addEventListener('DOMContentLoaded', initGoogleSignIn);
+// Fallback caso o DOMContentLoaded já tenha disparado
+if (document.readyState !== 'loading') initGoogleSignIn();
 
 function parseJwt(token) {
   try {
@@ -575,13 +574,31 @@ function parseJwt(token) {
 
 function handleGoogleCredential(response) {
   const payload = parseJwt(response.credential);
-  if (!payload) { toast('Erro ao verificar credenciais.','error'); return; }
-  const isOwner = payload.email.toLowerCase() === OWNER_EMAIL.toLowerCase();
+  if (!payload) {
+    showLoginError('Erro ao verificar credenciais. Tente novamente.');
+    return;
+  }
+
+  // Qualquer conta Google pode entrar
   state.googleUser = { email: payload.email, name: payload.name, picture: payload.picture };
-  state.isOwner = isOwner;
+  // Só concede poderes de dono se for o email específico
+  state.isOwner = payload.email.toLowerCase() === OWNER_EMAIL.toLowerCase();
+
+  const errEl = document.getElementById('loginError');
+  if (errEl) errEl.style.display = 'none';
+
   closeModal('loginModal');
   renderAll();
-  toast(isOwner ? 'Bem-vindo de volta, DM! 🎬' : `Olá, ${payload.name}!`, 'success');
+  toast(state.isOwner ? 'Bem-vindo de volta, DM! 🎬' : `Olá, ${payload.name}! 👋`, 'success');
+}
+
+function showLoginError(msg) {
+  const errEl = document.getElementById('loginError');
+  if (errEl) {
+    errEl.textContent = msg;
+    errEl.style.display = 'block';
+  }
+  toast(msg, 'error');
 }
 
 function logout() {
@@ -593,6 +610,10 @@ function logout() {
   renderAll();
   toast('Você saiu.', 'success');
 }
+
+// Re-renderiza o botão do Google toda vez que o modal de login for aberto
+// (necessário pois o container pode ser reinserido no DOM)
+const _origOpenModal = window.openModal;
 
 // ─── RENDER ───────────────────────────────────────────────────────────────────
 function renderAll() {
@@ -610,20 +631,26 @@ function updateNavActions() {
     const pic = state.googleUser?.picture;
     el.innerHTML = `
       <div class="user-chip">
-        ${pic
-          ? `<img class="user-pic" src="${pic}" alt="">`
-          : `<div style="width:28px;height:28px;border-radius:50%;background:var(--accent)22;border:1.5px solid var(--accent)44;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--accent);font-weight:700">DM</div>`}
+        ${pic ? `<img class="user-pic" src="${escHtml(pic)}" alt="">` : `<div style="width:28px;height:28px;border-radius:50%;background:var(--accent)22;border:1.5px solid var(--accent)44;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--accent);font-weight:700">DM</div>`}
         <span class="user-name-nav">${escHtml(state.googleUser?.name||'Dono')}</span>
         <span class="owner-badge" style="font-size:10px;padding:2px 8px">Dono</span>
       </div>
       <button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Vídeo</button>
       <button class="nav-btn" onclick="logout()">Sair</button>`;
+  } else if (state.googleUser) {
+    // Usuário logado com Google mas sem poderes de dono
+    const pic = state.googleUser.picture;
+    el.innerHTML = `
+      <div class="user-chip">
+        ${pic ? `<img class="user-pic" src="${escHtml(pic)}" alt="">` : ''}
+        <span class="user-name-nav">${escHtml(state.googleUser.name)}</span>
+      </div>
+      <button class="nav-btn" onclick="logout()">Sair</button>`;
   } else {
-    // Visitantes: apenas botão Entrar, sem chip de usuário
     el.innerHTML = `
       <button class="nav-btn" onclick="openModal('loginModal')">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Entrar
+        Entrar com Google
       </button>`;
   }
 }
@@ -636,7 +663,7 @@ function renderOwnerPanel() {
     <div class="owner-panel">
       <div class="owner-panel-left">
         <div class="owner-avatar">
-          ${pic ? `<img src="${pic}" alt="">` : 'DM'}
+          ${pic ? `<img src="${escHtml(pic)}" alt="">` : 'DM'}
         </div>
         <div>
           <div class="owner-name">${escHtml(state.googleUser?.name||'DM Studio')} <span class="owner-badge" style="font-size:10px">Dono</span></div>
@@ -653,7 +680,7 @@ function renderFilters() {
   const cats = ['all', ...new Set(state.videos.map(v => v.category))];
   document.getElementById('filterBar').innerHTML = cats.map(c => `
     <button class="filter-btn${state.activeFilter===c?' active':''}" onclick="filterVideos('${c}',this)">
-      ${c==='all'?'Todos':c}
+      ${c==='all'?'Todos':escHtml(c)}
     </button>`).join('');
 }
 
@@ -708,16 +735,16 @@ function buildCard(v, i) {
     <div class="video-card" style="animation-delay:${(i%6)*.07}s" onclick="openVideo('${v.id}')">
       <div class="card-thumb">
         ${thumb
-          ? `<img src="${thumb}" alt="${escHtml(v.title)}" loading="lazy">`
+          ? `<img src="${escHtml(thumb)}" alt="${escHtml(v.title)}" loading="lazy">`
           : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:2rem">🎬</div>`}
         <div class="card-overlay"><div class="play-btn"><div class="play-icon"></div></div></div>
-        ${v.duration ? `<div class="card-duration">${v.duration}</div>` : ''}
-        ${v.category&&v.category!=='Geral' ? `<div class="card-badge">${v.category}</div>` : ''}
+        ${v.duration ? `<div class="card-duration">${escHtml(v.duration)}</div>` : ''}
+        ${v.category&&v.category!=='Geral' ? `<div class="card-badge">${escHtml(v.category)}</div>` : ''}
       </div>
       <div class="card-body">
         <div class="card-title">${escHtml(v.title)}</div>
         <div class="card-meta">
-          <span>${v.date}</span>
+          <span>${escHtml(v.date)}</span>
           ${rating ? `<span class="card-meta-dot"></span><span style="color:var(--yellow)">★ ${rating}</span>` : ''}
           ${comments ? `<span class="card-meta-dot"></span><span>${comments} comentário${comments!==1?'s':''}</span>` : ''}
         </div>
@@ -757,26 +784,26 @@ function openVideo(id) {
   if (embed) {
     el.innerHTML = `<iframe src="${embed}" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;
   } else if (v.url && v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
-    el.innerHTML = `<video src="${v.url}" controls style="width:100%;height:100%"></video>`;
+    el.innerHTML = `<video src="${escHtml(v.url)}" controls style="width:100%;height:100%"></video>`;
   } else {
     el.innerHTML = `<div class="modal-video-placeholder">🎬<span>Clique em "Abrir Vídeo" abaixo</span></div>`;
   }
 
   document.getElementById('modalTitle').textContent = v.title;
   document.getElementById('modalMeta').innerHTML = `
-    <span>${v.date}</span><span>·</span><span>${v.category}</span>
-    ${v.duration ? `<span>·</span><span>${v.duration}</span>` : ''}
+    <span>${escHtml(v.date)}</span><span>·</span><span>${escHtml(v.category)}</span>
+    ${v.duration ? `<span>·</span><span>${escHtml(v.duration)}</span>` : ''}
     <span>·</span><span style="color:var(--yellow)">★ ${avgRating(v.id)||'Sem avaliações'}</span>`;
   document.getElementById('modalDesc').textContent = v.description||'';
 
   let actHtml = '';
   if (v.url && !getEmbedUrl(v.url) && !v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
-    actHtml += `<a href="${v.url}" target="_blank" class="download-btn">
+    actHtml += `<a href="${escHtml(v.url)}" target="_blank" rel="noopener" class="download-btn">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       Abrir Vídeo</a>`;
   }
   if (v.downloadUrl) {
-    actHtml += `<a href="${v.downloadUrl}" download class="download-btn" onclick="trackDownload()">
+    actHtml += `<a href="${escHtml(v.downloadUrl)}" download class="download-btn" onclick="trackDownload()">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Baixar Vídeo</a>`;
   }
@@ -817,10 +844,11 @@ function rateVideo(vid, val) {
   state.ratings[vid][getSessionId()] = val;
   save(); renderStars(vid); renderGrid(); updateStats();
   const v = state.videos.find(x=>x.id===vid);
-  if (v) document.getElementById('modalMeta').innerHTML=`<span>${v.date}</span><span>·</span><span>${v.category}</span>${v.duration?`<span>·</span><span>${v.duration}</span>`:''}<span>·</span><span style="color:var(--yellow)">★ ${avgRating(vid)||'—'}</span>`;
+  if (v) document.getElementById('modalMeta').innerHTML=`<span>${escHtml(v.date)}</span><span>·</span><span>${escHtml(v.category)}</span>${v.duration?`<span>·</span><span>${escHtml(v.duration)}</span>`:''}<span>·</span><span style="color:var(--yellow)">★ ${avgRating(vid)||'—'}</span>`;
   toast('Avaliação registrada!','success');
 }
 
+// ─── COMMENTS — visitantes comentam livremente, sem necessidade de login ──────
 function renderComments(vid) {
   const isBanned = state.banned.includes(getSessionId());
   const formArea = document.getElementById('commentFormArea');
@@ -829,10 +857,27 @@ function renderComments(vid) {
 
   if (isBanned) {
     formArea.innerHTML = `<div class="banned-notice">🚫 Você foi banido e não pode comentar.</div>`;
-  } else {
+  } else if (state.googleUser) {
+    // Usuário logado com Google — nome e foto já preenchidos
+    const pic = state.googleUser.picture;
     formArea.innerHTML = `
-      <div style="display:flex;gap:8px;margin-bottom:8px">
-        <input class="comment-name-input" id="commentName" placeholder="Seu nome" value="">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        ${pic ? `<img src="${escHtml(pic)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border2)" alt="">` : ''}
+        <span style="font-size:13px;color:var(--text2);font-weight:500">${escHtml(state.googleUser.name)}</span>
+      </div>
+      <div class="comment-form">
+        <textarea class="comment-input" id="commentText" placeholder="Deixe seu comentário..."></textarea>
+        <button class="comment-send" onclick="submitComment('${vid}')">Enviar</button>
+      </div>`;
+  } else {
+    // Visitante sem login — pode comentar com nome livre ou entrar com Google
+    formArea.innerHTML = `
+      <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center">
+        <input class="comment-name-input" id="commentName" placeholder="Seu nome (opcional)">
+        <button class="nav-btn" style="white-space:nowrap;font-size:11px;padding:8px 12px" onclick="openModal('loginModal')">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Entrar com Google
+        </button>
       </div>
       <div class="comment-form">
         <textarea class="comment-input" id="commentText" placeholder="Deixe seu comentário..."></textarea>
@@ -850,11 +895,11 @@ function renderComments(vid) {
       <div class="comment-header">
         <div class="comment-author">
           <div class="comment-avatar">
-            ${c.picture ? `<img src="${escHtml(c.picture)}" alt="">` : `<span>${escHtml(c.author.charAt(0).toUpperCase())}</span>`}
+            ${c.picture ? `<img src="${escHtml(c.picture)}" alt="">` : `<span>${escHtml((c.author||'A').charAt(0).toUpperCase())}</span>`}
           </div>
           <div>
-            <div class="comment-name">${escHtml(c.author)}</div>
-            <div class="comment-date">${c.date}</div>
+            <div class="comment-name">${escHtml(c.author||'Anônimo')}</div>
+            <div class="comment-date">${escHtml(c.date)}</div>
           </div>
         </div>
         <div class="comment-actions">
@@ -869,16 +914,25 @@ function renderComments(vid) {
 }
 
 function submitComment(vid) {
-  const nameEl = document.getElementById('commentName');
   const textEl = document.getElementById('commentText');
-  const author = (nameEl?.value||'').trim()||'Anônimo';
   const text   = (textEl?.value||'').trim();
   if (!text) { toast('Escreva algo antes de enviar!','error'); return; }
+
+  // Usa dados do Google se logado, senão usa o nome digitado
+  let author, picture;
+  if (state.googleUser) {
+    author  = state.googleUser.name;
+    picture = state.googleUser.picture;
+  } else {
+    const nameEl = document.getElementById('commentName');
+    author  = (nameEl?.value||'').trim() || 'Anônimo';
+    picture = null;
+  }
+
   if (!state.comments[vid]) state.comments[vid]=[];
   state.comments[vid].push({
     id: Date.now().toString(36),
-    author, text,
-    picture: null,
+    author, text, picture,
     sessionId: getSessionId(),
     date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
   });
@@ -942,6 +996,17 @@ function openModal(id) {
   el.style.display = 'flex';
   requestAnimationFrame(()=>el.classList.add('open'));
   document.body.style.overflow = 'hidden';
+
+  // Re-renderiza o botão do Google sempre que o modal de login for aberto
+  if (id === 'loginModal') {
+    // Limpa erro anterior
+    const errEl = document.getElementById('loginError');
+    if (errEl) errEl.style.display = 'none';
+    // Aguarda o modal estar visível antes de renderizar o botão
+    setTimeout(() => {
+      renderGoogleButton();
+    }, 100);
+  }
 }
 
 function closeModal(id) {
@@ -965,7 +1030,7 @@ function toast(msg, type='success') {
   const container = document.getElementById('toastContainer');
   const el = document.createElement('div');
   el.className = `toast ${type}`;
-  el.innerHTML = `<div class="toast-dot"></div><span>${msg}</span>`;
+  el.innerHTML = `<div class="toast-dot"></div><span>${escHtml(msg)}</span>`;
   container.appendChild(el);
   requestAnimationFrame(()=>setTimeout(()=>el.classList.add('show'),10));
   setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),400); }, 3000);
