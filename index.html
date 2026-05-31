@@ -132,6 +132,12 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .modal-desc{color:var(--text2);line-height:1.7;font-size:.95rem;margin-bottom:24px}
 .modal-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
 
+/* ADS NOTE */
+.ads-note{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius2);padding:12px 16px;font-size:.8rem;color:var(--text3);display:flex;align-items:flex-start;gap:10px;margin-bottom:20px}
+.ads-note-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
+.ads-note a{color:var(--accent);text-decoration:none}
+.ads-note a:hover{text-decoration:underline}
+
 /* RATING */
 .rating-section{margin-bottom:24px}
 .rating-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
@@ -246,6 +252,11 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 #banned-page p{color:var(--text3);max-width:360px;line-height:1.7}
 #banned-page .ban-icon{font-size:4rem;margin-bottom:8px}
 
+/* LOGIN PROMPT BANNER */
+.login-prompt{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius2);padding:14px 18px;font-size:.875rem;color:var(--text3);margin-bottom:20px}
+.login-prompt a{color:var(--accent);cursor:pointer;font-weight:600}
+.login-prompt a:hover{text-decoration:underline}
+
 @media(max-width:768px){
   nav{padding:16px 20px}
   .hero{padding:40px 20px 40px}
@@ -331,6 +342,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
       <h2 class="modal-title" id="modalTitle"></h2>
       <div class="modal-meta" id="modalMeta"></div>
       <p class="modal-desc" id="modalDesc"></p>
+      <div id="adsNote"></div>
       <div class="modal-actions" id="modalActions"></div>
       <div class="rating-section" id="ratingSection"></div>
       <div class="comments-section">
@@ -342,13 +354,20 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   </div>
 </div>
 
-<!-- MODAL: ADD VIDEO (só admin vê este botão) -->
+<!-- MODAL: ADD VIDEO -->
 <div class="modal-overlay" id="addVideoModal">
   <div class="modal add-modal">
     <button class="modal-close" onclick="closeModal('addVideoModal')">×</button>
     <div class="modal-body" style="padding-top:32px">
       <h2 class="modal-title">Adicionar Vídeo</h2>
-      <p style="color:var(--text3);font-size:.9rem;margin-bottom:24px">Cole o link do YouTube ou Vimeo, ou insira a URL direta do arquivo de vídeo.</p>
+      <p style="color:var(--text3);font-size:.9rem;margin-bottom:16px">Cole o link do YouTube ou Vimeo, ou insira a URL direta do arquivo de vídeo.</p>
+
+      <!-- Nota sobre anúncios -->
+      <div style="background:var(--yellow)11;border:1px solid var(--yellow)33;border-radius:var(--radius2);padding:12px 16px;font-size:.8rem;color:var(--text2);display:flex;gap:10px;margin-bottom:20px">
+        <span style="flex-shrink:0">⚠️</span>
+        <span><strong style="color:var(--yellow)">Sobre propagandas:</strong> Vídeos do YouTube exibem anúncios conforme configurado no seu canal — isso é controlado pelo YouTube e não é possível removê-los via embed. Para vídeos sem propaganda, use <strong>Vimeo</strong> (plano pago) ou hospede o arquivo <strong>.mp4</strong> diretamente.</span>
+      </div>
+
       <div class="form-group">
         <label class="form-label">Título *</label>
         <input type="text" class="form-input" id="f-title" placeholder="Nome do projeto">
@@ -404,7 +423,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   </div>
 </div>
 
-<!-- MODAL: LOGIN — aparência genérica, sem mencionar admin -->
+<!-- MODAL: LOGIN -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal login-modal">
     <button class="modal-close" onclick="closeModal('loginModal')">×</button>
@@ -460,7 +479,7 @@ let state = {
   pendingThumb: null,
 };
 
-// Restaurar sessão (visitante comum persiste, admin não — requer login a cada abertura)
+// Restaurar sessão
 (function(){
   const u = sessionStorage.getItem('dm_user');
   if (u && u !== OWNER_USER) {
@@ -546,7 +565,6 @@ function removeThumb(){
   document.getElementById('f-thumb-file').value='';
 }
 
-// drag & drop
 document.addEventListener('DOMContentLoaded',()=>{
   const area=document.getElementById('thumbUploadArea');
   if(!area) return;
@@ -563,7 +581,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 
-// ── LOGIN (único modal, sem distinção visual de admin) ───────────────────────
+// ── LOGIN ────────────────────────────────────────────────────────────────────
 function togglePw(){
   const i=document.getElementById('loginPass');
   i.type=i.type==='password'?'text':'password';
@@ -582,7 +600,6 @@ async function doLogin(){
   const hash=await sha256(pass);
 
   if(user===OWNER_USER && hash===OWNER_PW_HASH){
-    // Admin
     state.isOwner=true; state.loggedIn=true; state.username=user;
     sessionStorage.setItem('dm_user', user);
     document.getElementById('loginUser').value='';
@@ -591,7 +608,6 @@ async function doLogin(){
     renderAll();
     toast('Bem-vindo de volta! 🎬','success');
   } else {
-    // Usuário comum: qualquer usuário/senha que não seja o admin entra como visitante
     state.isOwner=false; state.loggedIn=true; state.username=user;
     sessionStorage.setItem('dm_user', user);
     document.getElementById('loginUser').value='';
@@ -677,6 +693,9 @@ function getYtThumb(url){
   const m=url&&url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
   return m?`https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg`:null;
 }
+function isYouTube(url){
+  return !!(url&&url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/));
+}
 function avgRating(vid){
   const r=state.ratings[vid]||{};
   const vals=Object.values(r);
@@ -696,6 +715,7 @@ function renderGrid(){
     </div>`;
     return;
   }
+  // Vídeos visíveis para TODOS, logados ou não
   grid.innerHTML=filtered.map((v,i)=>buildCard(v,i)).join('');
 }
 
@@ -753,6 +773,8 @@ function openVideo(id){
 
   const embed=getEmbedUrl(v.url);
   const el=document.getElementById('modalVideoContainer');
+
+  // Todos podem assistir — sem bloqueio por login
   if(embed){
     el.innerHTML=`<iframe src="${embed}" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;
   } else if(v.url&&v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
@@ -768,12 +790,26 @@ function openVideo(id){
     <span>·</span><span style="color:var(--yellow)">★ ${avgRating(v.id)||'Sem avaliações'}</span>`;
   document.getElementById('modalDesc').textContent=v.description||'';
 
-  // Ações: download e vídeo externo para logados; excluir só para admin
+  // Nota sobre anúncios (apenas para vídeos do YouTube)
+  const adsNoteEl=document.getElementById('adsNote');
+  if(isYouTube(v.url)){
+    adsNoteEl.innerHTML=`<div class="ads-note">
+      <span class="ads-note-icon">ℹ️</span>
+      <span>Este vídeo pode exibir anúncios do YouTube. Isso é controlado pela plataforma e não é possível desativar via embed. Para assistir sem ads, use o <a href="${escHtml(v.url)}" target="_blank" rel="noopener">YouTube Premium</a> ou um bloqueador de anúncios.</span>
+    </div>`;
+  } else {
+    adsNoteEl.innerHTML='';
+  }
+
+  // Ações
   let actHtml='';
   if(!state.loggedIn){
-    actHtml=`<div style="background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius2);padding:14px 18px;font-size:.875rem;color:var(--text3)">
-      <a onclick="closeModal('videoModal');openModal('loginModal')" style="color:var(--accent);cursor:pointer;font-weight:600">Faça login</a> para acessar downloads e comentários.
-    </div>`;
+    // Visitante vê o vídeo mas precisa de login para download/comentário
+    if(v.url&&!getEmbedUrl(v.url)&&!v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
+      actHtml+=`<a href="${escHtml(v.url)}" target="_blank" rel="noopener" class="download-btn">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Abrir Vídeo</a>`;
+    }
   } else {
     if(v.url&&!getEmbedUrl(v.url)&&!v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
       actHtml+=`<a href="${escHtml(v.url)}" target="_blank" rel="noopener" class="download-btn">
@@ -793,7 +829,7 @@ function openVideo(id){
   }
   document.getElementById('modalActions').innerHTML=actHtml;
 
-  // Rating e comments: só para logados
+  // Rating: só para logados
   const ratingSection=document.getElementById('ratingSection');
   if(state.loggedIn){
     ratingSection.innerHTML=`<div class="rating-title">Sua avaliação</div><div class="stars" id="starRating"></div>`;
@@ -845,7 +881,7 @@ function renderComments(vid){
   const comments=state.comments[vid]||[];
 
   if(!state.loggedIn){
-    formArea.innerHTML='';
+    formArea.innerHTML=`<div class="login-prompt"><a onclick="closeModal('videoModal');openModal('loginModal')">Faça login</a> para comentar e avaliar este vídeo.</div>`;
   } else if(isBanned){
     formArea.innerHTML=`<div class="banned-notice">🚫 Você foi banido e não pode comentar.</div>`;
   } else {
@@ -857,7 +893,7 @@ function renderComments(vid){
   }
 
   if(!comments.length){
-    list.innerHTML=`<p style="color:var(--text3);font-size:.85rem;text-align:center;padding:20px 0">${state.loggedIn?'Seja o primeiro a comentar!':'Faça login para ver e deixar comentários.'}</p>`;
+    list.innerHTML=`<p style="color:var(--text3);font-size:.85rem;text-align:center;padding:20px 0">Nenhum comentário ainda. ${state.loggedIn?'Seja o primeiro!':''}</p>`;
     return;
   }
 
