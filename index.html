@@ -1284,7 +1284,6 @@ function closeOwnerWelcome() {
 }
 function setupNav() {
   if (!state.isOwner) { document.getElementById('app').style.display = 'block'; window.scrollTo(0, 0); }
-   document.getElementById('btn-banned-list').style.display = 'inline-flex';
   const avEl = document.getElementById('nav-avatar');
   const nameEl = document.getElementById('nav-uname');
   if (state.user.photoURL) {
@@ -1294,12 +1293,12 @@ function setupNav() {
   }
   nameEl.textContent = state.user.displayName || state.user.email.split('@')[0];
   document.getElementById('nav-user').style.display = 'flex';
-   if (state.isOwner) {
-  document.getElementById('owner-badge').style.display = 'inline-flex';
-  document.getElementById('btn-add-video').style.display = 'inline-flex';
-  document.getElementById('hero-owner-btn').style.display = 'inline-flex';
-  document.getElementById('btn-banned-list').style.display = 'inline-flex';
-}
+  if (state.isOwner) {
+    document.getElementById('owner-badge').style.display = 'inline-flex';
+    document.getElementById('btn-add-video').style.display = 'inline-flex';
+    document.getElementById('hero-owner-btn').style.display = 'inline-flex';
+    document.getElementById('btn-banned-list').style.display = 'inline-flex';
+  }
 }
 function doLogout() {
   auth.signOut().then(() => {
