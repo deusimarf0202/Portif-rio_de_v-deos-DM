@@ -414,7 +414,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
     <div class="login-header">
       <div class="login-icon">🔐</div>
       <h2 class="login-title">LOGIN</h2>
-      <p class="login-sub">Acesso restrito à administração do portfólio</p>
+      <p class="login-sub">Digite o usuário e a senha para fazer login</p>
     </div>
     <div class="login-body">
       <div class="login-input-wrap">
@@ -426,7 +426,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
       </div>
       <div class="login-error" id="loginError">Usuário ou senha incorretos.</div>
       <button class="login-submit" onclick="doLogin()">Entrar</button>
-      <p class="login-note">Este acesso é exclusivo para o administrador do portfólio.</p>
+      <p class="login-note">Este é o local de login para ter acesso ao site.</p>
     </div>
   </div>
 </div>
@@ -581,9 +581,9 @@ function updateNavActions() {
       <button class="nav-btn" onclick="logout()">Sair</button>`;
   } else {
     el.innerHTML = `
-      <button class="nav-btn" onclick="openModal('loginModal')" title="Acesso administrativo">
+      <button class="nav-btn" onclick="openModal('loginModal')" title="Local de login">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Admin
+        Login
       </button>`;
   }
 }
