@@ -661,6 +661,96 @@ body::after {
 .toast-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .toast.success .toast-dot { background: var(--lime); }
 .toast.error .toast-dot { background: var(--red); }
+
+/* ─── FLOATING SEND BUTTON (mobile) ─── */
+#float-send-wrap {
+  display: none;
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9990;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+#float-send-wrap.visible { display: flex; }
+.float-arrow-btn {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--lime); border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; font-size: 1.4rem; color: #080809;
+  box-shadow: 0 4px 20px rgba(200,241,53,.4);
+  animation: bounceUp .6s ease infinite alternate;
+}
+@keyframes bounceUp { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+
+/* ─── SEND CONFIRM OVERLAY ─── */
+#send-confirm-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 9995;
+  background: rgba(8,8,9,.85);
+  backdrop-filter: blur(12px);
+  align-items: center; justify-content: center;
+  padding: 24px;
+}
+#send-confirm-overlay.open { display: flex; }
+.send-confirm-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 32px 28px;
+  width: 100%; max-width: 320px;
+  text-align: center;
+  animation: cardIn .35s cubic-bezier(.22,1,.36,1) both;
+}
+.send-confirm-card .preview-text {
+  font-size: .85rem; color: var(--text2);
+  background: var(--surface2); border-radius: var(--r);
+  padding: 10px 14px; margin: 12px 0 20px;
+  text-align: left; line-height: 1.6;
+  max-height: 80px; overflow-y: auto;
+  word-break: break-word;
+}
+.send-confirm-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .06em; margin-bottom: 4px; }
+.send-confirm-sub { font-size: .78rem; color: var(--text3); margin-bottom: 0; }
+.send-confirm-btns { display: flex; gap: 10px; }
+.send-confirm-btns button { flex: 1; padding: 13px; border-radius: var(--r); font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .9rem; border: 1px solid var(--border); cursor: none; transition: all .18s; }
+.send-confirm-btns .btn-cancel { background: transparent; color: var(--text2); }
+.send-confirm-btns .btn-cancel:hover { background: var(--surface2); }
+.send-confirm-btns .btn-send { background: var(--lime); border-color: var(--lime); color: #080809; }
+.send-confirm-btns .btn-send:hover { background: var(--lime2); }
+
+/* ─── BANNED USERS PANEL ─── */
+#banned-panel {
+  display: none;
+  position: fixed; inset: 0; z-index: 650;
+  background: rgba(8,8,9,.92); backdrop-filter: blur(18px);
+  align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; transition: opacity .3s;
+}
+#banned-panel.open { display: flex; opacity: 1; }
+.banned-panel-card {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 20px; width: 100%; max-width: 520px;
+  max-height: 80vh; overflow-y: auto; position: relative;
+  transform: translateY(20px); transition: transform .3s;
+  padding: 28px;
+}
+#banned-panel.open .banned-panel-card { transform: none; }
+.banned-panel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .06em; margin-bottom: 4px; }
+.banned-panel-sub { font-size: .78rem; color: var(--text3); margin-bottom: 20px; }
+.banned-user-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.banned-user-item:last-child { border-bottom: none; }
+.banned-uid { font-size: .78rem; color: var(--text2); font-family: monospace; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.unban-btn { background: transparent; border: 1px solid rgba(200,241,53,.3); color: var(--lime); padding: 5px 14px; border-radius: 7px; font-size: .72rem; font-family: 'Outfit', sans-serif; cursor: none; transition: all .18s; white-space: nowrap; }
+.unban-btn:hover { background: rgba(200,241,53,.1); border-color: var(--lime); }
+.banned-empty { text-align: center; color: var(--text3); font-size: .85rem; padding: 32px 0; }
 </style>
 </head>
 <body>
@@ -762,6 +852,7 @@ body::after {
         <div class="nav-avatar" id="nav-avatar"></div>
       </div>
       <button class="nav-btn" id="btn-add-video" style="display:none" onclick="openModal('addModal')">+ Vídeo</button>
+       <button class="nav-btn" id="btn-banned-list" style="display:none" onclick="openBannedPanel()">🚫 Banidos</button>
       <button class="nav-btn" onclick="doLogout()">Sair</button>
     </div>
   </nav>
@@ -959,6 +1050,34 @@ body::after {
 
       <button class="submit-btn" id="submit-btn" onclick="submitVideo()">Publicar Vídeo</button>
     </div>
+  </div>
+</div>
+
+<!-- FLOATING SEND BUTTON -->
+<div id="float-send-wrap">
+  <button class="float-arrow-btn" onclick="openSendConfirm()" aria-label="Enviar comentário">↑</button>
+</div>
+
+<!-- SEND CONFIRM OVERLAY -->
+<div id="send-confirm-overlay" onclick="closeSendConfirmIfBg(event)">
+  <div class="send-confirm-card">
+    <div class="send-confirm-title">Enviar Comentário</div>
+    <div class="send-confirm-sub">Sua mensagem:</div>
+    <div class="preview-text" id="send-confirm-preview"></div>
+    <div class="send-confirm-btns">
+      <button class="btn-cancel" onclick="closeSendConfirm()">Cancelar</button>
+      <button class="btn-send" onclick="confirmSend()">Enviar ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- BANNED USERS PANEL -->
+<div id="banned-panel" onclick="handleBannedPanelClick(event)">
+  <div class="banned-panel-card">
+    <button class="modal-x" onclick="closeBannedPanel()">×</button>
+    <div class="banned-panel-title">🚫 Usuários Banidos</div>
+    <div class="banned-panel-sub">Clique em "Desbanir" para restaurar o acesso.</div>
+    <div id="banned-users-list"></div>
   </div>
 </div>
 
@@ -1165,6 +1284,7 @@ function closeOwnerWelcome() {
 }
 function setupNav() {
   if (!state.isOwner) { document.getElementById('app').style.display = 'block'; window.scrollTo(0, 0); }
+   document.getElementById('btn-banned-list').style.display = 'inline-flex';
   const avEl = document.getElementById('nav-avatar');
   const nameEl = document.getElementById('nav-uname');
   if (state.user.photoURL) {
@@ -1695,6 +1815,127 @@ function toast(msg, type = 'success') {
 // ══════════════════════════════════════
 function esc(s) {
   const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML;
+}
+
+// ══════════════════════════════════════
+//  FLOATING SEND (mobile)
+// ══════════════════════════════════════
+let pendingSendVid = null;
+let pendingSendSid = null;
+
+function hookTextareaFloat() {
+  document.addEventListener('input', e => {
+    if (e.target && e.target.classList.contains('cmt-input')) {
+      const hasText = e.target.value.trim().length > 0;
+      const wrap = document.getElementById('float-send-wrap');
+      if (hasText) {
+        wrap.classList.add('visible');
+        // find vid + sid from nearby send button
+        const form = e.target.closest('.cmt-form');
+        if (form) {
+          const sendBtn = form.querySelector('.cmt-send');
+          if (sendBtn) {
+            const onclickVal = sendBtn.getAttribute('onclick') || '';
+            const match = onclickVal.match(/submitCmt\('([^']+)','([^']+)'\)/);
+            if (match) { pendingSendVid = match[1]; pendingSendSid = match[2]; }
+          }
+        }
+        // active textarea ref
+        wrap._activeTextarea = e.target;
+      } else {
+        wrap.classList.remove('visible');
+        pendingSendVid = null; pendingSendSid = null;
+        wrap._activeTextarea = null;
+      }
+    }
+  });
+  document.addEventListener('focusout', e => {
+    if (e.target && e.target.classList.contains('cmt-input')) {
+      setTimeout(() => {
+        const active = document.activeElement;
+        if (!active || !active.closest('#float-send-wrap') && !active.closest('#send-confirm-overlay')) {
+          if (!e.target.value.trim()) {
+            document.getElementById('float-send-wrap').classList.remove('visible');
+          }
+        }
+      }, 200);
+    }
+  });
+}
+hookTextareaFloat();
+
+function openSendConfirm() {
+  const wrap = document.getElementById('float-send-wrap');
+  const ta = wrap._activeTextarea;
+  const text = ta ? ta.value.trim() : '';
+  if (!text) return;
+  document.getElementById('send-confirm-preview').textContent = text;
+  const overlay = document.getElementById('send-confirm-overlay');
+  overlay.style.display = 'flex';
+  requestAnimationFrame(() => overlay.classList.add('open'));
+}
+function closeSendConfirm() {
+  const overlay = document.getElementById('send-confirm-overlay');
+  overlay.classList.remove('open');
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+}
+function closeSendConfirmIfBg(e) {
+  if (e.target === document.getElementById('send-confirm-overlay')) closeSendConfirm();
+}
+function confirmSend() {
+  closeSendConfirm();
+  if (pendingSendVid && pendingSendSid) {
+    submitCmt(pendingSendVid, pendingSendSid);
+    document.getElementById('float-send-wrap').classList.remove('visible');
+    pendingSendVid = null; pendingSendSid = null;
+  }
+}
+
+// ══════════════════════════════════════
+//  BANNED USERS PANEL (owner)
+// ══════════════════════════════════════
+function openBannedPanel() {
+  db.ref('portfolio_bans').once('value', snap => {
+    const bans = snap.val() || {};
+    const list = document.getElementById('banned-users-list');
+    const entries = Object.entries(bans).filter(([, v]) => v.banned);
+    if (!entries.length) {
+      list.innerHTML = `<div class="banned-empty">Nenhum usuário banido.</div>`;
+    } else {
+      list.innerHTML = entries.map(([uid, data]) => `
+        <div class="banned-user-item" id="ban-item-${uid}">
+          <div>
+            <div class="banned-uid">${uid}</div>
+            <div style="font-size:.68rem;color:var(--text3);margin-top:2px">${data.bannedAt ? 'Banido em ' + new Date(data.bannedAt).toLocaleDateString('pt-BR') : ''}</div>
+          </div>
+          <button class="unban-btn" onclick="unbanUser('${uid}')">✓ Desbanir</button>
+        </div>`).join('');
+    }
+    const panel = document.getElementById('banned-panel');
+    panel.style.display = 'flex';
+    requestAnimationFrame(() => panel.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+  });
+}
+function closeBannedPanel() {
+  const panel = document.getElementById('banned-panel');
+  panel.classList.remove('open');
+  setTimeout(() => { panel.style.display = 'none'; document.body.style.overflow = ''; }, 300);
+}
+function handleBannedPanelClick(e) {
+  if (e.target === document.getElementById('banned-panel')) closeBannedPanel();
+}
+function unbanUser(uid) {
+  if (!state.isOwner) return;
+  db.ref('portfolio_bans/' + uid).remove().then(() => {
+    const item = document.getElementById('ban-item-' + uid);
+    if (item) item.remove();
+    const list = document.getElementById('banned-users-list');
+    if (list && !list.querySelector('.banned-user-item')) {
+      list.innerHTML = `<div class="banned-empty">Nenhum usuário banido.</div>`;
+    }
+    toast('Usuário desbanido com sucesso!', 'success');
+  });
 }
 </script>
 </body>
