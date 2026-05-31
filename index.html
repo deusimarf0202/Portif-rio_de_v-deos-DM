@@ -2,330 +2,596 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DM · Portfólio</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#060608;--surface:#0d0d12;--surface2:#13131a;--surface3:#1a1a24;
-  --border:#ffffff0f;--border2:#ffffff1a;--accent:#c8f135;--accent2:#a8d420;
-  --text:#f0f0f0;--text2:#9898b0;--text3:#5a5a70;--red:#ff4d4d;--yellow:#ffd166;
-  --radius:14px;--radius2:10px;
+  --bg:#060608;
+  --surface:#0d0d12;
+  --surface2:#13131a;
+  --surface3:#1a1a24;
+  --border:#ffffff0f;
+  --border2:#ffffff1a;
+  --accent:#c8f135;
+  --accent2:#a8d420;
+  --text:#f0f0f0;
+  --text2:#9898b0;
+  --text3:#5a5a70;
+  --red:#ff4d4d;
+  --yellow:#ffd166;
+  --radius:14px;
+  --radius2:10px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s ease;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;mix-blend-mode:difference}
+body:has(a:hover,button:hover,[role=button]:hover) #cursor-ring{transform:translate(-50%,-50%) scale(1.8);border-color:var(--accent);opacity:.5}
+
+/* NOISE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:.4
+}
+
+/* SCROLLBAR */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:4px}
 
-/* ── SIDE MENU ── */
-#menuOverlay{position:fixed;inset:0;background:#000000cc;z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
-#menuOverlay.open{opacity:1;pointer-events:all}
-#sideMenu{position:fixed;left:0;top:0;bottom:0;width:280px;background:var(--surface);border-right:1px solid var(--border2);z-index:501;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
-#sideMenu.open{transform:translateX(0)}
-.menu-header{padding:28px 24px 20px;border-bottom:1px solid var(--border)}
-.menu-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:-.02em}
-.menu-logo span{color:var(--accent)}
-.menu-tagline{font-size:11px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
-.menu-user{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.menu-avatar{width:36px;height:36px;border-radius:50%;background:var(--surface3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;flex-shrink:0}
-.menu-username{font-size:.85rem;font-weight:600}
-.menu-role{font-size:11px;color:var(--text3)}
-.menu-nav{padding:16px 12px;flex:1;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
-.menu-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;cursor:pointer;transition:all .2s;color:var(--text2);font-size:.9rem;border:1px solid transparent}
-.menu-item:hover{background:var(--surface2);color:var(--text);border-color:var(--border)}
-.menu-item.accent{color:#060608;background:var(--accent);font-weight:600}
-.menu-item.accent:hover{background:var(--accent2)}
-.menu-item.danger{color:var(--red)}
-.menu-item.danger:hover{background:var(--red)11;border-color:var(--red)33}
-.menu-item-icon{width:20px;text-align:center;font-size:.9rem;flex-shrink:0}
-.menu-footer{padding:16px 24px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);text-align:center}
-
-/* ── MENU TOGGLE BTN ── */
-.menu-toggle{width:42px;height:42px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0}
-.menu-toggle:hover{background:var(--surface3);border-color:var(--border)}
-.menu-toggle-icon{display:flex;flex-direction:column;gap:4px;padding:2px}
-.menu-toggle-icon span{display:block;width:16px;height:2px;background:var(--text2);border-radius:2px;transition:all .3s}
-
-/* ── PAGES ── */
-.page{display:none;min-height:100vh}
-.page.active{display:block}
-
-/* ── LANDING ── */
-#page-landing{display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:2rem;text-align:center;position:relative}
-.landing-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,#c8f13512 0%,transparent 70%);pointer-events:none}
-.landing-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.landing-lines span{position:absolute;left:50%;top:0;width:1px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);opacity:.12;animation:linePulse 4s infinite}
+/* LANDING */
+#landing{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;z-index:2;
+  padding:2rem;text-align:center;
+}
+.landing-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,#c8f13512 0%,transparent 70%);
+  pointer-events:none;
+}
+.landing-lines{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;
+}
+.landing-lines span{
+  position:absolute;left:50%;top:0;
+  width:1px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);
+  opacity:.12;transform-origin:top center;
+  animation:linePulse 4s infinite;
+}
 @keyframes linePulse{0%,100%{opacity:.06;height:0;top:0}50%{opacity:.18;height:100vh}}
-.tag{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border2);padding:6px 16px;border-radius:999px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);margin-bottom:2rem;animation:fadeDown .8s ease both}
+.tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface2);border:1px solid var(--border2);
+  padding:6px 16px;border-radius:999px;
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text2);margin-bottom:2rem;
+  animation:fadeDown .8s ease both;
+}
 .tag-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.landing-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,14vw,8rem);font-weight:800;line-height:.92;letter-spacing:-.03em;animation:fadeUp .9s ease .2s both}
+
+.landing-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3.5rem,10vw,8rem);
+  font-weight:800;line-height:.92;
+  letter-spacing:-.03em;
+  animation:fadeUp .9s ease .2s both;
+}
 .landing-title span{color:var(--accent)}
-.landing-sub{font-size:clamp(.95rem,3vw,1.2rem);color:var(--text2);max-width:420px;margin:1.5rem auto 2.5rem;line-height:1.7;font-weight:300;animation:fadeUp .9s ease .4s both}
-.landing-cta{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#060608;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em;padding:16px 40px;border-radius:999px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .9s ease .6s both}
+.landing-sub{
+  font-size:clamp(1rem,2vw,1.2rem);color:var(--text2);
+  max-width:480px;margin:1.5rem auto 2.5rem;
+  line-height:1.7;font-weight:300;
+  animation:fadeUp .9s ease .4s both;
+}
+.landing-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--accent);color:#060608;
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:1rem;letter-spacing:.04em;
+  padding:16px 40px;border-radius:999px;
+  border:none;cursor:none;
+  transition:transform .2s,box-shadow .2s;
+  animation:fadeUp .9s ease .6s both;
+  position:relative;overflow:hidden;
+}
+.landing-cta::before{
+  content:'';position:absolute;inset:0;
+  background:white;opacity:0;
+  transition:opacity .2s;
+}
 .landing-cta:hover{transform:scale(1.04);box-shadow:0 0 40px var(--accent)44}
+.landing-cta:hover::before{opacity:.08}
 .landing-cta:active{transform:scale(.98)}
 .cta-arrow{font-size:1.2rem;transition:transform .2s}
 .landing-cta:hover .cta-arrow{transform:translateX(4px)}
 
-/* ── NAV ── */
-#page-portfolio{padding-top:68px}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(to bottom,var(--bg)80%,transparent);transition:backdrop-filter .3s,background .3s}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--text3);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  animation:fadeIn 1s ease 1.2s both;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--text3),transparent);animation:scrollLine 2s infinite}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* MAIN APP */
+#app{display:none;min-height:100vh;position:relative;z-index:2}
+
+/* NAVBAR */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,var(--bg)60%,transparent);
+  backdrop-filter:blur(0);
+  transition:backdrop-filter .3s,background .3s;
+}
 nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-.02em;flex:1;text-align:center}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;
+  letter-spacing:-.02em;cursor:none;
+}
 .nav-logo span{color:var(--accent)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text2);font-size:13px;font-family:'Space Grotesk',sans-serif;
+  padding:10px 18px;border-radius:999px;cursor:none;
+  transition:all .2s;
+}
+.nav-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3)}
+.nav-btn.accent{background:var(--accent);color:#060608;border-color:transparent;font-weight:600}
+.nav-btn.accent:hover{background:var(--accent2);box-shadow:0 0 20px var(--accent)44}
 
-/* ── HERO ── */
-.hero{padding:32px 16px 40px;max-width:1400px;margin:0 auto}
-.hero-top{margin-bottom:28px}
-.hero-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:.6rem}
-.hero-name{font-family:'Syne',sans-serif;font-size:clamp(2rem,8vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.03em}
+/* HERO */
+.hero{padding:140px 40px 60px;max-width:1400px;margin:0 auto}
+.hero-top{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:60px}
+.hero-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:.8rem}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.03em}
 .hero-name span{color:var(--accent)}
-.hero-desc{color:var(--text2);margin-top:12px;line-height:1.7;font-size:.88rem;font-weight:300}
-.stats-bar{display:grid;grid-template-columns:repeat(2,1fr);background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.stat-item{padding:16px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stat-item:nth-child(2n){border-right:none}
-.stat-item:nth-child(3),.stat-item:nth-child(4){border-bottom:none}
-.stat-num{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700}
-.stat-label{font-size:10px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.hero-desc{color:var(--text2);max-width:340px;line-height:1.7;font-size:.95rem;font-weight:300}
 
-/* ── SECTION ── */
-.section{padding:0 16px 60px;max-width:1400px;margin:0 auto}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.section-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700}
-.section-count{font-size:10px;color:var(--text3);background:var(--surface2);border:1px solid var(--border);padding:4px 10px;border-radius:999px;letter-spacing:.08em}
+.stats-bar{
+  display:flex;gap:0;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+}
+.stat-item{
+  padding:20px 32px;flex:1;border-right:1px solid var(--border);
+  transition:background .2s;
+}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:var(--surface3)}
+.stat-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;color:var(--text)}
+.stat-label{font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
 
-/* ── GRID ── */
-.video-grid{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:600px){.video-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.video-grid{grid-template-columns:repeat(3,1fr)}}
+/* GRID */
+.section{padding:0 40px 80px;max-width:1400px;margin:0 auto}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.section-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-.01em}
+.section-count{
+  font-size:11px;color:var(--text3);
+  background:var(--surface2);border:1px solid var(--border);
+  padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+}
 
-/* ── CARD ── */
-.video-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;animation:cardIn .5s ease both}
-@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.video-card:active{transform:scale(.98)}
-.card-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--surface2)}
-.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.video-card:hover .card-thumb img{transform:scale(1.04)}
-.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,#060608cc 0%,transparent 60%);display:flex;align-items:center;justify-content:center}
-.play-btn{width:52px;height:52px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px var(--accent)44}
-.play-icon{width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid #060608;margin-left:3px}
-.card-duration{position:absolute;bottom:10px;right:10px;background:#06060888;backdrop-filter:blur(8px);padding:3px 8px;border-radius:6px;font-size:11px;color:white;font-weight:500}
-.card-badge{position:absolute;top:10px;left:10px;background:var(--accent);color:#060608;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.card-body{padding:14px}
-.card-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:600;margin-bottom:6px}
-.card-meta{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--text3);margin-bottom:12px;flex-wrap:wrap}
+.video-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:20px;
+}
+
+/* VIDEO CARD */
+.video-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  cursor:none;transition:transform .25s,border-color .25s,box-shadow .25s;
+  animation:cardIn .5s ease both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.video-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 20px 60px #00000044}
+
+.card-thumb{
+  position:relative;aspect-ratio:16/9;overflow:hidden;
+  background:var(--surface2);
+}
+.card-thumb video,.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.video-card:hover .card-thumb video,.video-card:hover .card-thumb img{transform:scale(1.04)}
+.card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,#060608cc 0%,transparent 60%);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .25s;
+}
+.video-card:hover .card-overlay{opacity:1}
+.play-btn{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  transform:scale(.8);transition:transform .25s;
+  box-shadow:0 0 30px var(--accent)44;
+}
+.video-card:hover .play-btn{transform:scale(1)}
+.play-icon{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #060608;margin-left:3px}
+
+.card-duration{
+  position:absolute;bottom:10px;right:10px;
+  background:#06060888;backdrop-filter:blur(8px);
+  padding:4px 10px;border-radius:6px;
+  font-size:11px;color:white;font-weight:500;letter-spacing:.04em;
+}
+.card-badge{
+  position:absolute;top:10px;left:10px;
+  background:var(--accent);color:#060608;
+  padding:4px 10px;border-radius:6px;
+  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
+
+.card-body{padding:18px}
+.card-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+.card-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text3);margin-bottom:14px}
 .card-meta-dot{width:3px;height:3px;background:var(--text3);border-radius:50%}
+
 .card-actions{display:flex;align-items:center;gap:8px}
-.card-btn{display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:12px;font-family:'Space Grotesk',sans-serif;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .18s}
+.card-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:8px;font-size:12px;font-family:'Space Grotesk',sans-serif;
+  border:1px solid var(--border);background:transparent;color:var(--text2);
+  cursor:none;transition:all .18s;
+}
+.card-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}
 .card-btn.watch{background:var(--accent);color:#060608;border-color:transparent;font-weight:600;margin-left:auto}
+.card-btn.watch:hover{background:var(--accent2);box-shadow:0 0 16px var(--accent)44}
+.card-btn svg{flex-shrink:0}
+.rating-display{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--yellow)}
+.rating-display span{color:var(--text3)}
 
-/* ── EMPTY ── */
-.empty-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;color:var(--text3);text-align:center;gap:12px}
-.empty-icon{font-size:2.5rem;opacity:.3}
-.empty-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text2)}
-.empty-sub{font-size:.85rem;max-width:280px;line-height:1.6}
+/* EMPTY STATE */
+.empty-state{
+  grid-column:1/-1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 20px;color:var(--text3);text-align:center;gap:16px;
+}
+.empty-icon{font-size:3rem;opacity:.3}
+.empty-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text2)}
+.empty-sub{font-size:.9rem;max-width:300px;line-height:1.6}
 
-/* ── FILTER ── */
-.filter-bar{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:20px;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.filter-bar::-webkit-scrollbar{display:none}
-.filter-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text3);padding:7px 14px;border-radius:999px;font-size:12px;cursor:pointer;transition:all .18s;font-family:'Space Grotesk',sans-serif;white-space:nowrap;flex-shrink:0}
-.filter-btn.active{background:var(--accent);color:#060608;border-color:transparent;font-weight:600}
-
-/* ── MARQUEE ── */
-.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;padding:12px 0;margin-bottom:28px}
-.marquee-inner{display:inline-flex;animation:marquee 20s linear infinite}
-.marquee-item{padding:0 20px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:10px}
-.marquee-item::after{content:'·';color:var(--accent)}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:#060608ee;backdrop-filter:blur(20px);z-index:1000;display:none;align-items:flex-end;justify-content:center;padding:0;opacity:0;transition:opacity .3s}
-@media(min-width:600px){.modal-overlay{align-items:center;padding:20px}}
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;background:#060608e8;backdrop-filter:blur(20px);
+  z-index:1000;display:none;align-items:center;justify-content:center;
+  padding:20px;opacity:0;transition:opacity .3s;
+}
 .modal-overlay.open{display:flex;opacity:1}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:20px 20px 0 0;width:100%;max-height:92vh;overflow-y:auto;transform:translateY(40px);transition:transform .3s;position:relative}
-@media(min-width:600px){.modal{max-width:860px;border-radius:20px;max-height:90vh;transform:translateY(20px)}}
+.modal{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:20px;width:100%;max-width:860px;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(20px);transition:transform .3s;
+  position:relative;
+}
 .modal-overlay.open .modal{transform:translateY(0)}
-.modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .18s;z-index:1;font-size:18px;line-height:1}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--surface2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;color:var(--text2);transition:all .18s;z-index:1;
+  font-size:18px;line-height:1;
+}
 .modal-close:hover{background:var(--surface3);color:var(--text)}
-/* Handle bar for mobile */
-.modal-handle{width:40px;height:4px;background:var(--surface3);border-radius:4px;margin:12px auto 0}
-.modal-video{width:100%;aspect-ratio:16/9;background:#000;border-radius:0;overflow:hidden}
-@media(min-width:600px){.modal-video{border-radius:20px 20px 0 0}}
+.modal-video{width:100%;aspect-ratio:16/9;background:#000;border-radius:20px 20px 0 0;overflow:hidden}
 .modal-video video,.modal-video iframe{width:100%;height:100%;border:none}
-.modal-video-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface2);color:var(--text3);gap:12px;font-size:.9rem}
-.modal-body{padding:18px 16px 24px}
-@media(min-width:600px){.modal-body{padding:24px 28px}}
-.modal-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:8px}
-.modal-meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text3);margin-bottom:16px;flex-wrap:wrap}
-.modal-desc{color:var(--text2);line-height:1.7;font-size:.9rem;margin-bottom:20px}
-.modal-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.modal-video-placeholder{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:var(--surface2);color:var(--text3);gap:12px;
+  font-size:.9rem;
+}
+.modal-body{padding:24px 28px}
+.modal-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:8px}
+.modal-meta{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text3);margin-bottom:20px}
+.modal-desc{color:var(--text2);line-height:1.7;font-size:.95rem;margin-bottom:24px}
 
-/* ── RATING ── */
-.rating-section{margin-bottom:20px}
-.rating-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+/* RATING */
+.rating-section{margin-bottom:24px}
+.rating-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
 .stars{display:flex;gap:6px}
-.star{font-size:1.8rem;cursor:pointer;transition:transform .15s;filter:grayscale(1);opacity:.3;color:var(--yellow)}
-.star.active{filter:none;opacity:1}
+.star{
+  font-size:1.5rem;cursor:none;transition:transform .15s;
+  filter:grayscale(1);opacity:.3;
+}
+.star:hover,.star.active{filter:none;opacity:1;transform:scale(1.15)}
+.star:hover ~ .star{filter:grayscale(1)!important;opacity:.3!important;transform:none!important}
 
-/* ── COMMENTS ── */
-.comments-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
-.comment-form{display:flex;gap:10px;margin-bottom:16px}
-.comment-input{flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--radius2);font-family:'Space Grotesk',sans-serif;font-size:.88rem;transition:border-color .18s;outline:none;resize:none;min-height:44px}
+/* COMMENTS */
+.comments-section{}
+.comments-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.comment-form{display:flex;gap:10px;margin-bottom:20px}
+.comment-input{
+  flex:1;background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);padding:12px 16px;border-radius:var(--radius2);
+  font-family:'Space Grotesk',sans-serif;font-size:.9rem;
+  transition:border-color .18s;outline:none;resize:none;min-height:48px;
+}
 .comment-input::placeholder{color:var(--text3)}
 .comment-input:focus{border-color:var(--border2)}
-.comment-send{background:var(--accent);color:#060608;border:none;padding:11px 16px;border-radius:var(--radius2);cursor:pointer;font-weight:600;font-family:'Syne',sans-serif;font-size:.82rem;transition:all .18s;white-space:nowrap}
-.comment-send:hover{background:var(--accent2)}
-.comment-item{padding:12px 0;border-bottom:1px solid var(--border);animation:fadeIn .3s ease}
+.comment-send{
+  background:var(--accent);color:#060608;border:none;
+  padding:12px 20px;border-radius:var(--radius2);cursor:none;
+  font-weight:600;font-family:'Syne',sans-serif;font-size:.85rem;
+  transition:all .18s;white-space:nowrap;
+}
+.comment-send:hover{background:var(--accent2);box-shadow:0 0 16px var(--accent)44}
+.comment-name-input{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);padding:10px 14px;border-radius:var(--radius2);
+  font-family:'Space Grotesk',sans-serif;font-size:.85rem;
+  transition:border-color .18s;outline:none;width:160px;
+}
+.comment-name-input:focus{border-color:var(--border2)}
+.comment-name-input::placeholder{color:var(--text3)}
+
+.comment-item{
+  padding:14px 0;border-bottom:1px solid var(--border);
+  animation:fadeIn .3s ease;
+}
 .comment-item:last-child{border-bottom:none}
 .comment-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .comment-author{display:flex;align-items:center;gap:8px}
-.comment-avatar{width:26px;height:26px;border-radius:50%;background:var(--surface3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--accent);flex-shrink:0}
-.comment-name{font-size:12px;font-weight:500}
-.comment-date{font-size:10px;color:var(--text3)}
-.comment-text{font-size:.85rem;color:var(--text2);line-height:1.6}
-.comment-actions{display:flex;gap:6px}
-.ban-btn{font-size:10px;background:transparent;border:1px solid var(--red)44;color:var(--red);padding:3px 8px;border-radius:6px;cursor:pointer;transition:all .18s}
-.delete-comment-btn{font-size:10px;background:transparent;border:1px solid var(--border);color:var(--text3);padding:3px 8px;border-radius:6px;cursor:pointer;transition:all .18s}
-.banned-notice{background:var(--red)15;border:1px solid var(--red)33;color:var(--red);padding:10px 14px;border-radius:var(--radius2);font-size:.82rem;text-align:center;margin-top:12px}
-.download-btn{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:9px 16px;border-radius:var(--radius2);cursor:pointer;font-size:.82rem;transition:all .18s;font-family:'Space Grotesk',sans-serif;text-decoration:none}
-.download-btn:hover{background:var(--surface3);border-color:var(--border2);color:var(--text)}
-.login-prompt{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius2);padding:12px 16px;font-size:.85rem;color:var(--text3);margin-bottom:16px}
-.login-prompt a{color:var(--accent);cursor:pointer;font-weight:600}
+.comment-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--surface3);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--accent);
+}
+.comment-name{font-size:13px;font-weight:500}
+.comment-date{font-size:11px;color:var(--text3)}
+.comment-text{font-size:.9rem;color:var(--text2);line-height:1.6}
+.comment-actions{display:flex;gap:6px;align-items:center}
+.ban-btn{
+  font-size:10px;background:transparent;border:1px solid var(--red)44;
+  color:var(--red);padding:3px 10px;border-radius:6px;cursor:none;
+  transition:all .18s;letter-spacing:.04em;
+}
+.ban-btn:hover{background:var(--red)22;border-color:var(--red)}
+.delete-comment-btn{
+  font-size:10px;background:transparent;border:1px solid var(--border);
+  color:var(--text3);padding:3px 10px;border-radius:6px;cursor:none;
+  transition:all .18s;
+}
+.delete-comment-btn:hover{background:var(--surface2);color:var(--text)}
+.banned-notice{
+  background:var(--red)15;border:1px solid var(--red)33;
+  color:var(--red);padding:10px 14px;border-radius:var(--radius2);
+  font-size:.85rem;text-align:center;margin-top:12px;
+}
 
-/* ── ADD VIDEO MODAL ── */
-.add-modal{border-radius:20px 20px 0 0}
-@media(min-width:600px){.add-modal{max-width:600px;border-radius:20px}}
-.form-group{margin-bottom:16px}
-.form-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:7px}
-.form-hint{font-size:11px;color:var(--text3);margin-top:4px}
-.form-input,.form-textarea,.form-select{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--radius2);font-family:'Space Grotesk',sans-serif;font-size:.88rem;transition:border-color .18s;outline:none}
-.form-textarea{resize:vertical;min-height:80px}
+/* DOWNLOAD BTN */
+.download-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text2);padding:10px 18px;border-radius:var(--radius2);
+  cursor:none;font-size:.85rem;transition:all .18s;font-family:'Space Grotesk',sans-serif;
+}
+.download-btn:hover{background:var(--surface3);border-color:var(--border2);color:var(--text)}
+
+/* ADD VIDEO MODAL */
+.add-modal{max-width:600px}
+.form-group{margin-bottom:18px}
+.form-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:8px}
+.form-input,.form-textarea,.form-select{
+  width:100%;background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);padding:12px 16px;border-radius:var(--radius2);
+  font-family:'Space Grotesk',sans-serif;font-size:.9rem;
+  transition:border-color .18s;outline:none;
+}
+.form-textarea{resize:vertical;min-height:90px}
 .form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
 .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent)88}
-.form-select{appearance:none;cursor:pointer}
+.form-select{appearance:none;cursor:none}
 .form-select option{background:var(--surface)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.submit-btn{width:100%;background:var(--accent);color:#060608;border:none;padding:14px;border-radius:var(--radius2);cursor:pointer;font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;transition:all .2s;margin-top:6px;letter-spacing:.02em}
+.form-hint{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.submit-btn{
+  width:100%;background:var(--accent);color:#060608;border:none;
+  padding:14px;border-radius:var(--radius2);cursor:none;
+  font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;
+  transition:all .2s;margin-top:8px;letter-spacing:.02em;
+}
 .submit-btn:hover{background:var(--accent2);box-shadow:0 0 24px var(--accent)44}
-.submit-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
-.file-upload-area{width:100%;border:2px dashed var(--border2);border-radius:var(--radius2);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2);position:relative;overflow:hidden}
-.file-upload-area:hover,.file-upload-area.drag-over{border-color:var(--accent)66;background:var(--accent)08}
-.file-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.file-upload-icon{font-size:1.5rem;margin-bottom:6px;opacity:.5}
-.file-upload-text{font-size:.82rem;color:var(--text3)}
-.file-upload-text strong{color:var(--accent)}
-.file-upload-hint{font-size:10px;color:var(--text3);margin-top:3px}
-.thumb-preview{width:100%;aspect-ratio:16/9;border-radius:var(--radius2);overflow:hidden;background:var(--surface2);display:none;margin-top:10px;position:relative}
-.thumb-preview img{width:100%;height:100%;object-fit:cover}
-.thumb-preview-remove{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:#060608bb;border:1px solid var(--border2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
-.file-selected{background:var(--accent)0a;border-color:var(--accent)44;padding:14px}
-.file-selected-name{font-size:.82rem;color:var(--text);font-weight:500;margin-bottom:3px;display:flex;align-items:center;gap:6px;justify-content:center}
-.file-selected-size{font-size:10px;color:var(--text3)}
-.file-selected-remove{display:inline-flex;align-items:center;gap:4px;margin-top:6px;background:transparent;border:1px solid var(--border2);color:var(--text3);padding:3px 10px;border-radius:6px;cursor:pointer;font-size:10px;font-family:'Space Grotesk',sans-serif;transition:all .18s}
-.progress-wrap{margin-top:10px;display:none}
-.progress-label{font-size:10px;color:var(--text3);margin-bottom:5px;display:flex;justify-content:space-between}
-.progress-bar{width:100%;height:4px;background:var(--surface3);border-radius:999px;overflow:hidden}
-.progress-fill{height:100%;background:var(--accent);border-radius:999px;width:0%;transition:width .1s}
-.info-box{background:var(--yellow)11;border:1px solid var(--yellow)33;border-radius:var(--radius2);padding:12px 14px;font-size:.78rem;color:var(--text2);display:flex;gap:10px;margin-bottom:18px}
+.submit-btn:active{transform:scale(.99)}
 
-/* ── LOGIN MODAL ── */
-.login-modal{border-radius:20px 20px 0 0}
-@media(min-width:600px){.login-modal{max-width:400px;border-radius:20px}}
-.login-header{text-align:center;padding:32px 24px 20px}
-.login-icon{width:60px;height:60px;border-radius:18px;background:var(--accent)22;border:1px solid var(--accent)44;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.6rem}
-.login-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:6px}
-.login-sub{font-size:.88rem;color:var(--text3);line-height:1.5}
-.login-body{padding:0 24px 32px;display:flex;flex-direction:column;gap:10px}
-.login-error{font-size:12px;color:var(--red);text-align:center;padding:9px 12px;background:var(--red)11;border:1px solid var(--red)33;border-radius:var(--radius2);display:none}
-.login-input-wrap{position:relative}
-.login-input-wrap input{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:var(--radius2);font-family:'Space Grotesk',sans-serif;font-size:.92rem;outline:none;transition:border-color .2s}
-.login-input-wrap input:focus{border-color:var(--accent)66}
-.login-input-wrap input::placeholder{color:var(--text3)}
-.login-toggle-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:4px}
-.login-submit{width:100%;background:var(--accent);color:#060608;border:none;padding:13px;border-radius:var(--radius2);cursor:pointer;font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;transition:all .2s;letter-spacing:.02em}
-.login-submit:hover{background:var(--accent2);box-shadow:0 0 24px var(--accent)44}
-.login-note{font-size:11px;color:var(--text3);text-align:center;line-height:1.6}
+/* LOGIN MODAL */
+.login-modal{max-width:420px}
+.login-header{text-align:center;padding:32px 28px 0}
+.login-icon{
+  width:60px;height:60px;border-radius:16px;background:var(--accent)22;
+  border:1px solid var(--accent)44;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;font-size:1.6rem;
+}
+.login-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:8px}
+.login-sub{font-size:.9rem;color:var(--text3)}
+.login-form{padding:24px 28px}
 
-/* ── TOAST ── */
-.toast-container{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:90%;max-width:340px}
-.toast{background:var(--surface2);border:1px solid var(--border2);padding:12px 18px;border-radius:12px;font-size:.88rem;color:var(--text);transform:translateY(20px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;width:100%;display:flex;align-items:center;gap:10px}
-.toast.show{transform:translateY(0);opacity:1}
+/* TOAST */
+.toast-container{position:fixed;bottom:30px;right:30px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{
+  background:var(--surface2);border:1px solid var(--border2);
+  padding:14px 20px;border-radius:var(--radius2);
+  font-size:.9rem;color:var(--text);
+  transform:translateX(120%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;max-width:320px;
+  display:flex;align-items:center;gap:10px;
+}
+.toast.show{transform:translateX(0)}
 .toast.success{border-color:var(--accent)44}
 .toast.error{border-color:var(--red)44}
-.toast-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.toast-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .toast.success .toast-dot{background:var(--accent)}
 .toast.error .toast-dot{background:var(--red)}
 
-/* ── BANNED ── */
-#banned-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:9990;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:20px}
-#banned-page h2{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--red)}
-#banned-page p{color:var(--text3);max-width:320px;line-height:1.7;font-size:.9rem}
-#banned-page .ban-icon{font-size:3.5rem}
+/* BANNED PAGE */
+#banned-page{
+  display:none;position:fixed;inset:0;
+  background:var(--bg);z-index:9990;
+  align-items:center;justify-content:center;
+  flex-direction:column;gap:16px;text-align:center;padding:20px;
+}
+#banned-page h2{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--red)}
+#banned-page p{color:var(--text3);max-width:360px;line-height:1.7}
+#banned-page .ban-icon{font-size:4rem;margin-bottom:8px}
 
-/* ── NOTA COMPARTILHAMENTO ── */
-.share-note{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius2);padding:12px 16px;font-size:.8rem;color:var(--text3);margin-bottom:20px;line-height:1.6}
-.share-note strong{color:var(--accent)}
+/* OWNER BADGE */
+.owner-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent)22;border:1px solid var(--accent)44;
+  color:var(--accent);padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+
+/* MODAL ACTIONS BAR */
+.modal-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+
+/* CATEGORIES */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filter-btn{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text3);padding:8px 16px;border-radius:999px;
+  font-size:12px;cursor:none;transition:all .18s;font-family:'Space Grotesk',sans-serif;
+  letter-spacing:.04em;
+}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#060608;border-color:transparent;font-weight:600}
+
+/* MARQUEE */
+.marquee-wrap{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  overflow:hidden;white-space:nowrap;padding:14px 0;margin-bottom:60px;
+}
+.marquee-inner{display:inline-flex;animation:marquee 20s linear infinite}
+.marquee-item{
+  padding:0 24px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--text3);display:flex;align-items:center;gap:12px;
+}
+.marquee-item::after{content:'·';margin-left:0;color:var(--accent)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* PROGRESS BAR */
+.video-progress{
+  position:absolute;bottom:0;left:0;
+  height:2px;background:var(--accent);
+  width:0;transition:width .1s linear;
+}
+
+/* OWNER PANEL */
+.owner-panel{
+  background:var(--surface2);border:1px solid var(--accent)22;
+  border-radius:var(--radius);padding:20px 24px;
+  margin-bottom:40px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.owner-panel-left{display:flex;align-items:center;gap:14px}
+.owner-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--accent)22;border:2px solid var(--accent)44;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);
+}
+.owner-name{font-weight:600;font-size:.95rem}
+.owner-email{font-size:12px;color:var(--text3)}
+.owner-panel-right{display:flex;gap:10px;flex-wrap:wrap}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .hero{padding:120px 20px 40px}
+  .section{padding:0 20px 60px}
+  .video-grid{grid-template-columns:1fr}
+  .stats-bar{flex-direction:column}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border)}
+  .stat-item:last-child{border-bottom:none}
+  .form-row{grid-template-columns:1fr}
+}
+
+/* SKELETON */
+.skeleton{
+  background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s infinite;
+  border-radius:6px;
+}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
 </style>
 </head>
 <body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
+<!-- BANNED PAGE -->
 <div id="banned-page">
   <div class="ban-icon">🚫</div>
   <h2>Acesso Bloqueado</h2>
   <p>Você foi banido permanentemente do portfólio por violar as regras de comentários.</p>
 </div>
 
-<!-- ── SIDE MENU ── -->
-<div id="menuOverlay" onclick="closeMenu()"></div>
-<div id="sideMenu">
-  <div class="menu-header">
-    <div class="menu-logo">DM<span>.</span></div>
-    <div class="menu-tagline">Portfólio Audiovisual</div>
-  </div>
-  <div id="menuUser" class="menu-user" style="display:none"></div>
-  <div class="menu-nav" id="menuNav"></div>
-  <div class="menu-footer">DM Studio · 2024</div>
-</div>
-
-<!-- ── LANDING ── -->
-<div class="page active" id="page-landing">
+<!-- LANDING -->
+<section id="landing">
   <div class="landing-bg"></div>
   <div class="landing-lines" id="landingLines"></div>
   <div class="tag"><span class="tag-dot"></span> Portfólio Visual · 2024</div>
   <h1 class="landing-title">DM<br><span>Studio.</span></h1>
   <p class="landing-sub">Criações audiovisuais com propósito. Explore o trabalho, avalie e deixe sua impressão.</p>
-  <button class="landing-cta" onclick="goToPortfolio()">Ver Portfólio <span class="cta-arrow">→</span></button>
-</div>
+  <button class="landing-cta" onclick="enterPortfolio()">
+    Ver Portfólio <span class="cta-arrow">→</span>
+  </button>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
 
-<!-- ── PORTFOLIO ── -->
-<div class="page" id="page-portfolio">
+<!-- MAIN APP -->
+<div id="app">
   <nav id="navbar">
-    <!-- Botão menu hambúrguer -->
-    <div class="menu-toggle" onclick="openMenu()" title="Menu">
-      <div class="menu-toggle-icon">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
     <div class="nav-logo">DM<span>.</span></div>
-    <!-- Espaço para alinhar (espelho do botão) -->
-    <div style="width:42px"></div>
+    <div class="nav-actions" id="navActions">
+      <button class="nav-btn" onclick="openLoginModal()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Área do Dono
+      </button>
+    </div>
   </nav>
 
   <div class="hero">
     <div class="hero-top">
-      <div class="hero-label">Portfólio Audiovisual</div>
-      <h2 class="hero-name">Criações<br><span>em Vídeo.</span></h2>
-      <p class="hero-desc">Cada vídeo é uma história. Assista, avalie e compartilhe sua experiência.</p>
+      <div>
+        <div class="hero-label">Portfólio Audiovisual</div>
+        <h2 class="hero-name">Criações<br><span>em Vídeo.</span></h2>
+      </div>
+      <p class="hero-desc">Cada vídeo é uma história. Assista, avalie e compartilhe sua experiência com este trabalho.</p>
     </div>
-    <div class="stats-bar">
+    <div class="stats-bar" id="statsBar">
       <div class="stat-item"><div class="stat-num" id="statVideos">0</div><div class="stat-label">Vídeos</div></div>
-      <div class="stat-item"><div class="stat-num" id="statRating">—</div><div class="stat-label">Avaliação</div></div>
+      <div class="stat-item"><div class="stat-num" id="statRating">—</div><div class="stat-label">Avaliação Média</div></div>
       <div class="stat-item"><div class="stat-num" id="statComments">0</div><div class="stat-label">Comentários</div></div>
       <div class="stat-item"><div class="stat-num" id="statDownloads">0</div><div class="stat-label">Downloads</div></div>
     </div>
@@ -336,19 +602,21 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   </div>
 
   <div class="section">
+    <div id="ownerPanel"></div>
     <div class="section-header">
       <h3 class="section-title">Todos os Vídeos</h3>
       <span class="section-count" id="videoCount">0 vídeos</span>
     </div>
-    <div class="filter-bar" id="filterBar"></div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" onclick="filterVideos('all',this)">Todos</button>
+    </div>
     <div class="video-grid" id="videoGrid"></div>
   </div>
 </div>
 
-<!-- ── MODAL: VIDEO ── -->
+<!-- VIDEO MODAL -->
 <div class="modal-overlay" id="videoModal">
   <div class="modal">
-    <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeModal('videoModal')">×</button>
     <div class="modal-video" id="modalVideoContainer"></div>
     <div class="modal-body">
@@ -356,7 +624,10 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
       <div class="modal-meta" id="modalMeta"></div>
       <p class="modal-desc" id="modalDesc"></p>
       <div class="modal-actions" id="modalActions"></div>
-      <div class="rating-section" id="ratingSection"></div>
+      <div class="rating-section">
+        <div class="rating-title">Sua avaliação</div>
+        <div class="stars" id="starRating"></div>
+      </div>
       <div class="comments-section">
         <div class="comments-title">Comentários</div>
         <div id="commentFormArea"></div>
@@ -366,77 +637,27 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   </div>
 </div>
 
-<!-- ── MODAL: ADD VIDEO ── -->
+<!-- ADD VIDEO MODAL -->
 <div class="modal-overlay" id="addVideoModal">
   <div class="modal add-modal">
-    <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeModal('addVideoModal')">×</button>
-    <div class="modal-body" style="padding-top:24px">
+    <div class="modal-body" style="padding-top:32px">
       <h2 class="modal-title">Adicionar Vídeo</h2>
-      <p style="color:var(--text3);font-size:.85rem;margin-bottom:18px">Cole a URL do vídeo (YouTube, Vimeo ou link direto .mp4) ou faça upload de um arquivo local pequeno.</p>
-
+      <p style="color:var(--text3);font-size:.9rem;margin-bottom:24px">Cole o link do YouTube ou Vimeo, ou insira a URL direta do arquivo de vídeo.</p>
       <div class="form-group">
         <label class="form-label">Título *</label>
         <input type="text" class="form-input" id="f-title" placeholder="Nome do projeto">
       </div>
-
-      <!-- TAB: URL vs Upload -->
       <div class="form-group">
-        <label class="form-label">Fonte do Vídeo *</label>
-        <div style="display:flex;gap:8px;margin-bottom:12px">
-          <button class="filter-btn active" id="tabUrl" onclick="switchTab('url')">🔗 URL externa</button>
-          <button class="filter-btn" id="tabFile" onclick="switchTab('file')">📁 Arquivo local</button>
-        </div>
-
-        <div id="panelUrl">
-          <input type="url" class="form-input" id="f-video-url" placeholder="https://youtube.com/watch?v=... ou https://vimeo.com/...">
-          <div class="form-hint">YouTube, Vimeo, Google Drive ou link direto de .mp4 — aparece igual para todos os visitantes ✅</div>
-        </div>
-
-        <div id="panelFile" style="display:none">
-          <div class="info-box">
-            <span>⚠️</span>
-            <span><strong style="color:var(--yellow)">Atenção:</strong> Arquivos ficam salvos só neste dispositivo/navegador. Para que todos vejam, use URL externa. Limite recomendado: ~50MB.</span>
-          </div>
-          <div class="file-upload-area" id="videoUploadArea">
-            <input type="file" id="f-video-file" accept="video/*" onchange="handleVideoUpload(this)">
-            <div class="file-upload-icon">🎬</div>
-            <div class="file-upload-text"><strong>Clique</strong> ou arraste o vídeo</div>
-            <div class="file-upload-hint">MP4, WEBM, MOV, AVI · até 50MB</div>
-          </div>
-          <div id="videoSelectedInfo" style="display:none;margin-top:8px"></div>
-          <div class="progress-wrap" id="videoProgressWrap">
-            <div class="progress-label"><span id="videoProgressLabel">Carregando...</span><span id="videoProgressPct">0%</span></div>
-            <div class="progress-bar"><div class="progress-fill" id="videoProgressFill"></div></div>
-          </div>
-        </div>
+        <label class="form-label">URL do Vídeo *</label>
+        <input type="text" class="form-input" id="f-url" placeholder="https://youtube.com/watch?v=... ou https://vimeo.com/...">
+        <div class="form-hint">YouTube, Vimeo ou URL direta de .mp4</div>
       </div>
-
-      <!-- THUMBNAIL -->
       <div class="form-group">
-        <label class="form-label">Thumbnail</label>
-        <div style="display:flex;gap:8px;margin-bottom:10px">
-          <button class="filter-btn active" id="tabThumbUrl" onclick="switchThumbTab('url')">🔗 URL</button>
-          <button class="filter-btn" id="tabThumbFile" onclick="switchThumbTab('file')">📁 Arquivo</button>
-        </div>
-        <div id="panelThumbUrl">
-          <input type="url" class="form-input" id="f-thumb-url" placeholder="https://... (imagem de capa)">
-          <div class="form-hint">URL de imagem pública — recomendado para portátil entre dispositivos</div>
-        </div>
-        <div id="panelThumbFile" style="display:none">
-          <div class="file-upload-area" id="thumbUploadArea">
-            <input type="file" id="f-thumb-file" accept="image/*" onchange="handleThumbUpload(this)">
-            <div class="file-upload-icon">🖼️</div>
-            <div class="file-upload-text"><strong>Clique</strong> ou arraste a imagem</div>
-            <div class="file-upload-hint">JPG, PNG, WEBP · máx 3MB</div>
-          </div>
-          <div class="thumb-preview" id="thumbPreview">
-            <img id="thumbPreviewImg" src="" alt="Preview">
-            <div class="thumb-preview-remove" onclick="removeThumb()">×</div>
-          </div>
-        </div>
+        <label class="form-label">Thumbnail (URL da imagem)</label>
+        <input type="text" class="form-input" id="f-thumb" placeholder="https://exemplo.com/imagem.jpg">
+        <div class="form-hint">Opcional — se não informar, será usada a thumb do YouTube automaticamente</div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Categoria</label>
@@ -451,49 +672,44 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Duração</label>
-          <input type="text" class="form-input" id="f-dur" placeholder="3:24">
+          <label class="form-label">Duração (ex: 3:24)</label>
+          <input type="text" class="form-input" id="f-dur" placeholder="0:00">
         </div>
       </div>
-
       <div class="form-group">
         <label class="form-label">Descrição</label>
         <textarea class="form-textarea" id="f-desc" placeholder="Fale sobre este projeto..."></textarea>
       </div>
-
-      <!-- DOWNLOAD -->
       <div class="form-group">
-        <label class="form-label">Link de Download (opcional)</label>
-        <input type="url" class="form-input" id="f-dl-url" placeholder="https://drive.google.com/... ou link direto">
-        <div class="form-hint">Disponível para visitantes logados</div>
+        <label class="form-label">URL para Download</label>
+        <input type="text" class="form-input" id="f-dl" placeholder="Link direto para download do arquivo">
+        <div class="form-hint">Opcional — URL de download do vídeo original</div>
       </div>
-
-      <button class="submit-btn" id="submitBtn" onclick="submitVideo()">Publicar Vídeo</button>
+      <button class="submit-btn" onclick="submitVideo()">Publicar Vídeo</button>
     </div>
   </div>
 </div>
 
-<!-- ── MODAL: LOGIN ── -->
+<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal login-modal">
-    <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeModal('loginModal')">×</button>
     <div class="login-header">
       <div class="login-icon">🔐</div>
-      <h2 class="login-title">Entrar</h2>
-      <p class="login-sub">Digite seu usuário e senha para acessar</p>
+      <h2 class="login-title">Área Restrita</h2>
+      <p class="login-sub">Apenas o dono do portfólio pode entrar</p>
     </div>
-    <div class="login-body">
-      <div class="login-input-wrap">
-        <input type="text" id="loginUser" placeholder="Usuário" autocomplete="username" spellcheck="false">
+    <div class="login-form">
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-input" id="loginEmail" placeholder="seu@email.com">
       </div>
-      <div class="login-input-wrap">
-        <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-        <button class="login-toggle-pw" type="button" onclick="togglePw()">👁</button>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input type="password" class="form-input" id="loginPass" placeholder="••••••••">
+        <div class="form-hint">Senha padrão inicial: <strong style="color:var(--text2)">dm2024</strong> (altere depois)</div>
       </div>
-      <div class="login-error" id="loginError">Usuário ou senha incorretos.</div>
-      <button class="login-submit" onclick="doLogin()">Entrar</button>
-      <p class="login-note">Acesse para comentar, avaliar e baixar os vídeos.</p>
+      <button class="submit-btn" onclick="doLogin()">Entrar</button>
     </div>
   </div>
 </div>
@@ -501,252 +717,528 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
-// ═══════════════════════════════════════════════
-// CREDENCIAIS ADMIN
-// ═══════════════════════════════════════════════
-const OWNER_USER    = 'DM_202617';
-const OWNER_PW_HASH = 'bc85c11808af84cf34b5d45046753995bdee2cebcff32dcef80050e9ca263186';
-
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-
-// ═══════════════════════════════════════════════
-// IndexedDB — armazenamento sem limite de tamanho
-// ═══════════════════════════════════════════════
-const DB_NAME = 'dm_portfolio_v2';
-const DB_VER  = 1;
-let db = null;
-
-function openDB() {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, DB_VER);
-    req.onupgradeneeded = e => {
-      const d = e.target.result;
-      if (!d.objectStoreNames.contains('videos'))   d.createObjectStore('videos',   { keyPath: 'id' });
-      if (!d.objectStoreNames.contains('meta'))     d.createObjectStore('meta',     { keyPath: 'key' });
-    };
-    req.onsuccess  = e => { db = e.target.result; resolve(db); };
-    req.onerror    = e => reject(e.target.error);
-  });
-}
-
-function dbGet(store, key) {
-  return new Promise((resolve, reject) => {
-    const tx  = db.transaction(store, 'readonly');
-    const req = tx.objectStore(store).get(key);
-    req.onsuccess = e => resolve(e.target.result);
-    req.onerror   = e => reject(e.target.error);
-  });
-}
-
-function dbGetAll(store) {
-  return new Promise((resolve, reject) => {
-    const tx  = db.transaction(store, 'readonly');
-    const req = tx.objectStore(store).getAll();
-    req.onsuccess = e => resolve(e.target.result);
-    req.onerror   = e => reject(e.target.error);
-  });
-}
-
-function dbPut(store, value) {
-  return new Promise((resolve, reject) => {
-    const tx  = db.transaction(store, 'readwrite');
-    const req = tx.objectStore(store).put(value);
-    req.onsuccess = e => resolve(e.target.result);
-    req.onerror   = e => reject(e.target.error);
-  });
-}
-
-function dbDelete(store, key) {
-  return new Promise((resolve, reject) => {
-    const tx  = db.transaction(store, 'readwrite');
-    const req = tx.objectStore(store).delete(key);
-    req.onsuccess = e => resolve();
-    req.onerror   = e => reject(e.target.error);
-  });
-}
-
-// Meta: armazena comments, ratings, banned, downloads como JSON
-async function metaGet(key, def) {
-  try { const r = await dbGet('meta', key); return r ? r.value : def; }
-  catch { return def; }
-}
-async function metaSet(key, value) {
-  try { await dbPut('meta', { key, value }); } catch(e) { console.error('metaSet', e); }
-}
-
-// ═══════════════════════════════════════════════
-// ESTADO
-// ═══════════════════════════════════════════════
-let state = {
-  videos:    [],
-  comments:  {},
-  ratings:   {},
-  banned:    [],
-  downloads: 0,
-  isOwner:   false,
-  loggedIn:  false,
-  username:  null,
-  activeFilter: 'all',
-  currentVideo: null,
-  // upload pendente
-  pendingThumb: null,
-  pendingVideo: null,
-  pendingVideoName: null,
-  videoTab: 'url',
-  thumbTab: 'url',
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const OWNER_EMAIL = 'dm_202617@gmail.com';
+const OWNER_PASS  = 'dm2024';
+const LS = {
+  get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } },
+  set: (k,v) => localStorage.setItem(k, JSON.stringify(v)),
 };
 
-// Restaurar sessão
-(function(){
-  const u = sessionStorage.getItem('dm_user');
-  if (u) {
-    if (u === OWNER_USER) { state.isOwner = true; }
-    state.loggedIn = true; state.username = u;
-  }
-})();
+let state = {
+  videos: LS.get('dm_videos') || [],
+  comments: LS.get('dm_comments') || {},
+  ratings: LS.get('dm_ratings') || {},
+  banned: LS.get('dm_banned') || [],
+  downloads: LS.get('dm_downloads') || 0,
+  isOwner: false,
+  currentVideo: null,
+  activeFilter: 'all',
+};
 
-async function saveVideos()    { for (const v of state.videos) await dbPut('videos', v); }
-async function saveMeta()      {
-  await metaSet('comments',  state.comments);
-  await metaSet('ratings',   state.ratings);
-  await metaSet('banned',    state.banned);
-  await metaSet('downloads', state.downloads);
-}
-async function saveAll()       { await saveVideos(); await saveMeta(); }
-
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
-async function init() {
-  await openDB();
-  state.videos    = (await dbGetAll('videos')).sort((a,b) => (b.createdAt||0)-(a.createdAt||0));
-  state.comments  = await metaGet('comments',  {});
-  state.ratings   = await metaGet('ratings',   {});
-  state.banned    = await metaGet('banned',    []);
-  state.downloads = await metaGet('downloads', 0);
-
-  // checar ban
-  if (state.banned.includes(getSessionId())) {
-    document.getElementById('banned-page').style.display = 'flex';
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    return;
-  }
-
-  buildMarquee();
-  buildMenuLines();
+function save() {
+  LS.set('dm_videos', state.videos);
+  LS.set('dm_comments', state.comments);
+  LS.set('dm_ratings', state.ratings);
+  LS.set('dm_banned', state.banned);
+  LS.set('dm_downloads', state.downloads);
 }
 
-init().catch(console.error);
+// ─── CURSOR ──────────────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px';
+  ring.style.top = e.clientY + 'px';
+});
 
-// ═══════════════════════════════════════════════
-// SIDE MENU
-// ═══════════════════════════════════════════════
-function openMenu() {
-  document.getElementById('menuOverlay').classList.add('open');
-  document.getElementById('sideMenu').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderMenu();
-}
-function closeMenu() {
-  document.getElementById('menuOverlay').classList.remove('open');
-  document.getElementById('sideMenu').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function renderMenu() {
-  const userEl = document.getElementById('menuUser');
-  const navEl  = document.getElementById('menuNav');
-
-  if (state.loggedIn) {
-    const init = state.username.charAt(0).toUpperCase();
-    const color = state.isOwner ? 'var(--accent)' : 'var(--text)';
-    const bg    = state.isOwner ? 'var(--accent)22' : 'var(--surface3)';
-    userEl.style.display = 'flex';
-    userEl.innerHTML = `
-      <div class="menu-avatar" style="color:${color};background:${bg}">${escHtml(init)}</div>
-      <div>
-        <div class="menu-username">${escHtml(state.username)}</div>
-        <div class="menu-role">${state.isOwner ? '👑 Administrador' : 'Visitante'}</div>
-      </div>`;
-  } else {
-    userEl.style.display = 'none';
-  }
-
-  let items = '';
-
-  // Início (só no portfólio)
-  const onPortfolio = document.getElementById('page-portfolio').classList.contains('active');
-  if (onPortfolio) {
-    items += menuItem('🏠', 'Início', "closeMenu();goToLanding()");
-  }
-
-  if (state.isOwner) {
-    items += menuItem('➕', 'Adicionar Vídeo', "closeMenu();openModal('addVideoModal')", 'accent');
-  }
-
-  if (!state.loggedIn) {
-    items += menuItem('🔐', 'Entrar', "closeMenu();openModal('loginModal')", 'accent');
-  } else {
-    items += menuItem('🚪', 'Sair', "closeMenu();logout()", 'danger');
-  }
-
-  navEl.innerHTML = items;
-}
-
-function menuItem(icon, label, onclick, cls='') {
-  return `<div class="menu-item ${cls}" onclick="${onclick}">
-    <span class="menu-item-icon">${icon}</span>
-    <span>${label}</span>
-  </div>`;
-}
-
-// ═══════════════════════════════════════════════
-// NAVEGAÇÃO
-// ═══════════════════════════════════════════════
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-function goToPortfolio() {
-  const l = document.getElementById('page-landing');
-  l.style.transition = 'opacity .5s,transform .5s';
-  l.style.opacity = '0'; l.style.transform = 'scale(1.03)';
-  setTimeout(() => {
-    showPage('portfolio');
-    l.style.opacity = ''; l.style.transform = ''; l.style.transition = '';
-    renderAll();
-  }, 450);
-}
-function goToLanding() { showPage('landing'); }
-
+// ─── NAVBAR SCROLL ────────────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// ═══════════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════════
-function formatFileSize(bytes) {
-  if (bytes < 1024) return bytes + 'B';
-  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + 'KB';
-  return (bytes/(1024*1024)).toFixed(1) + 'MB';
+// ─── LANDING LINES ───────────────────────────────────────────────────────────
+const ll = document.getElementById('landingLines');
+for (let i = 0; i < 8; i++) {
+  const s = document.createElement('span');
+  const offset = (i - 3.5) * 140;
+  s.style.cssText = `left:calc(50% + ${offset}px);animation-delay:${i*0.3}s`;
+  ll.appendChild(s);
 }
-function readFileAsBase64(file, onProgress) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onprogress = e => { if (e.lengthComputable && onProgress) onProgress(e.loaded/e.total); };
-    reader.onload    = e => resolve(e.target.result);
-    reader.onerror   = () => reject(new Error('Erro ao ler arquivo'));
-    reader.readAsDataURL(file);
+
+// ─── MARQUEE ─────────────────────────────────────────────────────────────────
+function buildMarquee() {
+  const items = ['Edição de Vídeo','Motion Design','Color Grading','Storytelling Visual','Pós-Produção','Sound Design','Animação','Cinematografia'];
+  const inner = document.getElementById('marqueeInner');
+  const doubled = [...items,...items];
+  inner.innerHTML = doubled.map(t => `<span class="marquee-item">${t}</span>`).join('');
+}
+
+// ─── ENTER PORTFOLIO ─────────────────────────────────────────────────────────
+function enterPortfolio() {
+  const landing = document.getElementById('landing');
+  const app = document.getElementById('app');
+  landing.style.transition = 'opacity .5s,transform .5s';
+  landing.style.opacity = '0';
+  landing.style.transform = 'scale(1.03)';
+  setTimeout(() => {
+    landing.style.display = 'none';
+    app.style.display = 'block';
+    renderAll();
+    window.scrollTo(0, 0);
+  }, 500);
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderAll() {
+  buildMarquee();
+  renderOwnerPanel();
+  renderFilters();
+  renderGrid();
+  updateStats();
+  updateNavActions();
+}
+
+function updateNavActions() {
+  const el = document.getElementById('navActions');
+  if (state.isOwner) {
+    el.innerHTML = `
+      <span class="owner-badge">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Dono
+      </span>
+      <button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Adicionar Vídeo</button>
+      <button class="nav-btn" onclick="logout()">Sair</button>`;
+  } else {
+    el.innerHTML = `<button class="nav-btn" onclick="openLoginModal()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Área do Dono</button>`;
+  }
+}
+
+function renderOwnerPanel() {
+  const el = document.getElementById('ownerPanel');
+  if (state.isOwner) {
+    el.innerHTML = `
+      <div class="owner-panel">
+        <div class="owner-panel-left">
+          <div class="owner-avatar">DM</div>
+          <div>
+            <div class="owner-name">DM Studio <span class="owner-badge" style="font-size:10px">Dono</span></div>
+            <div class="owner-email">${OWNER_EMAIL}</div>
+          </div>
+        </div>
+        <div class="owner-panel-right">
+          <button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Novo Vídeo</button>
+        </div>
+      </div>`;
+  } else {
+    el.innerHTML = '';
+  }
+}
+
+function renderFilters() {
+  const cats = ['all', ...new Set(state.videos.map(v => v.category))];
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = cats.map(c => `
+    <button class="filter-btn${state.activeFilter===c?' active':''}"
+      onclick="filterVideos('${c}',this)">
+      ${c==='all'?'Todos':c}
+    </button>`).join('');
+}
+
+function filterVideos(cat, btn) {
+  state.activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('videoGrid');
+  const filtered = state.activeFilter === 'all'
+    ? state.videos
+    : state.videos.filter(v => v.category === state.activeFilter);
+
+  document.getElementById('videoCount').textContent = `${filtered.length} vídeo${filtered.length!==1?'s':''}`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        <div class="empty-title">Nenhum vídeo ainda</div>
+        <div class="empty-sub">${state.isOwner?'Adicione seu primeiro vídeo clicando em "+ Adicionar Vídeo"':'Em breve novos conteúdos serão publicados.'}</div>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((v, i) => buildCard(v, i)).join('');
+}
+
+function getEmbedUrl(url) {
+  if (!url) return null;
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&rel=0`;
+  // Vimeo
+  const vmMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vmMatch) return `https://player.vimeo.com/video/${vmMatch[1]}?autoplay=1`;
+  return null;
+}
+
+function getYtThumb(url) {
+  const m = url && url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  if (m) return `https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg`;
+  return null;
+}
+
+function avgRating(vid) {
+  const r = state.ratings[vid] || {};
+  const vals = Object.values(r);
+  if (!vals.length) return null;
+  return (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+}
+
+function buildCard(v, i) {
+  const thumb = v.thumbnail || getYtThumb(v.url) || '';
+  const rating = avgRating(v.id);
+  const comments = (state.comments[v.id]||[]).length;
+  const delay = (i%6)*0.07;
+  return `
+    <div class="video-card" style="animation-delay:${delay}s" onclick="openVideo('${v.id}')">
+      <div class="card-thumb">
+        ${thumb ? `<img src="${thumb}" alt="${v.title}" loading="lazy">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:2rem">🎬</div>`}
+        <div class="card-overlay">
+          <div class="play-btn"><div class="play-icon"></div></div>
+        </div>
+        ${v.duration?`<div class="card-duration">${v.duration}</div>`:''}
+        ${v.category&&v.category!=='Geral'?`<div class="card-badge">${v.category}</div>`:''}
+      </div>
+      <div class="card-body">
+        <div class="card-title">${v.title}</div>
+        <div class="card-meta">
+          <span>${v.date}</span>
+          ${rating?`<span class="card-meta-dot"></span><span style="color:var(--yellow)">★ ${rating}</span>`:''}
+          ${comments?`<span class="card-meta-dot"></span><span>${comments} comentário${comments!==1?'s':''}</span>`:''}
+        </div>
+        <div class="card-actions">
+          <div class="card-btn">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ${rating||'—'}
+          </div>
+          <div class="card-btn">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            ${comments}
+          </div>
+          <div class="card-btn watch">Assistir →</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function updateStats() {
+  const allRatings = state.videos.flatMap(v => Object.values(state.ratings[v.id]||{}));
+  const avg = allRatings.length ? (allRatings.reduce((a,b)=>a+b,0)/allRatings.length).toFixed(1) : '—';
+  const totalComments = state.videos.reduce((a,v)=>a+(state.comments[v.id]||[]).length, 0);
+  document.getElementById('statVideos').textContent = state.videos.length;
+  document.getElementById('statRating').textContent = avg === '—' ? '—' : `${avg}★`;
+  document.getElementById('statComments').textContent = totalComments;
+  document.getElementById('statDownloads').textContent = state.downloads;
+}
+
+// ─── VIDEO MODAL ──────────────────────────────────────────────────────────────
+function openVideo(id) {
+  const v = state.videos.find(x => x.id === id);
+  if (!v) return;
+  state.currentVideo = v;
+
+  const embed = getEmbedUrl(v.url);
+  const el = document.getElementById('modalVideoContainer');
+  if (embed) {
+    el.innerHTML = `<iframe src="${embed}" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;
+  } else if (v.url && v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
+    el.innerHTML = `<video src="${v.url}" controls style="width:100%;height:100%"></video>`;
+  } else {
+    el.innerHTML = `<div class="modal-video-placeholder">🎬<span>Clique em "Assistir" para abrir externamente</span></div>`;
+  }
+
+  document.getElementById('modalTitle').textContent = v.title;
+  document.getElementById('modalMeta').innerHTML = `
+    <span>${v.date}</span>
+    <span>·</span>
+    <span>${v.category}</span>
+    ${v.duration?`<span>·</span><span>${v.duration}</span>`:''}
+    <span>·</span>
+    <span style="color:var(--yellow)">★ ${avgRating(v.id)||'Sem avaliações'}</span>`;
+  document.getElementById('modalDesc').textContent = v.description || '';
+
+  const actions = document.getElementById('modalActions');
+  let actHtml = '';
+  if (v.url && !getEmbedUrl(v.url) && !v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
+    actHtml += `<a href="${v.url}" target="_blank" class="download-btn" onclick="trackView()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Abrir Vídeo
+    </a>`;
+  }
+  if (v.downloadUrl) {
+    actHtml += `<a href="${v.downloadUrl}" download class="download-btn" onclick="trackDownload('${v.id}')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Baixar Vídeo
+    </a>`;
+  }
+  if (state.isOwner) {
+    actHtml += `<button class="download-btn" style="color:var(--red);border-color:var(--red)33" onclick="deleteVideo('${v.id}')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      Excluir
+    </button>`;
+  }
+  actions.innerHTML = actHtml;
+
+  renderStars(v.id);
+  renderComments(v.id);
+  openModal('videoModal');
+}
+
+function trackDownload(id) {
+  state.downloads = (state.downloads||0)+1;
+  save();
+  updateStats();
+}
+
+function renderStars(vid) {
+  const container = document.getElementById('starRating');
+  const myRating = (state.ratings[vid]||{})[getSessionId()] || 0;
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    html += `<span class="star${i<=myRating?' active':''}" data-val="${i}" onclick="rateVideo('${vid}',${i})" style="color:var(--yellow)">★</span>`;
+  }
+  container.innerHTML = html;
+
+  const stars = container.querySelectorAll('.star');
+  stars.forEach((s,i) => {
+    s.addEventListener('mouseover', () => stars.forEach((x,j) => { x.style.filter=j<=i?'none':'grayscale(1)'; x.style.opacity=j<=i?'1':'.3'; }));
+    s.addEventListener('mouseout', () => {
+      const cur = (state.ratings[vid]||{})[getSessionId()] || 0;
+      stars.forEach((x,j) => { x.style.filter=j<cur?'none':'grayscale(1)'; x.style.opacity=j<cur?'1':'.3'; });
+    });
   });
 }
-function escHtml(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+function rateVideo(vid, val) {
+  if (!state.ratings[vid]) state.ratings[vid] = {};
+  state.ratings[vid][getSessionId()] = val;
+  save();
+  renderStars(vid);
+  renderGrid();
+  updateStats();
+  renderComments(vid);
+  // Update modal meta
+  const m = document.getElementById('modalMeta');
+  if (m) {
+    const v = state.videos.find(x=>x.id===vid);
+    if (v) {
+      m.innerHTML = `<span>${v.date}</span><span>·</span><span>${v.category}</span>${v.duration?`<span>·</span><span>${v.duration}</span>`:''}<span>·</span><span style="color:var(--yellow)">★ ${avgRating(vid)||'—'}</span>`;
+    }
+  }
+  toast('Avaliação registrada!','success');
 }
+
+function renderComments(vid) {
+  const isBanned = state.banned.includes(getSessionId());
+  const formArea = document.getElementById('commentFormArea');
+  const list = document.getElementById('commentsList');
+  const comments = state.comments[vid] || [];
+
+  if (isBanned) {
+    formArea.innerHTML = `<div class="banned-notice">🚫 Você foi banido e não pode comentar.</div>`;
+  } else {
+    formArea.innerHTML = `
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <input class="comment-name-input" id="commentName" placeholder="Seu nome">
+      </div>
+      <div class="comment-form">
+        <textarea class="comment-input" id="commentText" placeholder="Deixe seu comentário..."></textarea>
+        <button class="comment-send" onclick="submitComment('${vid}')">Enviar</button>
+      </div>`;
+  }
+
+  if (!comments.length) {
+    list.innerHTML = `<p style="color:var(--text3);font-size:.85rem;text-align:center;padding:20px 0">Seja o primeiro a comentar!</p>`;
+    return;
+  }
+
+  list.innerHTML = comments.map(c => `
+    <div class="comment-item" id="comment-${c.id}">
+      <div class="comment-header">
+        <div class="comment-author">
+          <div class="comment-avatar">${c.author.charAt(0).toUpperCase()}</div>
+          <div>
+            <div class="comment-name">${escHtml(c.author)}</div>
+            <div class="comment-date">${c.date}</div>
+          </div>
+        </div>
+        <div class="comment-actions">
+          ${state.isOwner ? `
+            <button class="delete-comment-btn" onclick="deleteComment('${vid}','${c.id}')">Excluir</button>
+            <button class="ban-btn" onclick="banUser('${vid}','${c.id}','${c.sessionId}')">🚫 Banir</button>
+          ` : ''}
+        </div>
+      </div>
+      <div class="comment-text">${escHtml(c.text)}</div>
+    </div>`).join('');
+}
+
+function submitComment(vid) {
+  const nameEl = document.getElementById('commentName');
+  const textEl = document.getElementById('commentText');
+  const author = (nameEl?.value||'').trim() || 'Anônimo';
+  const text = (textEl?.value||'').trim();
+  if (!text) { toast('Escreva algo antes de enviar!','error'); return; }
+
+  if (!state.comments[vid]) state.comments[vid] = [];
+  state.comments[vid].push({
+    id: Date.now().toString(36),
+    author, text,
+    sessionId: getSessionId(),
+    date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})
+  });
+  save();
+  renderComments(vid);
+  renderGrid();
+  updateStats();
+  toast('Comentário adicionado!','success');
+}
+
+function deleteComment(vid, cid) {
+  if (!state.isOwner) return;
+  state.comments[vid] = (state.comments[vid]||[]).filter(c=>c.id!==cid);
+  save();
+  renderComments(vid);
+  renderGrid();
+  updateStats();
+  toast('Comentário removido.','success');
+}
+
+function banUser(vid, cid, sessionId) {
+  if (!state.isOwner) return;
+  if (!confirm('Banir este usuário permanentemente? Ele não poderá mais comentar.')) return;
+  if (!state.banned.includes(sessionId)) state.banned.push(sessionId);
+  deleteComment(vid, cid);
+  save();
+  toast('Usuário banido permanentemente.','error');
+}
+
+function deleteVideo(id) {
+  if (!state.isOwner) return;
+  if (!confirm('Excluir este vídeo permanentemente?')) return;
+  state.videos = state.videos.filter(v=>v.id!==id);
+  delete state.comments[id];
+  delete state.ratings[id];
+  save();
+  closeModal('videoModal');
+  renderAll();
+  toast('Vídeo excluído.','success');
+}
+
+// ─── ADD VIDEO ────────────────────────────────────────────────────────────────
+function submitVideo() {
+  const title = document.getElementById('f-title').value.trim();
+  const url   = document.getElementById('f-url').value.trim();
+  const thumb = document.getElementById('f-thumb').value.trim();
+  const cat   = document.getElementById('f-cat').value;
+  const dur   = document.getElementById('f-dur').value.trim();
+  const desc  = document.getElementById('f-desc').value.trim();
+  const dl    = document.getElementById('f-dl').value.trim();
+
+  if (!title || !url) { toast('Título e URL são obrigatórios!','error'); return; }
+
+  state.videos.unshift({
+    id: Date.now().toString(36),
+    title, url,
+    thumbnail: thumb || getYtThumb(url) || '',
+    category: cat,
+    duration: dur,
+    description: desc,
+    downloadUrl: dl,
+    date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
+  });
+  save();
+  closeModal('addVideoModal');
+  ['f-title','f-url','f-thumb','f-dur','f-desc','f-dl'].forEach(id => document.getElementById(id).value='');
+  renderAll();
+  toast('Vídeo publicado com sucesso!','success');
+}
+
+// ─── LOGIN ────────────────────────────────────────────────────────────────────
+function openLoginModal() {
+  openModal('loginModal');
+}
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('loginPass').value;
+  if (email === OWNER_EMAIL && pass === OWNER_PASS) {
+    state.isOwner = true;
+    closeModal('loginModal');
+    renderAll();
+    toast('Bem-vindo, DM! 🎬','success');
+  } else {
+    toast('E-mail ou senha incorretos.','error');
+  }
+}
+
+function logout() {
+  state.isOwner = false;
+  renderAll();
+  toast('Você saiu da área do dono.','success');
+}
+
+// ─── MODALS ───────────────────────────────────────────────────────────────────
+function openModal(id) {
+  const el = document.getElementById(id);
+  el.style.display = 'flex';
+  requestAnimationFrame(() => el.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  const el = document.getElementById(id);
+  el.classList.remove('open');
+  setTimeout(() => { el.style.display='none'; document.body.style.overflow=''; }, 300);
+  if (id === 'videoModal') {
+    // Stop video
+    const vc = document.getElementById('modalVideoContainer');
+    vc.innerHTML = '';
+  }
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['videoModal','addVideoModal','loginModal'].forEach(id => {
+      if (document.getElementById(id).classList.contains('open')) closeModal(id);
+    });
+  }
+  if (e.key === 'Enter' && document.getElementById('loginModal').classList.contains('open')) doLogin();
+});
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function toast(msg, type='success') {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<div class="toast-dot"></div><span>${msg}</span>`;
+  container.appendChild(el);
+  requestAnimationFrame(() => { setTimeout(() => el.classList.add('show'), 10); });
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 400); }, 3000);
+}
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
 function getSessionId() {
   let sid = sessionStorage.getItem('dm_sid') || localStorage.getItem('dm_sid');
   if (!sid) {
@@ -756,535 +1248,19 @@ function getSessionId() {
   }
   return sid;
 }
-function getYouTubeEmbed(url) {
-  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
-  return m ? `https://www.youtube.com/embed/${m[1]}?autoplay=1` : null;
-}
-function getVimeoEmbed(url) {
-  const m = url.match(/vimeo\.com\/(\d+)/);
-  return m ? `https://player.vimeo.com/video/${m[1]}?autoplay=1` : null;
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ═══════════════════════════════════════════════
-// TABS no formulário de adicionar vídeo
-// ═══════════════════════════════════════════════
-function switchTab(tab) {
-  state.videoTab = tab;
-  document.getElementById('panelUrl').style.display  = tab === 'url'  ? 'block' : 'none';
-  document.getElementById('panelFile').style.display = tab === 'file' ? 'block' : 'none';
-  document.getElementById('tabUrl').classList.toggle('active', tab === 'url');
-  document.getElementById('tabFile').classList.toggle('active', tab === 'file');
-}
-function switchThumbTab(tab) {
-  state.thumbTab = tab;
-  document.getElementById('panelThumbUrl').style.display  = tab === 'url'  ? 'block' : 'none';
-  document.getElementById('panelThumbFile').style.display = tab === 'file' ? 'block' : 'none';
-  document.getElementById('tabThumbUrl').classList.toggle('active', tab === 'url');
-  document.getElementById('tabThumbFile').classList.toggle('active', tab === 'file');
-}
-
-// ═══════════════════════════════════════════════
-// FILE UPLOADS (apenas para arquivo local)
-// ═══════════════════════════════════════════════
-async function handleVideoUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-  if (file.size > 150*1024*1024) {
-    const ok = confirm(`⚠️ Arquivo grande (${formatFileSize(file.size)}). Pode não funcionar. Continuar?`);
-    if (!ok) { input.value=''; return; }
+// ─── BANNED CHECK ─────────────────────────────────────────────────────────────
+(function checkBan() {
+  if (state.banned.includes(getSessionId())) {
+    document.getElementById('banned-page').style.display = 'flex';
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('app').style.display = 'none';
   }
-  document.getElementById('videoUploadArea').style.display = 'none';
-  document.getElementById('videoProgressWrap').style.display = 'block';
-  try {
-    const b64 = await readFileAsBase64(file, pct => {
-      document.getElementById('videoProgressFill').style.width = (pct*100).toFixed(0)+'%';
-      document.getElementById('videoProgressPct').textContent  = (pct*100).toFixed(0)+'%';
-    });
-    state.pendingVideo = b64;
-    state.pendingVideoName = file.name;
-    document.getElementById('videoProgressWrap').style.display = 'none';
-    document.getElementById('videoSelectedInfo').style.display = 'block';
-    document.getElementById('videoSelectedInfo').innerHTML = `
-      <div class="file-upload-area file-selected" style="cursor:default">
-        <div class="file-selected-name">✅ <span>${escHtml(file.name)}</span></div>
-        <div class="file-selected-size">${formatFileSize(file.size)}</div>
-        <button class="file-selected-remove" onclick="removeVideo()">× Remover</button>
-      </div>`;
-    toast('Vídeo carregado!', 'success');
-  } catch(e) {
-    toast('Erro ao ler o vídeo.', 'error');
-    document.getElementById('videoUploadArea').style.display = 'block';
-    document.getElementById('videoProgressWrap').style.display = 'none';
-    input.value = '';
-  }
-}
-function removeVideo() {
-  state.pendingVideo = null; state.pendingVideoName = null;
-  document.getElementById('videoSelectedInfo').style.display = 'none';
-  document.getElementById('videoUploadArea').style.display = 'block';
-  document.getElementById('f-video-file').value = '';
-}
-
-async function handleThumbUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-  if (file.size > 5*1024*1024) { toast('Imagem muito grande. Máx 5MB.','error'); input.value=''; return; }
-  try {
-    const b64 = await readFileAsBase64(file);
-    state.pendingThumb = b64;
-    document.getElementById('thumbPreviewImg').src = b64;
-    document.getElementById('thumbPreview').style.display = 'block';
-    document.getElementById('thumbUploadArea').style.display = 'none';
-  } catch(e) { toast('Erro ao ler imagem.','error'); input.value=''; }
-}
-function removeThumb() {
-  state.pendingThumb = null;
-  document.getElementById('thumbPreviewImg').src = '';
-  document.getElementById('thumbPreview').style.display = 'none';
-  document.getElementById('thumbUploadArea').style.display = 'block';
-  document.getElementById('f-thumb-file').value = '';
-}
-
-// ═══════════════════════════════════════════════
-// LOGIN / LOGOUT
-// ═══════════════════════════════════════════════
-function togglePw() {
-  const i = document.getElementById('loginPass');
-  i.type = i.type === 'password' ? 'text' : 'password';
-}
-async function doLogin() {
-  const user = (document.getElementById('loginUser').value||'').trim();
-  const pass =  document.getElementById('loginPass').value||'';
-  const errEl = document.getElementById('loginError');
-  errEl.style.display = 'none';
-  if (!user || !pass) { errEl.style.display='block'; errEl.textContent='Preencha usuário e senha.'; return; }
-
-  const hash = await sha256(pass);
-  state.loggedIn = true; state.username = user;
-
-  if (user === OWNER_USER && hash === OWNER_PW_HASH) {
-    state.isOwner = true;
-  } else {
-    state.isOwner = false;
-  }
-
-  sessionStorage.setItem('dm_user', user);
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  closeModal('loginModal');
-  renderAll();
-  toast(`Bem-vindo, ${user}! 🎬`, 'success');
-}
-function logout() {
-  state.isOwner = false; state.loggedIn = false; state.username = null;
-  sessionStorage.removeItem('dm_user');
-  renderAll();
-  toast('Você saiu.', 'success');
-}
-
-// ═══════════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════════
-function renderAll() { buildMarquee(); renderFilters(); renderGrid(); updateStats(); }
-
-function buildMarquee() {
-  const items = ['Edição de Vídeo','Motion Design','Color Grading','Storytelling Visual','Pós-Produção','Sound Design','Animação','Cinematografia'];
-  document.getElementById('marqueeInner').innerHTML = [...items,...items].map(t=>`<span class="marquee-item">${t}</span>`).join('');
-}
-function buildMenuLines() {
-  const ll = document.getElementById('landingLines');
-  for (let i=0;i<8;i++) {
-    const s = document.createElement('span');
-    s.style.cssText = `left:calc(50% + ${(i-3.5)*120}px);animation-delay:${i*0.3}s`;
-    ll.appendChild(s);
-  }
-}
-
-function renderFilters() {
-  const cats = ['all', ...new Set(state.videos.map(v => v.category))];
-  document.getElementById('filterBar').innerHTML = cats.map(c => `
-    <button class="filter-btn${state.activeFilter===c?' active':''}" onclick="filterVideos('${c}',this)">
-      ${c==='all'?'Todos':escHtml(c)}
-    </button>`).join('');
-}
-function filterVideos(cat, btn) {
-  state.activeFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  renderGrid();
-}
-
-function avgRating(vid) {
-  const r = state.ratings[vid]||{};
-  const vals = Object.values(r);
-  if (!vals.length) return null;
-  return (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
-}
-
-function renderGrid() {
-  const grid = document.getElementById('videoGrid');
-  const filtered = state.activeFilter==='all' ? state.videos : state.videos.filter(v=>v.category===state.activeFilter);
-  document.getElementById('videoCount').textContent = `${filtered.length} vídeo${filtered.length!==1?'s':''}`;
-  if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">🎬</div>
-      <div class="empty-title">Nenhum vídeo ainda</div>
-      <div class="empty-sub">${state.isOwner?'Abra o menu e clique em "+ Adicionar Vídeo"':'Em breve novos conteúdos serão publicados.'}</div>
-    </div>`;
-    return;
-  }
-  grid.innerHTML = filtered.map((v,i) => buildCard(v,i)).join('');
-}
-
-function buildCard(v,i) {
-  const thumb    = v.thumbnail || '';
-  const rating   = avgRating(v.id);
-  const comments = (state.comments[v.id]||[]).length;
-  return `
-    <div class="video-card" style="animation-delay:${(i%6)*.07}s" onclick="openVideo('${v.id}')">
-      <div class="card-thumb">
-        ${thumb ? `<img src="${escHtml(thumb)}" alt="${escHtml(v.title)}" loading="lazy">`
-                : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:2rem">🎬</div>`}
-        <div class="card-overlay"><div class="play-btn"><div class="play-icon"></div></div></div>
-        ${v.duration ? `<div class="card-duration">${escHtml(v.duration)}</div>` : ''}
-        ${v.category && v.category!=='Geral' ? `<div class="card-badge">${escHtml(v.category)}</div>` : ''}
-      </div>
-      <div class="card-body">
-        <div class="card-title">${escHtml(v.title)}</div>
-        <div class="card-meta">
-          <span>${escHtml(v.date)}</span>
-          ${rating ? `<span class="card-meta-dot"></span><span style="color:var(--yellow)">★ ${rating}</span>` : ''}
-          ${comments ? `<span class="card-meta-dot"></span><span>${comments} comentário${comments!==1?'s':''}</span>` : ''}
-        </div>
-        <div class="card-actions">
-          <div class="card-btn">★ ${rating||'—'}</div>
-          <div class="card-btn">💬 ${comments}</div>
-          <div class="card-btn watch">Assistir →</div>
-        </div>
-      </div>
-    </div>`;
-}
-
-function updateStats() {
-  const allR  = state.videos.flatMap(v => Object.values(state.ratings[v.id]||{}));
-  const avg   = allR.length ? (allR.reduce((a,b)=>a+b,0)/allR.length).toFixed(1) : '—';
-  const totalC = state.videos.reduce((a,v) => a+(state.comments[v.id]||[]).length, 0);
-  document.getElementById('statVideos').textContent   = state.videos.length;
-  document.getElementById('statRating').textContent   = avg==='—'?'—':`${avg}★`;
-  document.getElementById('statComments').textContent = totalC;
-  document.getElementById('statDownloads').textContent = state.downloads;
-}
-
-// ═══════════════════════════════════════════════
-// VIDEO MODAL
-// ═══════════════════════════════════════════════
-function openVideo(id) {
-  const v = state.videos.find(x => x.id===id);
-  if (!v) return;
-  state.currentVideo = v;
-
-  const el = document.getElementById('modalVideoContainer');
-
-  if (v.videoUrl) {
-    const ytEmbed = getYouTubeEmbed(v.videoUrl);
-    const vmEmbed = getVimeoEmbed(v.videoUrl);
-    if (ytEmbed) {
-      el.innerHTML = `<iframe src="${ytEmbed}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
-    } else if (vmEmbed) {
-      el.innerHTML = `<iframe src="${vmEmbed}" frameborder="0" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>`;
-    } else {
-      // link direto mp4 ou outro
-      el.innerHTML = `<video src="${escHtml(v.videoUrl)}" controls style="width:100%;height:100%" preload="metadata"></video>`;
-    }
-  } else if (v.videoData) {
-    el.innerHTML = `<video src="${v.videoData}" controls style="width:100%;height:100%" preload="metadata"></video>`;
-  } else {
-    el.innerHTML = `<div class="modal-video-placeholder">🎬<span>Vídeo não disponível</span></div>`;
-  }
-
-  document.getElementById('modalTitle').textContent = v.title;
-  document.getElementById('modalMeta').innerHTML = `
-    <span>${escHtml(v.date)}</span><span>·</span><span>${escHtml(v.category)}</span>
-    ${v.duration?`<span>·</span><span>${escHtml(v.duration)}</span>`:''}
-    <span>·</span><span style="color:var(--yellow)">★ ${avgRating(v.id)||'Sem avaliações'}</span>`;
-  document.getElementById('modalDesc').textContent = v.description||'';
-
-  // Ações
-  let actHtml = '';
-  if (state.loggedIn && v.downloadUrl) {
-    actHtml += `<a href="${escHtml(v.downloadUrl)}" target="_blank" rel="noopener" class="download-btn" onclick="trackDownload()">
-      ⬇️ Baixar arquivo</a>`;
-  }
-  if (!state.loggedIn && v.downloadUrl) {
-    actHtml += `<div style="font-size:.8rem;color:var(--text3);padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius2)">
-      <a onclick="closeModal('videoModal');openModal('loginModal')" style="color:var(--accent);cursor:pointer;font-weight:600">Faça login</a> para baixar.
-    </div>`;
-  }
-  if (state.isOwner) {
-    actHtml += `<button class="download-btn" style="color:var(--red);border-color:var(--red)33" onclick="deleteVideo('${v.id}')">
-      🗑️ Excluir Vídeo</button>`;
-  }
-  document.getElementById('modalActions').innerHTML = actHtml;
-
-  const ratingSection = document.getElementById('ratingSection');
-  if (state.loggedIn) {
-    ratingSection.innerHTML = `<div class="rating-title">Sua avaliação</div><div class="stars" id="starRating"></div>`;
-    renderStars(v.id);
-  } else {
-    ratingSection.innerHTML = '';
-  }
-
-  renderComments(v.id);
-  openModal('videoModal');
-}
-
-function trackDownload() {
-  state.downloads = (state.downloads||0) + 1;
-  saveMeta(); updateStats();
-}
-
-function renderStars(vid) {
-  const container = document.getElementById('starRating');
-  if (!container) return;
-  const myRating = (state.ratings[vid]||{})[getSessionId()]||0;
-  container.innerHTML = Array.from({length:5},(_,i) => `
-    <span class="star${i<myRating?' active':''}" onclick="rateVideo('${vid}',${i+1})">★</span>`).join('');
-  const stars = container.querySelectorAll('.star');
-  stars.forEach((s,i) => {
-    s.addEventListener('mouseover', () => stars.forEach((x,j) => { x.style.filter=j<=i?'none':'grayscale(1)'; x.style.opacity=j<=i?'1':'.3'; }));
-    s.addEventListener('mouseout',  () => {
-      const cur = (state.ratings[vid]||{})[getSessionId()]||0;
-      stars.forEach((x,j) => { x.style.filter=j<cur?'none':'grayscale(1)'; x.style.opacity=j<cur?'1':'.3'; });
-    });
-  });
-}
-
-async function rateVideo(vid, val) {
-  if (!state.loggedIn) { toast('Faça login para avaliar!','error'); return; }
-  if (!state.ratings[vid]) state.ratings[vid] = {};
-  state.ratings[vid][getSessionId()] = val;
-  await saveMeta(); renderStars(vid); renderGrid(); updateStats();
-  const v = state.videos.find(x=>x.id===vid);
-  if (v) document.getElementById('modalMeta').innerHTML = `<span>${escHtml(v.date)}</span><span>·</span><span>${escHtml(v.category)}</span>${v.duration?`<span>·</span><span>${escHtml(v.duration)}</span>`:''}<span>·</span><span style="color:var(--yellow)">★ ${avgRating(vid)||'—'}</span>`;
-  toast('Avaliação registrada! ★','success');
-}
-
-// ═══════════════════════════════════════════════
-// COMMENTS
-// ═══════════════════════════════════════════════
-function renderComments(vid) {
-  const isBanned  = state.banned.includes(getSessionId());
-  const formArea  = document.getElementById('commentFormArea');
-  const list      = document.getElementById('commentsList');
-  const comments  = state.comments[vid]||[];
-
-  if (!state.loggedIn) {
-    formArea.innerHTML = `<div class="login-prompt"><a onclick="closeModal('videoModal');openModal('loginModal')">Faça login</a> para comentar e avaliar.</div>`;
-  } else if (isBanned) {
-    formArea.innerHTML = `<div class="banned-notice">🚫 Você foi banido e não pode comentar.</div>`;
-  } else {
-    formArea.innerHTML = `
-      <div class="comment-form">
-        <textarea class="comment-input" id="commentText" placeholder="Deixe seu comentário..."></textarea>
-        <button class="comment-send" onclick="submitComment('${vid}')">Enviar</button>
-      </div>`;
-  }
-
-  if (!comments.length) {
-    list.innerHTML = `<p style="color:var(--text3);font-size:.82rem;text-align:center;padding:16px 0">Nenhum comentário ainda. ${state.loggedIn?'Seja o primeiro!':''}</p>`;
-    return;
-  }
-
-  list.innerHTML = comments.map(c => `
-    <div class="comment-item" id="comment-${c.id}">
-      <div class="comment-header">
-        <div class="comment-author">
-          <div class="comment-avatar">${escHtml((c.author||'A').charAt(0).toUpperCase())}</div>
-          <div>
-            <div class="comment-name">${escHtml(c.author||'Anônimo')}</div>
-            <div class="comment-date">${escHtml(c.date)}</div>
-          </div>
-        </div>
-        <div class="comment-actions">
-          ${state.isOwner ? `
-            <button class="delete-comment-btn" onclick="deleteComment('${vid}','${c.id}')">Excluir</button>
-            <button class="ban-btn" onclick="banUser('${vid}','${c.id}','${c.sessionId}')">🚫</button>` : ''}
-        </div>
-      </div>
-      <div class="comment-text">${escHtml(c.text)}</div>
-    </div>`).join('');
-}
-
-async function submitComment(vid) {
-  if (!state.loggedIn) { toast('Faça login para comentar!','error'); return; }
-  const textEl = document.getElementById('commentText');
-  const text = (textEl?.value||'').trim();
-  if (!text) { toast('Escreva algo antes de enviar!','error'); return; }
-  if (!state.comments[vid]) state.comments[vid] = [];
-  state.comments[vid].push({
-    id: Date.now().toString(36),
-    author: state.username||'Anônimo',
-    text,
-    sessionId: getSessionId(),
-    date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
-  });
-  await saveMeta();
-  if (textEl) textEl.value = '';
-  renderComments(vid); renderGrid(); updateStats();
-  toast('Comentário adicionado!','success');
-}
-
-async function deleteComment(vid, cid) {
-  if (!state.isOwner) return;
-  state.comments[vid] = (state.comments[vid]||[]).filter(c=>c.id!==cid);
-  await saveMeta(); renderComments(vid); renderGrid(); updateStats();
-  toast('Comentário removido.','success');
-}
-
-async function banUser(vid, cid, sessionId) {
-  if (!state.isOwner) return;
-  if (!confirm('Banir este usuário permanentemente?')) return;
-  if (!state.banned.includes(sessionId)) state.banned.push(sessionId);
-  await deleteComment(vid, cid);
-  await saveMeta();
-  toast('Usuário banido.','error');
-}
-
-async function deleteVideo(id) {
-  if (!state.isOwner) return;
-  if (!confirm('Excluir este vídeo permanentemente?')) return;
-  await dbDelete('videos', id);
-  state.videos = state.videos.filter(v=>v.id!==id);
-  delete state.comments[id]; delete state.ratings[id];
-  await saveMeta();
-  closeModal('videoModal'); renderAll();
-  toast('Vídeo excluído.','success');
-}
-
-// ═══════════════════════════════════════════════
-// ADD VIDEO
-// ═══════════════════════════════════════════════
-async function submitVideo() {
-  if (!state.isOwner) { toast('Sem permissão.','error'); return; }
-  const title = document.getElementById('f-title').value.trim();
-  if (!title) { toast('O título é obrigatório!','error'); return; }
-
-  // Fonte de vídeo
-  let videoUrl  = null;
-  let videoData = null;
-  let videoName = null;
-
-  if (state.videoTab === 'url') {
-    videoUrl = document.getElementById('f-video-url').value.trim();
-    if (!videoUrl) { toast('Cole a URL do vídeo!','error'); return; }
-  } else {
-    if (!state.pendingVideo) { toast('Selecione um arquivo de vídeo!','error'); return; }
-    videoData = state.pendingVideo;
-    videoName = state.pendingVideoName;
-  }
-
-  // Thumbnail
-  let thumbnail = '';
-  if (state.thumbTab === 'url') {
-    thumbnail = document.getElementById('f-thumb-url').value.trim();
-  } else {
-    thumbnail = state.pendingThumb || '';
-  }
-
-  // Download
-  const downloadUrl = document.getElementById('f-dl-url').value.trim() || null;
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true; btn.textContent = 'Publicando...';
-
-  try {
-    const video = {
-      id:          Date.now().toString(36),
-      title,
-      videoUrl,
-      videoData,
-      videoName,
-      thumbnail,
-      category:    document.getElementById('f-cat').value,
-      duration:    document.getElementById('f-dur').value.trim(),
-      description: document.getElementById('f-desc').value.trim(),
-      downloadUrl,
-      date:        new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
-      createdAt:   Date.now(),
-    };
-    await dbPut('videos', video);
-    state.videos.unshift(video);
-    closeModal('addVideoModal');
-    resetAddForm();
-    renderAll();
-    toast('Vídeo publicado! 🎬','success');
-  } catch(e) {
-    toast('Erro ao salvar. Tente com URL externa.','error');
-    console.error(e);
-  }
-  btn.disabled = false; btn.textContent = 'Publicar Vídeo';
-}
-
-function resetAddForm() {
-  document.getElementById('f-title').value = '';
-  document.getElementById('f-video-url').value = '';
-  document.getElementById('f-dur').value = '';
-  document.getElementById('f-desc').value = '';
-  document.getElementById('f-cat').value = 'Geral';
-  document.getElementById('f-dl-url').value = '';
-  document.getElementById('f-thumb-url').value = '';
-  state.pendingVideo = null; state.pendingVideoName = null; state.pendingThumb = null;
-  // reset UI
-  document.getElementById('videoSelectedInfo').style.display = 'none';
-  document.getElementById('videoUploadArea').style.display = 'block';
-  document.getElementById('videoProgressWrap').style.display = 'none';
-  removeThumb();
-  const vf = document.getElementById('f-video-file'); if(vf) vf.value='';
-  switchTab('url'); switchThumbTab('url');
-}
-
-// ═══════════════════════════════════════════════
-// MODALS
-// ═══════════════════════════════════════════════
-function openModal(id) {
-  if (id==='addVideoModal' && !state.isOwner) { toast('Sem permissão.','error'); return; }
-  const el = document.getElementById(id);
-  el.style.display = 'flex';
-  requestAnimationFrame(() => el.classList.add('open'));
-  document.body.style.overflow = 'hidden';
-  if (id==='loginModal') {
-    document.getElementById('loginError').style.display = 'none';
-    setTimeout(() => document.getElementById('loginUser')?.focus(), 150);
-  }
-}
-function closeModal(id) {
-  const el = document.getElementById(id);
-  el.classList.remove('open');
-  setTimeout(() => { el.style.display='none'; document.body.style.overflow=''; }, 300);
-  if (id==='videoModal') document.getElementById('modalVideoContainer').innerHTML = '';
-}
-
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if(e.target===o) closeModal(o.id); });
-});
-document.addEventListener('keydown', e => {
-  if (e.key==='Escape') ['videoModal','addVideoModal','loginModal'].forEach(id => {
-    if (document.getElementById(id).classList.contains('open')) closeModal(id);
-  });
-});
-
-// ═══════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════
-function toast(msg, type='success') {
-  const c  = document.getElementById('toastContainer');
-  const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.innerHTML = `<div class="toast-dot"></div><span>${escHtml(msg)}</span>`;
-  c.appendChild(el);
-  requestAnimationFrame(() => setTimeout(() => el.classList.add('show'), 10));
-  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 400); }, 3200);
-}
+})();
 </script>
 </body>
 </html>
