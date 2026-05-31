@@ -132,12 +132,6 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .modal-desc{color:var(--text2);line-height:1.7;font-size:.95rem;margin-bottom:24px}
 .modal-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
 
-/* ADS NOTE */
-.ads-note{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius2);padding:12px 16px;font-size:.8rem;color:var(--text3);display:flex;align-items:flex-start;gap:10px;margin-bottom:20px}
-.ads-note-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
-.ads-note a{color:var(--accent);text-decoration:none}
-.ads-note a:hover{text-decoration:underline}
-
 /* RATING */
 .rating-section{margin-bottom:24px}
 .rating-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
@@ -185,6 +179,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .submit-btn{width:100%;background:var(--accent);color:#060608;border:none;padding:14px;border-radius:var(--radius2);cursor:pointer;font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;transition:all .2s;margin-top:8px;letter-spacing:.02em}
 .submit-btn:hover{background:var(--accent2);box-shadow:0 0 24px var(--accent)44}
 .submit-btn:active{transform:scale(.99)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 
 /* FILE UPLOAD */
 .file-upload-area{width:100%;border:2px dashed var(--border2);border-radius:var(--radius2);padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2);position:relative;overflow:hidden}
@@ -198,6 +193,19 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .thumb-preview img{width:100%;height:100%;object-fit:cover}
 .thumb-preview-remove{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:#060608bb;border:1px solid var(--border2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:all .18s}
 .thumb-preview-remove:hover{background:var(--red)66}
+
+/* File selected state */
+.file-selected{background:var(--accent)0a;border-color:var(--accent)44;padding:16px 20px}
+.file-selected-name{font-size:.85rem;color:var(--text);font-weight:500;margin-bottom:4px;display:flex;align-items:center;gap:8px;justify-content:center}
+.file-selected-size{font-size:11px;color:var(--text3)}
+.file-selected-remove{display:inline-flex;align-items:center;gap:4px;margin-top:8px;background:transparent;border:1px solid var(--border2);color:var(--text3);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:11px;font-family:'Space Grotesk',sans-serif;transition:all .18s}
+.file-selected-remove:hover{border-color:var(--red)66;color:var(--red)}
+
+/* PROGRESS BAR */
+.progress-wrap{margin-top:12px;display:none}
+.progress-label{font-size:11px;color:var(--text3);margin-bottom:6px;display:flex;justify-content:space-between}
+.progress-bar{width:100%;height:4px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:999px;width:0%;transition:width .1s}
 
 /* LOGIN MODAL */
 .login-modal{max-width:400px}
@@ -342,7 +350,6 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
       <h2 class="modal-title" id="modalTitle"></h2>
       <div class="modal-meta" id="modalMeta"></div>
       <p class="modal-desc" id="modalDesc"></p>
-      <div id="adsNote"></div>
       <div class="modal-actions" id="modalActions"></div>
       <div class="rating-section" id="ratingSection"></div>
       <div class="comments-section">
@@ -360,23 +367,36 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
     <button class="modal-close" onclick="closeModal('addVideoModal')">×</button>
     <div class="modal-body" style="padding-top:32px">
       <h2 class="modal-title">Adicionar Vídeo</h2>
-      <p style="color:var(--text3);font-size:.9rem;margin-bottom:16px">Cole o link do YouTube ou Vimeo, ou insira a URL direta do arquivo de vídeo.</p>
+      <p style="color:var(--text3);font-size:.9rem;margin-bottom:24px">Selecione o arquivo de vídeo do seu computador. O arquivo será armazenado localmente no navegador.</p>
 
-      <!-- Nota sobre anúncios -->
+      <!-- Aviso de tamanho -->
       <div style="background:var(--yellow)11;border:1px solid var(--yellow)33;border-radius:var(--radius2);padding:12px 16px;font-size:.8rem;color:var(--text2);display:flex;gap:10px;margin-bottom:20px">
         <span style="flex-shrink:0">⚠️</span>
-        <span><strong style="color:var(--yellow)">Sobre propagandas:</strong> Vídeos do YouTube exibem anúncios conforme configurado no seu canal — isso é controlado pelo YouTube e não é possível removê-los via embed. Para vídeos sem propaganda, use <strong>Vimeo</strong> (plano pago) ou hospede o arquivo <strong>.mp4</strong> diretamente.</span>
+        <span><strong style="color:var(--yellow)">Atenção ao tamanho:</strong> Arquivos grandes consomem muito espaço no localStorage do navegador (~5–10 MB de limite). Para vídeos maiores, recomendamos hospedá-los no <strong>YouTube</strong>, <strong>Vimeo</strong> ou outro serviço e usar a opção de URL externa.</span>
       </div>
 
       <div class="form-group">
         <label class="form-label">Título *</label>
         <input type="text" class="form-input" id="f-title" placeholder="Nome do projeto">
       </div>
+
+      <!-- VÍDEO: upload de arquivo -->
       <div class="form-group">
-        <label class="form-label">URL do Vídeo *</label>
-        <input type="text" class="form-input" id="f-url" placeholder="https://youtube.com/watch?v=...">
-        <div class="form-hint">YouTube, Vimeo ou URL direta de .mp4</div>
+        <label class="form-label">Arquivo de Vídeo *</label>
+        <div class="file-upload-area" id="videoUploadArea">
+          <input type="file" id="f-video-file" accept="video/mp4,video/webm,video/ogg,video/mov,video/avi,video/mkv,.mp4,.webm,.ogg,.mov,.avi,.mkv" onchange="handleVideoUpload(this)">
+          <div class="file-upload-icon">🎬</div>
+          <div class="file-upload-text"><strong>Clique para escolher</strong> ou arraste o vídeo</div>
+          <div class="file-upload-hint">MP4, WEBM, OGG, MOV, AVI, MKV · recomendado até 50MB</div>
+        </div>
+        <div id="videoSelectedInfo" style="display:none;margin-top:10px"></div>
+        <div class="progress-wrap" id="videoProgressWrap">
+          <div class="progress-label"><span id="videoProgressLabel">Carregando...</span><span id="videoProgressPct">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="videoProgressFill"></div></div>
+        </div>
       </div>
+
+      <!-- THUMBNAIL -->
       <div class="form-group">
         <label class="form-label">Thumbnail</label>
         <div class="file-upload-area" id="thumbUploadArea">
@@ -389,8 +409,9 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
           <img id="thumbPreviewImg" src="" alt="Preview">
           <div class="thumb-preview-remove" onclick="removeThumb()" title="Remover">×</div>
         </div>
-        <div class="form-hint" style="margin-top:6px">Opcional — YouTube gera thumbnail automaticamente</div>
+        <div class="form-hint" style="margin-top:6px">Opcional — será exibida como capa do vídeo</div>
       </div>
+
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Categoria</label>
@@ -409,16 +430,30 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
           <input type="text" class="form-input" id="f-dur" placeholder="0:00">
         </div>
       </div>
+
       <div class="form-group">
         <label class="form-label">Descrição</label>
         <textarea class="form-textarea" id="f-desc" placeholder="Fale sobre este projeto..."></textarea>
       </div>
+
+      <!-- DOWNLOAD: upload de arquivo -->
       <div class="form-group">
-        <label class="form-label">URL para Download</label>
-        <input type="text" class="form-input" id="f-dl" placeholder="Link direto para download">
-        <div class="form-hint">Opcional</div>
+        <label class="form-label">Arquivo para Download</label>
+        <div class="file-upload-area" id="downloadUploadArea">
+          <input type="file" id="f-dl-file" onchange="handleDownloadUpload(this)">
+          <div class="file-upload-icon">📦</div>
+          <div class="file-upload-text"><strong>Clique para escolher</strong> ou arraste o arquivo</div>
+          <div class="file-upload-hint">Qualquer formato · ZIP, MP4, PDF, etc.</div>
+        </div>
+        <div id="downloadSelectedInfo" style="display:none;margin-top:10px"></div>
+        <div class="progress-wrap" id="downloadProgressWrap">
+          <div class="progress-label"><span id="downloadProgressLabel">Carregando...</span><span id="downloadProgressPct">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="downloadProgressFill"></div></div>
+        </div>
+        <div class="form-hint" style="margin-top:6px">Opcional — disponível para download pelos visitantes logados</div>
       </div>
-      <button class="submit-btn" onclick="submitVideo()">Publicar Vídeo</button>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitVideo()">Publicar Vídeo</button>
     </div>
   </div>
 </div>
@@ -462,7 +497,7 @@ async function sha256(str) {
 // ── STORAGE ──────────────────────────────────────────────────────────────────
 const LS = {
   get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } },
-  set: (k,v) => localStorage.setItem(k, JSON.stringify(v)),
+  set: (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e) { return false; } },
 };
 
 let state = {
@@ -476,7 +511,12 @@ let state = {
   username:  null,
   activeFilter: 'all',
   currentVideo: null,
-  pendingThumb: null,
+  // Pending file data (base64)
+  pendingThumb:    null,
+  pendingVideo:    null,
+  pendingVideoName: null,
+  pendingDownload:  null,
+  pendingDownloadName: null,
 };
 
 // Restaurar sessão
@@ -489,11 +529,12 @@ let state = {
 })();
 
 function save() {
-  LS.set('dm_videos',    state.videos);
+  const ok1 = LS.set('dm_videos',    state.videos);
   LS.set('dm_comments',  state.comments);
   LS.set('dm_ratings',   state.ratings);
   LS.set('dm_banned',    state.banned);
   LS.set('dm_downloads', state.downloads);
+  if(!ok1) toast('⚠️ Armazenamento cheio! Vídeos grandes demais para o navegador.', 'error');
 }
 
 // ── CURSOR ───────────────────────────────────────────────────────────────────
@@ -541,22 +582,111 @@ function goToPortfolio(){
 }
 function goToLanding(){ showPage('landing'); }
 
-// ── THUMBNAIL UPLOAD ─────────────────────────────────────────────────────────
-function handleThumbUpload(input){
-  const file=input.files[0];
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function formatFileSize(bytes){
+  if(bytes<1024) return bytes+'B';
+  if(bytes<1024*1024) return (bytes/1024).toFixed(1)+'KB';
+  return (bytes/(1024*1024)).toFixed(1)+'MB';
+}
+
+function readFileAsBase64(file, onProgress) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onprogress = e => { if(e.lengthComputable && onProgress) onProgress(e.loaded/e.total); };
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function setFileSelectedUI(areaId, infoId, progressWrapId, name, size, onRemove) {
+  document.getElementById(areaId).style.display = 'none';
+  const infoEl = document.getElementById(infoId);
+  infoEl.style.display = 'block';
+  infoEl.innerHTML = `
+    <div class="file-upload-area file-selected" style="cursor:default">
+      <div class="file-selected-name">✅ <span>${escHtml(name)}</span></div>
+      <div class="file-selected-size">${escHtml(size)}</div>
+      <button class="file-selected-remove" onclick="${onRemove}()">× Remover</button>
+    </div>`;
+  document.getElementById(progressWrapId).style.display = 'none';
+}
+
+function showProgress(wrapId, fillId, labelId, pctId, label, pct) {
+  const wrap = document.getElementById(wrapId);
+  wrap.style.display = 'block';
+  document.getElementById(fillId).style.width = (pct*100).toFixed(0)+'%';
+  document.getElementById(labelId).textContent = label;
+  document.getElementById(pctId).textContent = (pct*100).toFixed(0)+'%';
+}
+
+// ── FILE UPLOAD: VÍDEO ───────────────────────────────────────────────────────
+async function handleVideoUpload(input) {
+  const file = input.files[0];
+  if(!file) return;
+
+  const allowed = ['video/mp4','video/webm','video/ogg','video/quicktime','video/x-msvideo','video/x-matroska','video/avi','video/mov'];
+  // também aceita por extensão
+  const ext = file.name.split('.').pop().toLowerCase();
+  const allowedExt = ['mp4','webm','ogg','mov','avi','mkv'];
+  if(!allowed.includes(file.type) && !allowedExt.includes(ext)){
+    toast('Formato inválido. Use MP4, WEBM, OGG, MOV, AVI ou MKV.','error');
+    input.value=''; return;
+  }
+
+  const warnSize = 50*1024*1024; // 50MB
+  if(file.size > warnSize){
+    const proceed = confirm(`⚠️ Arquivo grande (${formatFileSize(file.size)}). Vídeos maiores que 50MB podem exceder o limite do navegador e falhar. Deseja continuar mesmo assim?`);
+    if(!proceed){ input.value=''; return; }
+  }
+
+  // Mostrar progresso
+  document.getElementById('videoUploadArea').style.display='none';
+  document.getElementById('videoProgressWrap').style.display='block';
+  document.getElementById('videoProgressLabel').textContent = 'Lendo arquivo...';
+
+  try {
+    const base64 = await readFileAsBase64(file, pct => {
+      showProgress('videoProgressWrap','videoProgressFill','videoProgressLabel','videoProgressPct','Carregando...', pct);
+    });
+    state.pendingVideo = base64;
+    state.pendingVideoName = file.name;
+    setFileSelectedUI('videoUploadArea','videoSelectedInfo','videoProgressWrap', file.name, formatFileSize(file.size), 'removeVideo');
+    toast('Vídeo carregado com sucesso!','success');
+  } catch(e) {
+    toast('Erro ao ler o arquivo de vídeo.','error');
+    document.getElementById('videoUploadArea').style.display='block';
+    document.getElementById('videoProgressWrap').style.display='none';
+    input.value='';
+  }
+}
+
+function removeVideo(){
+  state.pendingVideo = null;
+  state.pendingVideoName = null;
+  document.getElementById('videoSelectedInfo').style.display='none';
+  document.getElementById('videoUploadArea').style.display='block';
+  document.getElementById('f-video-file').value='';
+}
+
+// ── FILE UPLOAD: THUMBNAIL ───────────────────────────────────────────────────
+async function handleThumbUpload(input){
+  const file = input.files[0];
   if(!file) return;
   const allowed=['image/jpeg','image/png','image/gif','image/webp','image/bmp'];
   if(!allowed.includes(file.type)){ toast('Formato inválido. Use JPG, PNG, GIF, WEBP ou BMP.','error'); input.value=''; return; }
   if(file.size>5*1024*1024){ toast('Imagem muito grande. Máximo 5MB.','error'); input.value=''; return; }
-  const reader=new FileReader();
-  reader.onload=e=>{
-    state.pendingThumb=e.target.result;
-    document.getElementById('thumbPreviewImg').src=e.target.result;
+  try {
+    const base64 = await readFileAsBase64(file);
+    state.pendingThumb = base64;
+    document.getElementById('thumbPreviewImg').src = base64;
     document.getElementById('thumbPreview').style.display='block';
     document.getElementById('thumbUploadArea').style.display='none';
-  };
-  reader.readAsDataURL(file);
+  } catch(e) {
+    toast('Erro ao ler a imagem.','error'); input.value='';
+  }
 }
+
 function removeThumb(){
   state.pendingThumb=null;
   document.getElementById('thumbPreviewImg').src='';
@@ -565,21 +695,66 @@ function removeThumb(){
   document.getElementById('f-thumb-file').value='';
 }
 
+// ── FILE UPLOAD: DOWNLOAD ────────────────────────────────────────────────────
+async function handleDownloadUpload(input) {
+  const file = input.files[0];
+  if(!file) return;
+
+  const warnSize = 30*1024*1024;
+  if(file.size > warnSize){
+    const proceed = confirm(`⚠️ Arquivo grande (${formatFileSize(file.size)}). Pode exceder o limite do navegador. Continuar?`);
+    if(!proceed){ input.value=''; return; }
+  }
+
+  document.getElementById('downloadUploadArea').style.display='none';
+  document.getElementById('downloadProgressWrap').style.display='block';
+
+  try {
+    const base64 = await readFileAsBase64(file, pct => {
+      showProgress('downloadProgressWrap','downloadProgressFill','downloadProgressLabel','downloadProgressPct','Carregando...', pct);
+    });
+    state.pendingDownload = base64;
+    state.pendingDownloadName = file.name;
+    setFileSelectedUI('downloadUploadArea','downloadSelectedInfo','downloadProgressWrap', file.name, formatFileSize(file.size), 'removeDownload');
+    toast('Arquivo de download carregado!','success');
+  } catch(e) {
+    toast('Erro ao ler o arquivo.','error');
+    document.getElementById('downloadUploadArea').style.display='block';
+    document.getElementById('downloadProgressWrap').style.display='none';
+    input.value='';
+  }
+}
+
+function removeDownload(){
+  state.pendingDownload = null;
+  state.pendingDownloadName = null;
+  document.getElementById('downloadSelectedInfo').style.display='none';
+  document.getElementById('downloadUploadArea').style.display='block';
+  document.getElementById('f-dl-file').value='';
+}
+
+// Drag and drop para todos os uploads
 document.addEventListener('DOMContentLoaded',()=>{
-  const area=document.getElementById('thumbUploadArea');
+  setupDragDrop('videoUploadArea', 'f-video-file', handleVideoUpload);
+  setupDragDrop('thumbUploadArea', 'f-thumb-file', handleThumbUpload);
+  setupDragDrop('downloadUploadArea', 'f-dl-file', handleDownloadUpload);
+});
+
+function setupDragDrop(areaId, inputId, handler){
+  const area = document.getElementById(areaId);
   if(!area) return;
-  area.addEventListener('dragover',e=>{e.preventDefault();area.classList.add('drag-over');});
-  area.addEventListener('dragleave',()=>area.classList.remove('drag-over'));
-  area.addEventListener('drop',e=>{
+  area.addEventListener('dragover', e=>{ e.preventDefault(); area.classList.add('drag-over'); });
+  area.addEventListener('dragleave', ()=>area.classList.remove('drag-over'));
+  area.addEventListener('drop', e=>{
     e.preventDefault(); area.classList.remove('drag-over');
-    const file=e.dataTransfer.files[0];
+    const file = e.dataTransfer.files[0];
     if(file){
-      const input=document.getElementById('f-thumb-file');
-      const dt=new DataTransfer(); dt.items.add(file); input.files=dt.files;
-      handleThumbUpload(input);
+      const input = document.getElementById(inputId);
+      const dt = new DataTransfer(); dt.items.add(file); input.files = dt.files;
+      handler(input);
     }
   });
-});
+}
 
 // ── LOGIN ────────────────────────────────────────────────────────────────────
 function togglePw(){
@@ -681,21 +856,6 @@ function filterVideos(cat,btn){
   renderGrid();
 }
 
-function getEmbedUrl(url){
-  if(!url) return null;
-  const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
-  if(yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`;
-  const vm=url.match(/vimeo\.com\/(\d+)/);
-  if(vm) return `https://player.vimeo.com/video/${vm[1]}?autoplay=1`;
-  return null;
-}
-function getYtThumb(url){
-  const m=url&&url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
-  return m?`https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg`:null;
-}
-function isYouTube(url){
-  return !!(url&&url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/));
-}
 function avgRating(vid){
   const r=state.ratings[vid]||{};
   const vals=Object.values(r);
@@ -715,19 +875,18 @@ function renderGrid(){
     </div>`;
     return;
   }
-  // Vídeos visíveis para TODOS, logados ou não
   grid.innerHTML=filtered.map((v,i)=>buildCard(v,i)).join('');
 }
 
 function buildCard(v,i){
-  const thumb=v.thumbnail||getYtThumb(v.url)||'';
+  const thumb=v.thumbnail||'';
   const rating=avgRating(v.id);
   const comments=(state.comments[v.id]||[]).length;
   return `
     <div class="video-card" style="animation-delay:${(i%6)*.07}s" onclick="openVideo('${v.id}')">
       <div class="card-thumb">
         ${thumb
-          ?`<img src="${thumb.startsWith('data:')?thumb:escHtml(thumb)}" alt="${escHtml(v.title)}" loading="lazy">`
+          ?`<img src="${escHtml(thumb)}" alt="${escHtml(v.title)}" loading="lazy">`
           :`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:2rem">🎬</div>`}
         <div class="card-overlay"><div class="play-btn"><div class="play-icon"></div></div></div>
         ${v.duration?`<div class="card-duration">${escHtml(v.duration)}</div>`:''}
@@ -771,16 +930,13 @@ function openVideo(id){
   if(!v) return;
   state.currentVideo=v;
 
-  const embed=getEmbedUrl(v.url);
   const el=document.getElementById('modalVideoContainer');
 
-  // Todos podem assistir — sem bloqueio por login
-  if(embed){
-    el.innerHTML=`<iframe src="${embed}" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;
-  } else if(v.url&&v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
-    el.innerHTML=`<video src="${escHtml(v.url)}" controls style="width:100%;height:100%"></video>`;
+  if(v.videoData){
+    // base64 local
+    el.innerHTML=`<video src="${v.videoData}" controls style="width:100%;height:100%" preload="metadata"></video>`;
   } else {
-    el.innerHTML=`<div class="modal-video-placeholder">🎬<span>Clique em "Abrir Vídeo" abaixo</span></div>`;
+    el.innerHTML=`<div class="modal-video-placeholder">🎬<span>Vídeo não disponível</span></div>`;
   }
 
   document.getElementById('modalTitle').textContent=v.title;
@@ -790,37 +946,17 @@ function openVideo(id){
     <span>·</span><span style="color:var(--yellow)">★ ${avgRating(v.id)||'Sem avaliações'}</span>`;
   document.getElementById('modalDesc').textContent=v.description||'';
 
-  // Nota sobre anúncios (apenas para vídeos do YouTube)
-  const adsNoteEl=document.getElementById('adsNote');
-  if(isYouTube(v.url)){
-    adsNoteEl.innerHTML=`<div class="ads-note">
-      <span class="ads-note-icon">ℹ️</span>
-      <span>Este vídeo pode exibir anúncios do YouTube. Isso é controlado pela plataforma e não é possível desativar via embed. Para assistir sem ads, use o <a href="${escHtml(v.url)}" target="_blank" rel="noopener">YouTube Premium</a> ou um bloqueador de anúncios.</span>
-    </div>`;
-  } else {
-    adsNoteEl.innerHTML='';
-  }
-
   // Ações
   let actHtml='';
-  if(!state.loggedIn){
-    // Visitante vê o vídeo mas precisa de login para download/comentário
-    if(v.url&&!getEmbedUrl(v.url)&&!v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
-      actHtml+=`<a href="${escHtml(v.url)}" target="_blank" rel="noopener" class="download-btn">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Abrir Vídeo</a>`;
-    }
-  } else {
-    if(v.url&&!getEmbedUrl(v.url)&&!v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
-      actHtml+=`<a href="${escHtml(v.url)}" target="_blank" rel="noopener" class="download-btn">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Abrir Vídeo</a>`;
-    }
-    if(v.downloadUrl){
-      actHtml+=`<a href="${escHtml(v.downloadUrl)}" download class="download-btn" onclick="trackDownload()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Baixar Vídeo</a>`;
-    }
+  if(state.loggedIn && v.downloadData){
+    actHtml+=`<a href="${escHtml(v.downloadData)}" download="${escHtml(v.downloadName||'download')}" class="download-btn" onclick="trackDownload()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Baixar ${escHtml(v.downloadName||'Arquivo')}</a>`;
+  }
+  if(!state.loggedIn && v.downloadData){
+    actHtml+=`<div style="font-size:.82rem;color:var(--text3);padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius2)">
+      <a onclick="closeModal('videoModal');openModal('loginModal')" style="color:var(--accent);cursor:pointer;font-weight:600">Faça login</a> para baixar este arquivo.
+    </div>`;
   }
   if(state.isOwner){
     actHtml+=`<button class="download-btn" style="color:var(--red);border-color:var(--red)33" onclick="deleteVideo('${v.id}')">
@@ -966,25 +1102,65 @@ function deleteVideo(id){
 function submitVideo(){
   if(!state.isOwner){ toast('Sem permissão.','error'); return; }
   const title=document.getElementById('f-title').value.trim();
-  const url=document.getElementById('f-url').value.trim();
-  if(!title||!url){ toast('Título e URL são obrigatórios!','error'); return; }
-  const thumbnail=state.pendingThumb||getYtThumb(url)||'';
-  state.videos.unshift({
-    id: Date.now().toString(36),
-    title, url, thumbnail,
-    category: document.getElementById('f-cat').value,
-    duration: document.getElementById('f-dur').value.trim(),
-    description: document.getElementById('f-desc').value.trim(),
-    downloadUrl: document.getElementById('f-dl').value.trim(),
-    date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
-  });
-  save();
-  closeModal('addVideoModal');
-  ['f-title','f-url','f-dur','f-desc','f-dl'].forEach(id=>{document.getElementById(id).value='';});
+  if(!title){ toast('O título é obrigatório!','error'); return; }
+  if(!state.pendingVideo){ toast('Selecione um arquivo de vídeo!','error'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Publicando...';
+
+  // Pequeno delay para UI atualizar
+  setTimeout(()=>{
+    try {
+      state.videos.unshift({
+        id: Date.now().toString(36),
+        title,
+        videoData: state.pendingVideo,
+        videoName: state.pendingVideoName,
+        thumbnail: state.pendingThumb || '',
+        category: document.getElementById('f-cat').value,
+        duration: document.getElementById('f-dur').value.trim(),
+        description: document.getElementById('f-desc').value.trim(),
+        downloadData: state.pendingDownload || null,
+        downloadName: state.pendingDownloadName || null,
+        date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
+      });
+      save();
+      closeModal('addVideoModal');
+      resetAddForm();
+      renderAll();
+      toast('Vídeo publicado! 🎬','success');
+    } catch(e) {
+      toast('Erro ao salvar. O arquivo pode ser grande demais para o armazenamento local.','error');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Publicar Vídeo';
+  }, 100);
+}
+
+function resetAddForm(){
+  document.getElementById('f-title').value='';
+  document.getElementById('f-dur').value='';
+  document.getElementById('f-desc').value='';
   document.getElementById('f-cat').value='Geral';
-  removeThumb();
-  renderAll();
-  toast('Vídeo publicado!','success');
+  state.pendingVideo=null; state.pendingVideoName=null;
+  state.pendingThumb=null;
+  state.pendingDownload=null; state.pendingDownloadName=null;
+  // Reset UI areas
+  ['videoUploadArea','thumbUploadArea','downloadUploadArea'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='block';
+  });
+  ['videoSelectedInfo','downloadSelectedInfo'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='none';
+  });
+  ['videoProgressWrap','downloadProgressWrap'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='none';
+  });
+  document.getElementById('thumbPreview').style.display='none';
+  document.getElementById('thumbPreviewImg').src='';
+  ['f-video-file','f-thumb-file','f-dl-file'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
 }
 
 // ── MODALS ────────────────────────────────────────────────────────────────────
@@ -1023,7 +1199,7 @@ function toast(msg,type='success'){
   el.innerHTML=`<div class="toast-dot"></div><span>${escHtml(msg)}</span>`;
   c.appendChild(el);
   requestAnimationFrame(()=>setTimeout(()=>el.classList.add('show'),10));
-  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},3000);
+  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},3500);
 }
 
 // ── UTILS ─────────────────────────────────────────────────────────────────────
