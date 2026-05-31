@@ -442,6 +442,25 @@ body::after {
 .shorts-star { font-size: 1.4rem; cursor: none; transition: transform .15s; filter: grayscale(1); opacity: .3; color: var(--yellow); }
 .shorts-star:hover, .shorts-star.on { filter: none; opacity: 1; transform: scale(1.2); }
 
+/* Shorts side panel tab bar */
+.shorts-side-tabs {
+  display: flex; gap: 4px;
+  background: var(--surface3);
+  border-radius: 10px; padding: 3px;
+  margin-bottom: 16px;
+}
+.shorts-side-tab {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 8px 10px; border-radius: 7px;
+  border: none; background: transparent;
+  color: var(--text3); cursor: none;
+  font-family: 'Outfit', sans-serif; font-size: .75rem; font-weight: 500;
+  transition: all .2s;
+}
+.shorts-side-tab:hover { color: var(--text2); }
+.shorts-side-tab.on { background: var(--surface); color: var(--text); font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+.shorts-side-tab.on .modal-tab-dot { background: var(--lime); }
+
 .shorts-modal-x {
   position: fixed; top: 20px; right: 20px; z-index: 10;
   width: 40px; height: 40px; border-radius: 50%;
@@ -496,6 +515,45 @@ body::after {
 .modal-btn:hover { background: var(--surface3); border-color: var(--border2); color: var(--text); }
 .modal-btn.danger { color: var(--red); border-color: rgba(255,64,64,.3); }
 .modal-btn.danger:hover { background: rgba(255,64,64,.08); border-color: var(--red); }
+/* ─── MODAL TAB BAR ──────────────────── */
+.modal-tabs {
+  display: flex; gap: 4px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+.modal-tab {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 10px 14px; border-radius: 9px;
+  border: none; background: transparent;
+  color: var(--text3); cursor: none;
+  font-family: 'Outfit', sans-serif; font-size: .82rem; font-weight: 500;
+  transition: all .2s; white-space: nowrap;
+}
+.modal-tab:hover { color: var(--text2); background: var(--surface3); }
+.modal-tab.on {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 1px 6px rgba(0,0,0,.3);
+}
+.modal-tab.on .modal-tab-dot { background: var(--lime); }
+.modal-tab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; transition: background .2s; }
+.modal-tab-panel { display: none; }
+.modal-tab-panel.on { display: block; animation: fadeIn .25s ease; }
+
+/* badge count on tab */
+.modal-tab-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 5px;
+  background: var(--surface3); border-radius: 999px;
+  font-size: .65rem; font-weight: 700; color: var(--text3);
+  transition: all .2s;
+}
+.modal-tab.on .modal-tab-badge { background: var(--lime-glow); color: var(--lime); }
+
 .rating-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .15em; color: var(--text3); margin-bottom: 10px; }
 .stars { display: flex; gap: 8px; margin-bottom: 24px; }
 .star { font-size: 1.6rem; cursor: none; transition: transform .15s; filter: grayscale(1); opacity: .3; color: var(--yellow); }
@@ -763,15 +821,37 @@ body::after {
     <button class="modal-x" onclick="closeModal('vidModal')">×</button>
     <div class="modal-vid" id="modalVidEl"></div>
     <div class="modal-body">
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-meta" id="modalMeta"></div>
-      <div class="modal-desc" id="modalDesc"></div>
-      <div class="modal-actions" id="modalActions"></div>
-      <div class="rating-label">Sua Avaliação</div>
-      <div class="stars" id="starEl"></div>
-      <div class="cmts-label">Comentários</div>
-      <div id="cmt-form-area"></div>
-      <div id="cmt-list"></div>
+
+      <!-- TAB BAR -->
+      <div class="modal-tabs">
+        <button class="modal-tab on" id="vtab-info" onclick="switchModalTab('vid','info')">
+          <div class="modal-tab-dot"></div>
+          Informações
+        </button>
+        <button class="modal-tab" id="vtab-interact" onclick="switchModalTab('vid','interact')">
+          <div class="modal-tab-dot"></div>
+          Avaliação &amp; Comentários
+          <span class="modal-tab-badge" id="vtab-badge">0</span>
+        </button>
+      </div>
+
+      <!-- PANEL: INFO -->
+      <div class="modal-tab-panel on" id="vpanel-info">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-meta" id="modalMeta"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+        <div class="modal-actions" id="modalActions"></div>
+      </div>
+
+      <!-- PANEL: INTERACT -->
+      <div class="modal-tab-panel" id="vpanel-interact">
+        <div class="rating-label">Sua Avaliação</div>
+        <div class="stars" id="starEl"></div>
+        <div class="cmts-label">Comentários</div>
+        <div id="cmt-form-area"></div>
+        <div id="cmt-list"></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -796,15 +876,37 @@ body::after {
     <!-- Side info panel -->
     <div class="shorts-side-panel" id="shortsSidePanel">
       <div class="shorts-side-info">
-        <div class="shorts-side-title" id="shortsSideTitle"></div>
-        <div class="shorts-side-meta" id="shortsSideMeta"></div>
-        <div class="shorts-side-desc" id="shortsSideDesc"></div>
-        <div id="shorts-modal-actions"></div>
-        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:8px;">Avaliação</div>
-        <div class="shorts-stars" id="shortsStarEl"></div>
-        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:10px;">Comentários</div>
-        <div id="shorts-cmt-form-area"></div>
-        <div class="shorts-cmts-wrap" id="shorts-cmt-list"></div>
+
+        <!-- SIDE TABS -->
+        <div class="shorts-side-tabs">
+          <button class="shorts-side-tab on" id="stab-info" onclick="switchModalTab('shorts','info')">
+            <div class="modal-tab-dot"></div>
+            Info
+          </button>
+          <button class="shorts-side-tab" id="stab-interact" onclick="switchModalTab('shorts','interact')">
+            <div class="modal-tab-dot"></div>
+            Avaliar &amp; Comentar
+            <span class="modal-tab-badge" id="stab-badge">0</span>
+          </button>
+        </div>
+
+        <!-- PANEL: INFO -->
+        <div class="modal-tab-panel on" id="spanel-info">
+          <div class="shorts-side-title" id="shortsSideTitle"></div>
+          <div class="shorts-side-meta" id="shortsSideMeta"></div>
+          <div class="shorts-side-desc" id="shortsSideDesc"></div>
+          <div id="shorts-modal-actions"></div>
+        </div>
+
+        <!-- PANEL: INTERACT -->
+        <div class="modal-tab-panel" id="spanel-interact">
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:8px;">Sua Avaliação</div>
+          <div class="shorts-stars" id="shortsStarEl"></div>
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:10px;">Comentários</div>
+          <div id="shorts-cmt-form-area"></div>
+          <div class="shorts-cmts-wrap" id="shorts-cmt-list"></div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1103,15 +1205,15 @@ function loadData() {
   });
   db.ref('portfolio_comments').on('value', snap => {
     state.comments = snap.val() || {};
-    if (state.currentVideo) renderCmts(state.currentVideo.id, 'cmt-form-area', 'cmt-list', false);
-    if (state.currentShort) renderCmts(state.currentShort.id, 'shorts-cmt-form-area', 'shorts-cmt-list', true);
+    if (state.currentVideo) { renderCmts(state.currentVideo.id, 'cmt-form-area', 'cmt-list', false); updateVidTabBadge(state.currentVideo.id); }
+    if (state.currentShort) { renderCmts(state.currentShort.id, 'shorts-cmt-form-area', 'shorts-cmt-list', true); updateShortsTabBadge(state.currentShort.id); }
     updateStats(); renderGrid(); renderShortsGrid();
   });
   db.ref('portfolio_ratings').on('value', snap => {
     state.ratings = snap.val() || {};
     updateStats(); renderGrid(); renderShortsGrid();
-    if (state.currentVideo) renderStars(state.currentVideo.id, 'starEl', false);
-    if (state.currentShort) renderStars(state.currentShort.id, 'shortsStarEl', true);
+    if (state.currentVideo) { renderStars(state.currentVideo.id, 'starEl', false); updateVidTabBadge(state.currentVideo.id); }
+    if (state.currentShort) { renderStars(state.currentShort.id, 'shortsStarEl', true); updateShortsTabBadge(state.currentShort.id); }
   });
   db.ref('portfolio_downloads').once('value', snap => { state.downloads = snap.val() || 0; updateStats(); });
   db.ref('portfolio_bans').on('value', snap => { state.banned = snap.val() ? Object.keys(snap.val()) : []; });
@@ -1265,8 +1367,37 @@ function avgRating(vid) {
 }
 
 // ══════════════════════════════════════
-//  LONG VIDEO MODAL
+//  MODAL TAB SWITCHING
 // ══════════════════════════════════════
+function switchModalTab(modal, panel) {
+  if (modal === 'vid') {
+    document.getElementById('vtab-info').classList.toggle('on', panel === 'info');
+    document.getElementById('vtab-interact').classList.toggle('on', panel === 'interact');
+    document.getElementById('vpanel-info').classList.toggle('on', panel === 'info');
+    document.getElementById('vpanel-interact').classList.toggle('on', panel === 'interact');
+  } else {
+    document.getElementById('stab-info').classList.toggle('on', panel === 'info');
+    document.getElementById('stab-interact').classList.toggle('on', panel === 'interact');
+    document.getElementById('spanel-info').classList.toggle('on', panel === 'info');
+    document.getElementById('spanel-interact').classList.toggle('on', panel === 'interact');
+  }
+}
+function updateVidTabBadge(vid) {
+  const cCount = (state.comments[vid] || []).length;
+  const rating = avgRating(vid);
+  const total = cCount + (rating ? 1 : 0);
+  const badge = document.getElementById('vtab-badge');
+  if (badge) badge.textContent = total || '0';
+}
+function updateShortsTabBadge(vid) {
+  const cCount = (state.comments[vid] || []).length;
+  const rating = avgRating(vid);
+  const total = cCount + (rating ? 1 : 0);
+  const badge = document.getElementById('stab-badge');
+  if (badge) badge.textContent = total || '0';
+}
+
+
 function openVideo(id) {
   const v = state.videos.find(x => x.id === id); if (!v) return;
   state.currentVideo = v;
@@ -1289,6 +1420,8 @@ function openVideo(id) {
   document.getElementById('modalActions').innerHTML = acts;
   renderStars(v.id, 'starEl', false);
   renderCmts(v.id, 'cmt-form-area', 'cmt-list', false);
+  updateVidTabBadge(v.id);
+  switchModalTab('vid', 'info'); // always open on info tab
   openModal('vidModal');
 }
 
@@ -1348,6 +1481,8 @@ function loadShortAt(idx) {
 
   renderStars(v.id, 'shortsStarEl', true);
   renderCmts(v.id, 'shorts-cmt-form-area', 'shorts-cmt-list', true);
+  updateShortsTabBadge(v.id);
+  switchModalTab('shorts', 'info'); // always open on info tab
 }
 
 function navigateShort(dir) {
