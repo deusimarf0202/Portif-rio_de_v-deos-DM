@@ -8,21 +8,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#060608;
-  --surface:#0d0d12;
-  --surface2:#13131a;
-  --surface3:#1a1a24;
-  --border:#ffffff0f;
-  --border2:#ffffff1a;
-  --accent:#c8f135;
-  --accent2:#a8d420;
-  --text:#f0f0f0;
-  --text2:#9898b0;
-  --text3:#5a5a70;
-  --red:#ff4d4d;
-  --yellow:#ffd166;
-  --radius:14px;
-  --radius2:10px;
+  --bg:#060608;--surface:#0d0d12;--surface2:#13131a;--surface3:#1a1a24;
+  --border:#ffffff0f;--border2:#ffffff1a;--accent:#c8f135;--accent2:#a8d420;
+  --text:#f0f0f0;--text2:#9898b0;--text3:#5a5a70;--red:#ff4d4d;--yellow:#ffd166;
+  --radius:14px;--radius2:10px;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
@@ -52,7 +41,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .landing-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,10vw,8rem);font-weight:800;line-height:.92;letter-spacing:-.03em;animation:fadeUp .9s ease .2s both}
 .landing-title span{color:var(--accent)}
 .landing-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--text2);max-width:480px;margin:1.5rem auto 2.5rem;line-height:1.7;font-weight:300;animation:fadeUp .9s ease .4s both}
-.landing-cta{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#060608;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em;padding:16px 40px;border-radius:999px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .9s ease .6s both;position:relative;overflow:hidden}
+.landing-cta{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#060608;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em;padding:16px 40px;border-radius:999px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .9s ease .6s both}
 .landing-cta:hover{transform:scale(1.04);box-shadow:0 0 40px var(--accent)44}
 .landing-cta:active{transform:scale(.98)}
 .cta-arrow{font-size:1.2rem;transition:transform .2s}
@@ -61,7 +50,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--text3),transparent);animation:scrollLine 2s infinite}
 @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* PORTFOLIO PAGE */
+/* PORTFOLIO */
 #page-portfolio{padding-top:80px}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,var(--bg)60%,transparent);transition:backdrop-filter .3s,background .3s}
 nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
@@ -158,9 +147,6 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .comment-input:focus{border-color:var(--border2)}
 .comment-send{background:var(--accent);color:#060608;border:none;padding:12px 20px;border-radius:var(--radius2);cursor:pointer;font-weight:600;font-family:'Syne',sans-serif;font-size:.85rem;transition:all .18s;white-space:nowrap}
 .comment-send:hover{background:var(--accent2);box-shadow:0 0 16px var(--accent)44}
-.comment-name-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius2);font-family:'Space Grotesk',sans-serif;font-size:.85rem;transition:border-color .18s;outline:none;width:160px}
-.comment-name-input:focus{border-color:var(--border2)}
-.comment-name-input::placeholder{color:var(--text3)}
 .comment-item{padding:14px 0;border-bottom:1px solid var(--border);animation:fadeIn .3s ease}
 .comment-item:last-child{border-bottom:none}
 .comment-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
@@ -194,13 +180,26 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .submit-btn:hover{background:var(--accent2);box-shadow:0 0 24px var(--accent)44}
 .submit-btn:active{transform:scale(.99)}
 
+/* FILE UPLOAD */
+.file-upload-area{width:100%;border:2px dashed var(--border2);border-radius:var(--radius2);padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2);position:relative;overflow:hidden}
+.file-upload-area:hover,.file-upload-area.drag-over{border-color:var(--accent)66;background:var(--accent)08}
+.file-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.file-upload-icon{font-size:2rem;margin-bottom:8px;opacity:.5}
+.file-upload-text{font-size:.85rem;color:var(--text3)}
+.file-upload-text strong{color:var(--accent)}
+.file-upload-hint{font-size:11px;color:var(--text3);margin-top:4px}
+.thumb-preview{width:100%;aspect-ratio:16/9;border-radius:var(--radius2);overflow:hidden;background:var(--surface2);display:none;margin-top:10px;position:relative}
+.thumb-preview img{width:100%;height:100%;object-fit:cover}
+.thumb-preview-remove{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:#060608bb;border:1px solid var(--border2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:all .18s}
+.thumb-preview-remove:hover{background:var(--red)66}
+
 /* LOGIN MODAL */
 .login-modal{max-width:400px}
 .login-header{text-align:center;padding:40px 28px 24px}
 .login-icon{width:64px;height:64px;border-radius:18px;background:var(--accent)22;border:1px solid var(--accent)44;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem}
 .login-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:8px}
 .login-sub{font-size:.9rem;color:var(--text3);line-height:1.5}
-.login-body{padding:0 28px 36px;display:flex;flex-direction:column;gap:14px}
+.login-body{padding:0 28px 36px;display:flex;flex-direction:column;gap:12px}
 .login-error{font-size:12px;color:var(--red);text-align:center;padding:10px 14px;background:var(--red)11;border:1px solid var(--red)33;border-radius:var(--radius2);display:none}
 .login-input-wrap{position:relative}
 .login-input-wrap input{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:13px 16px;border-radius:var(--radius2);font-family:'Space Grotesk',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s}
@@ -210,16 +209,14 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 .login-toggle-pw:hover{color:var(--text)}
 .login-submit{width:100%;background:var(--accent);color:#060608;border:none;padding:14px;border-radius:var(--radius2);cursor:pointer;font-weight:700;font-family:'Syne',sans-serif;font-size:1rem;transition:all .2s;letter-spacing:.02em}
 .login-submit:hover{background:var(--accent2);box-shadow:0 0 24px var(--accent)44}
-.login-submit:active{transform:scale(.99)}
 .login-note{font-size:11px;color:var(--text3);text-align:center;line-height:1.6}
 
-/* OWNER BADGE */
-.owner-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent)22;border:1px solid var(--accent)44;color:var(--accent);padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.owner-panel{background:var(--surface2);border:1px solid var(--accent)22;border-radius:var(--radius);padding:20px 24px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.owner-panel-left{display:flex;align-items:center;gap:14px}
-.owner-avatar{width:44px;height:44px;border-radius:50%;background:var(--accent)22;border:2px solid var(--accent)44;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;color:var(--accent);font-size:1.1rem}
-.owner-name{font-weight:600;font-size:.95rem}
-.owner-role{font-size:12px;color:var(--text3)}
+/* USER PANEL */
+.user-panel{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 24px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.user-panel-left{display:flex;align-items:center;gap:12px}
+.user-avatar{width:40px;height:40px;border-radius:50%;background:var(--surface3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem}
+.user-name{font-weight:600;font-size:.9rem}
+.user-sub{font-size:11px;color:var(--text3)}
 
 /* FILTER */
 .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
@@ -249,7 +246,6 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 #banned-page p{color:var(--text3);max-width:360px;line-height:1.7}
 #banned-page .ban-icon{font-size:4rem;margin-bottom:8px}
 
-/* RESPONSIVE */
 @media(max-width:768px){
   nav{padding:16px 20px}
   .hero{padding:40px 20px 40px}
@@ -281,13 +277,8 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   <div class="tag"><span class="tag-dot"></span> Portfólio Visual · 2024</div>
   <h1 class="landing-title">DM<br><span>Studio.</span></h1>
   <p class="landing-sub">Criações audiovisuais com propósito. Explore o trabalho, avalie e deixe sua impressão.</p>
-  <button class="landing-cta" onclick="goToPortfolio()">
-    Ver Portfólio <span class="cta-arrow">→</span>
-  </button>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    <span>scroll</span>
-  </div>
+  <button class="landing-cta" onclick="goToPortfolio()">Ver Portfólio <span class="cta-arrow">→</span></button>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>scroll</span></div>
 </div>
 
 <!-- PORTFOLIO -->
@@ -321,7 +312,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   </div>
 
   <div class="section">
-    <div id="ownerPanel"></div>
+    <div id="userPanel"></div>
     <div class="section-header">
       <h3 class="section-title">Todos os Vídeos</h3>
       <span class="section-count" id="videoCount">0 vídeos</span>
@@ -341,10 +332,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
       <div class="modal-meta" id="modalMeta"></div>
       <p class="modal-desc" id="modalDesc"></p>
       <div class="modal-actions" id="modalActions"></div>
-      <div class="rating-section">
-        <div class="rating-title">Sua avaliação</div>
-        <div class="stars" id="starRating"></div>
-      </div>
+      <div class="rating-section" id="ratingSection"></div>
       <div class="comments-section">
         <div class="comments-title">Comentários</div>
         <div id="commentFormArea"></div>
@@ -354,7 +342,7 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   </div>
 </div>
 
-<!-- MODAL: ADD VIDEO -->
+<!-- MODAL: ADD VIDEO (só admin vê este botão) -->
 <div class="modal-overlay" id="addVideoModal">
   <div class="modal add-modal">
     <button class="modal-close" onclick="closeModal('addVideoModal')">×</button>
@@ -371,9 +359,18 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
         <div class="form-hint">YouTube, Vimeo ou URL direta de .mp4</div>
       </div>
       <div class="form-group">
-        <label class="form-label">Thumbnail (URL da imagem)</label>
-        <input type="text" class="form-input" id="f-thumb" placeholder="https://exemplo.com/imagem.jpg">
-        <div class="form-hint">Opcional — YouTube gera automaticamente</div>
+        <label class="form-label">Thumbnail</label>
+        <div class="file-upload-area" id="thumbUploadArea">
+          <input type="file" id="f-thumb-file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp" onchange="handleThumbUpload(this)">
+          <div class="file-upload-icon">🖼️</div>
+          <div class="file-upload-text"><strong>Clique para escolher</strong> ou arraste a imagem</div>
+          <div class="file-upload-hint">JPG, JPEG, PNG, GIF, WEBP, BMP · máx 5MB</div>
+        </div>
+        <div class="thumb-preview" id="thumbPreview">
+          <img id="thumbPreviewImg" src="" alt="Preview">
+          <div class="thumb-preview-remove" onclick="removeThumb()" title="Remover">×</div>
+        </div>
+        <div class="form-hint" style="margin-top:6px">Opcional — YouTube gera thumbnail automaticamente</div>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -407,14 +404,14 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
   </div>
 </div>
 
-<!-- MODAL: LOGIN -->
+<!-- MODAL: LOGIN — aparência genérica, sem mencionar admin -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal login-modal">
     <button class="modal-close" onclick="closeModal('loginModal')">×</button>
     <div class="login-header">
       <div class="login-icon">🔐</div>
-      <h2 class="login-title">LOGIN</h2>
-      <p class="login-sub">Digite o usuário e a senha para fazer login</p>
+      <h2 class="login-title">Entrar</h2>
+      <p class="login-sub">Digite seu usuário e senha para acessar</p>
     </div>
     <div class="login-body">
       <div class="login-input-wrap">
@@ -422,11 +419,11 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
       </div>
       <div class="login-input-wrap">
         <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-        <button class="login-toggle-pw" type="button" onclick="togglePw()" title="Mostrar/ocultar senha">👁</button>
+        <button class="login-toggle-pw" type="button" onclick="togglePw()">👁</button>
       </div>
       <div class="login-error" id="loginError">Usuário ou senha incorretos.</div>
       <button class="login-submit" onclick="doLogin()">Entrar</button>
-      <p class="login-note">Este é o local de login para ter acesso ao site.</p>
+      <p class="login-note">Acesse para comentar, avaliar e baixar os vídeos.</p>
     </div>
   </div>
 </div>
@@ -434,20 +431,16 @@ nav.scrolled{backdrop-filter:blur(20px);background:var(--bg)dd}
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
-// ─── CREDENCIAIS (senha armazenada como SHA-256) ───────────────────────────────
-// Usuário: DM_202617
-// A senha não está aqui em texto — apenas o hash SHA-256 dela.
-// Para gerar o hash de uma nova senha: https://emn178.github.io/online-tools/sha256.html
+// ── CREDENCIAIS ADMIN ────────────────────────────────────────────────────────
 const OWNER_USER    = 'DM_202617';
 const OWNER_PW_HASH = 'bc85c11808af84cf34b5d45046753995bdee2cebcff32dcef80050e9ca263186';
 
-// ─── SHA-256 nativo do browser (Web Crypto API) ───────────────────────────────
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
+// ── STORAGE ──────────────────────────────────────────────────────────────────
 const LS = {
   get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } },
   set: (k,v) => localStorage.setItem(k, JSON.stringify(v)),
@@ -460,9 +453,21 @@ let state = {
   banned:    LS.get('dm_banned')    || [],
   downloads: LS.get('dm_downloads') || 0,
   isOwner:   false,
+  loggedIn:  false,
+  username:  null,
   activeFilter: 'all',
   currentVideo: null,
+  pendingThumb: null,
 };
+
+// Restaurar sessão (visitante comum persiste, admin não — requer login a cada abertura)
+(function(){
+  const u = sessionStorage.getItem('dm_user');
+  if (u && u !== OWNER_USER) {
+    state.loggedIn = true;
+    state.username = u;
+  }
+})();
 
 function save() {
   LS.set('dm_videos',    state.videos);
@@ -472,7 +477,7 @@ function save() {
   LS.set('dm_downloads', state.downloads);
 }
 
-// ─── CURSOR ───────────────────────────────────────────────────────────────────
+// ── CURSOR ───────────────────────────────────────────────────────────────────
 const cursorEl = document.getElementById('cursor');
 const ringEl   = document.getElementById('cursor-ring');
 document.addEventListener('mousemove', e => {
@@ -483,198 +488,237 @@ window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// ─── LANDING LINES ────────────────────────────────────────────────────────────
-(function() {
+// ── LANDING LINES ────────────────────────────────────────────────────────────
+(function(){
   const ll = document.getElementById('landingLines');
-  for (let i = 0; i < 8; i++) {
-    const s = document.createElement('span');
-    s.style.cssText = `left:calc(50% + ${(i-3.5)*140}px);animation-delay:${i*0.3}s`;
+  for (let i=0;i<8;i++){
+    const s=document.createElement('span');
+    s.style.cssText=`left:calc(50% + ${(i-3.5)*140}px);animation-delay:${i*0.3}s`;
     ll.appendChild(s);
   }
 })();
 
-// ─── MARQUEE ──────────────────────────────────────────────────────────────────
-function buildMarquee() {
-  const items = ['Edição de Vídeo','Motion Design','Color Grading','Storytelling Visual','Pós-Produção','Sound Design','Animação','Cinematografia'];
-  const inner = document.getElementById('marqueeInner');
-  inner.innerHTML = [...items,...items].map(t=>`<span class="marquee-item">${t}</span>`).join('');
+// ── MARQUEE ──────────────────────────────────────────────────────────────────
+function buildMarquee(){
+  const items=['Edição de Vídeo','Motion Design','Color Grading','Storytelling Visual','Pós-Produção','Sound Design','Animação','Cinematografia'];
+  document.getElementById('marqueeInner').innerHTML=[...items,...items].map(t=>`<span class="marquee-item">${t}</span>`).join('');
 }
 
-// ─── NAVIGATION ───────────────────────────────────────────────────────────────
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+// ── NAVEGAÇÃO ────────────────────────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
-function goToPortfolio() {
-  const landing = document.getElementById('page-landing');
-  landing.style.transition = 'opacity .5s,transform .5s';
-  landing.style.opacity = '0';
-  landing.style.transform = 'scale(1.03)';
-  setTimeout(() => {
+function goToPortfolio(){
+  const l=document.getElementById('page-landing');
+  l.style.transition='opacity .5s,transform .5s';
+  l.style.opacity='0'; l.style.transform='scale(1.03)';
+  setTimeout(()=>{
     showPage('portfolio');
-    landing.style.opacity = '';
-    landing.style.transform = '';
-    landing.style.transition = '';
+    l.style.opacity=''; l.style.transform=''; l.style.transition='';
     renderAll();
-  }, 500);
+  },500);
 }
-function goToLanding() { showPage('landing'); }
+function goToLanding(){ showPage('landing'); }
 
-// ─── LOGIN ────────────────────────────────────────────────────────────────────
-function togglePw() {
-  const input = document.getElementById('loginPass');
-  input.type = input.type === 'password' ? 'text' : 'password';
+// ── THUMBNAIL UPLOAD ─────────────────────────────────────────────────────────
+function handleThumbUpload(input){
+  const file=input.files[0];
+  if(!file) return;
+  const allowed=['image/jpeg','image/png','image/gif','image/webp','image/bmp'];
+  if(!allowed.includes(file.type)){ toast('Formato inválido. Use JPG, PNG, GIF, WEBP ou BMP.','error'); input.value=''; return; }
+  if(file.size>5*1024*1024){ toast('Imagem muito grande. Máximo 5MB.','error'); input.value=''; return; }
+  const reader=new FileReader();
+  reader.onload=e=>{
+    state.pendingThumb=e.target.result;
+    document.getElementById('thumbPreviewImg').src=e.target.result;
+    document.getElementById('thumbPreview').style.display='block';
+    document.getElementById('thumbUploadArea').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+function removeThumb(){
+  state.pendingThumb=null;
+  document.getElementById('thumbPreviewImg').src='';
+  document.getElementById('thumbPreview').style.display='none';
+  document.getElementById('thumbUploadArea').style.display='block';
+  document.getElementById('f-thumb-file').value='';
 }
 
-async function doLogin() {
-  const user = (document.getElementById('loginUser').value || '').trim();
-  const pass =  document.getElementById('loginPass').value || '';
-  const errEl = document.getElementById('loginError');
-  errEl.style.display = 'none';
+// drag & drop
+document.addEventListener('DOMContentLoaded',()=>{
+  const area=document.getElementById('thumbUploadArea');
+  if(!area) return;
+  area.addEventListener('dragover',e=>{e.preventDefault();area.classList.add('drag-over');});
+  area.addEventListener('dragleave',()=>area.classList.remove('drag-over'));
+  area.addEventListener('drop',e=>{
+    e.preventDefault(); area.classList.remove('drag-over');
+    const file=e.dataTransfer.files[0];
+    if(file){
+      const input=document.getElementById('f-thumb-file');
+      const dt=new DataTransfer(); dt.items.add(file); input.files=dt.files;
+      handleThumbUpload(input);
+    }
+  });
+});
 
-  if (!user || !pass) {
-    errEl.style.display = 'block';
-    errEl.textContent = 'Preencha usuário e senha.';
-    return;
+// ── LOGIN (único modal, sem distinção visual de admin) ───────────────────────
+function togglePw(){
+  const i=document.getElementById('loginPass');
+  i.type=i.type==='password'?'text':'password';
+}
+
+async function doLogin(){
+  const user=(document.getElementById('loginUser').value||'').trim();
+  const pass= document.getElementById('loginPass').value||'';
+  const errEl=document.getElementById('loginError');
+  errEl.style.display='none';
+
+  if(!user||!pass){
+    errEl.style.display='block'; errEl.textContent='Preencha usuário e senha.'; return;
   }
 
-  const hash = await sha256(pass);
+  const hash=await sha256(pass);
 
-  if (user === OWNER_USER && hash === OWNER_PW_HASH) {
-    state.isOwner = true;
-    // Limpa campos por segurança
-    document.getElementById('loginUser').value = '';
-    document.getElementById('loginPass').value = '';
+  if(user===OWNER_USER && hash===OWNER_PW_HASH){
+    // Admin
+    state.isOwner=true; state.loggedIn=true; state.username=user;
+    sessionStorage.setItem('dm_user', user);
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
     closeModal('loginModal');
     renderAll();
-    toast('Bem-vindo de volta, DM! 🎬', 'success');
+    toast('Bem-vindo de volta! 🎬','success');
   } else {
-    errEl.style.display = 'block';
-    errEl.textContent = 'Usuário ou senha incorretos.';
-    document.getElementById('loginPass').value = '';
+    // Usuário comum: qualquer usuário/senha que não seja o admin entra como visitante
+    state.isOwner=false; state.loggedIn=true; state.username=user;
+    sessionStorage.setItem('dm_user', user);
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+    closeModal('loginModal');
+    renderAll();
+    toast(`Bem-vindo, ${user}! 🎬`,'success');
   }
 }
 
-function logout() {
-  state.isOwner = false;
+function logout(){
+  state.isOwner=false; state.loggedIn=false; state.username=null;
+  sessionStorage.removeItem('dm_user');
   renderAll();
-  toast('Você saiu.', 'success');
+  toast('Você saiu.','success');
 }
 
-// ─── RENDER ───────────────────────────────────────────────────────────────────
-function renderAll() {
-  buildMarquee();
-  renderOwnerPanel();
-  renderFilters();
-  renderGrid();
-  updateStats();
-  updateNavActions();
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function renderAll(){
+  buildMarquee(); renderUserPanel(); renderFilters(); renderGrid(); updateStats(); updateNavActions();
 }
 
-function updateNavActions() {
-  const el = document.getElementById('navActions');
-  if (state.isOwner) {
-    el.innerHTML = `
-      <span class="owner-badge">DM_202617 · Dono</span>
-      <button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Vídeo</button>
-      <button class="nav-btn" onclick="logout()">Sair</button>`;
+function updateNavActions(){
+  const el=document.getElementById('navActions');
+  if(state.loggedIn){
+    const initials=state.username.charAt(0).toUpperCase();
+    el.innerHTML=
+      (state.isOwner ? `<button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Vídeo</button>` : '')
+      +`<div style="display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:8px 14px;border-radius:999px;">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--accent)">${escHtml(initials)}</div>
+          <span style="font-size:13px;color:var(--text2)">${escHtml(state.username)}</span>
+        </div>
+        <button class="nav-btn" onclick="logout()">Sair</button>`;
   } else {
-    el.innerHTML = `
-      <button class="nav-btn" onclick="openModal('loginModal')" title="Local de login">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Login
-      </button>`;
+    el.innerHTML=`<button class="nav-btn" onclick="openModal('loginModal')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Entrar</button>`;
   }
 }
 
-function renderOwnerPanel() {
-  const el = document.getElementById('ownerPanel');
-  if (!state.isOwner) { el.innerHTML=''; return; }
-  el.innerHTML = `
-    <div class="owner-panel">
-      <div class="owner-panel-left">
-        <div class="owner-avatar">DM</div>
+function renderUserPanel(){
+  const el=document.getElementById('userPanel');
+  if(!state.loggedIn){ el.innerHTML=''; return; }
+  const initials=state.username.charAt(0).toUpperCase();
+  const avatarColor=state.isOwner?'var(--accent)':'var(--text2)';
+  const avatarBg=state.isOwner?'var(--accent)22':'var(--surface3)';
+  el.innerHTML=`
+    <div class="user-panel">
+      <div class="user-panel-left">
+        <div class="user-avatar" style="color:${avatarColor};background:${avatarBg};border-color:${state.isOwner?'var(--accent)44':'var(--border2)'}">${escHtml(initials)}</div>
         <div>
-          <div class="owner-name">DM Studio <span class="owner-badge" style="font-size:10px">Dono</span></div>
-          <div class="owner-role">Administrador do Portfólio</div>
+          <div class="user-name">${escHtml(state.username)}</div>
+          <div class="user-sub">${state.isOwner?'Acesso completo':'Pode comentar, avaliar e baixar vídeos'}</div>
         </div>
       </div>
-      <div style="display:flex;gap:10px">
-        <button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Novo Vídeo</button>
-        <button class="nav-btn" onclick="logout()">Sair</button>
-      </div>
+      ${state.isOwner?`<button class="nav-btn accent" onclick="openModal('addVideoModal')">+ Novo Vídeo</button>`:''}
     </div>`;
 }
 
-function renderFilters() {
-  const cats = ['all', ...new Set(state.videos.map(v => v.category))];
-  document.getElementById('filterBar').innerHTML = cats.map(c => `
+function renderFilters(){
+  const cats=['all',...new Set(state.videos.map(v=>v.category))];
+  document.getElementById('filterBar').innerHTML=cats.map(c=>`
     <button class="filter-btn${state.activeFilter===c?' active':''}" onclick="filterVideos('${c}',this)">
       ${c==='all'?'Todos':escHtml(c)}
     </button>`).join('');
 }
-function filterVideos(cat, btn) {
-  state.activeFilter = cat;
+function filterVideos(cat,btn){
+  state.activeFilter=cat;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
+  if(btn) btn.classList.add('active');
   renderGrid();
 }
 
-function renderGrid() {
-  const grid = document.getElementById('videoGrid');
-  const filtered = state.activeFilter==='all' ? state.videos : state.videos.filter(v=>v.category===state.activeFilter);
-  document.getElementById('videoCount').textContent = `${filtered.length} vídeo${filtered.length!==1?'s':''}`;
-  if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state">
+function getEmbedUrl(url){
+  if(!url) return null;
+  const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  if(yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`;
+  const vm=url.match(/vimeo\.com\/(\d+)/);
+  if(vm) return `https://player.vimeo.com/video/${vm[1]}?autoplay=1`;
+  return null;
+}
+function getYtThumb(url){
+  const m=url&&url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  return m?`https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg`:null;
+}
+function avgRating(vid){
+  const r=state.ratings[vid]||{};
+  const vals=Object.values(r);
+  if(!vals.length) return null;
+  return (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+}
+
+function renderGrid(){
+  const grid=document.getElementById('videoGrid');
+  const filtered=state.activeFilter==='all'?state.videos:state.videos.filter(v=>v.category===state.activeFilter);
+  document.getElementById('videoCount').textContent=`${filtered.length} vídeo${filtered.length!==1?'s':''}`;
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state">
       <div class="empty-icon">🎬</div>
       <div class="empty-title">Nenhum vídeo ainda</div>
       <div class="empty-sub">${state.isOwner?'Adicione seu primeiro vídeo clicando em "+ Vídeo"':'Em breve novos conteúdos serão publicados.'}</div>
     </div>`;
     return;
   }
-  grid.innerHTML = filtered.map((v,i) => buildCard(v,i)).join('');
+  grid.innerHTML=filtered.map((v,i)=>buildCard(v,i)).join('');
 }
 
-function getEmbedUrl(url) {
-  if (!url) return null;
-  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
-  if (yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`;
-  const vm = url.match(/vimeo\.com\/(\d+)/);
-  if (vm) return `https://player.vimeo.com/video/${vm[1]}?autoplay=1`;
-  return null;
-}
-function getYtThumb(url) {
-  const m = url && url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
-  return m ? `https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg` : null;
-}
-function avgRating(vid) {
-  const r = state.ratings[vid]||{};
-  const vals = Object.values(r);
-  if (!vals.length) return null;
-  return (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
-}
-
-function buildCard(v, i) {
-  const thumb = v.thumbnail || getYtThumb(v.url) || '';
-  const rating = avgRating(v.id);
-  const comments = (state.comments[v.id]||[]).length;
+function buildCard(v,i){
+  const thumb=v.thumbnail||getYtThumb(v.url)||'';
+  const rating=avgRating(v.id);
+  const comments=(state.comments[v.id]||[]).length;
   return `
     <div class="video-card" style="animation-delay:${(i%6)*.07}s" onclick="openVideo('${v.id}')">
       <div class="card-thumb">
         ${thumb
-          ? `<img src="${escHtml(thumb)}" alt="${escHtml(v.title)}" loading="lazy">`
-          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:2rem">🎬</div>`}
+          ?`<img src="${thumb.startsWith('data:')?thumb:escHtml(thumb)}" alt="${escHtml(v.title)}" loading="lazy">`
+          :`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:2rem">🎬</div>`}
         <div class="card-overlay"><div class="play-btn"><div class="play-icon"></div></div></div>
-        ${v.duration ? `<div class="card-duration">${escHtml(v.duration)}</div>` : ''}
-        ${v.category&&v.category!=='Geral' ? `<div class="card-badge">${escHtml(v.category)}</div>` : ''}
+        ${v.duration?`<div class="card-duration">${escHtml(v.duration)}</div>`:''}
+        ${v.category&&v.category!=='Geral'?`<div class="card-badge">${escHtml(v.category)}</div>`:''}
       </div>
       <div class="card-body">
         <div class="card-title">${escHtml(v.title)}</div>
         <div class="card-meta">
           <span>${escHtml(v.date)}</span>
-          ${rating ? `<span class="card-meta-dot"></span><span style="color:var(--yellow)">★ ${rating}</span>` : ''}
-          ${comments ? `<span class="card-meta-dot"></span><span>${comments} comentário${comments!==1?'s':''}</span>` : ''}
+          ${rating?`<span class="card-meta-dot"></span><span style="color:var(--yellow)">★ ${rating}</span>`:''}
+          ${comments?`<span class="card-meta-dot"></span><span>${comments} comentário${comments!==1?'s':''}</span>`:''}
         </div>
         <div class="card-actions">
           <div class="card-btn">
@@ -691,74 +735,90 @@ function buildCard(v, i) {
     </div>`;
 }
 
-function updateStats() {
-  const allR = state.videos.flatMap(v=>Object.values(state.ratings[v.id]||{}));
-  const avg = allR.length ? (allR.reduce((a,b)=>a+b,0)/allR.length).toFixed(1) : '—';
-  const totalC = state.videos.reduce((a,v)=>a+(state.comments[v.id]||[]).length,0);
-  document.getElementById('statVideos').textContent    = state.videos.length;
-  document.getElementById('statRating').textContent    = avg==='—' ? '—' : `${avg}★`;
-  document.getElementById('statComments').textContent  = totalC;
-  document.getElementById('statDownloads').textContent = state.downloads;
+function updateStats(){
+  const allR=state.videos.flatMap(v=>Object.values(state.ratings[v.id]||{}));
+  const avg=allR.length?(allR.reduce((a,b)=>a+b,0)/allR.length).toFixed(1):'—';
+  const totalC=state.videos.reduce((a,v)=>a+(state.comments[v.id]||[]).length,0);
+  document.getElementById('statVideos').textContent=state.videos.length;
+  document.getElementById('statRating').textContent=avg==='—'?'—':`${avg}★`;
+  document.getElementById('statComments').textContent=totalC;
+  document.getElementById('statDownloads').textContent=state.downloads;
 }
 
-// ─── VIDEO MODAL ──────────────────────────────────────────────────────────────
-function openVideo(id) {
-  const v = state.videos.find(x=>x.id===id);
-  if (!v) return;
-  state.currentVideo = v;
+// ── VIDEO MODAL ──────────────────────────────────────────────────────────────
+function openVideo(id){
+  const v=state.videos.find(x=>x.id===id);
+  if(!v) return;
+  state.currentVideo=v;
 
-  const embed = getEmbedUrl(v.url);
-  const el = document.getElementById('modalVideoContainer');
-  if (embed) {
-    el.innerHTML = `<iframe src="${embed}" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;
-  } else if (v.url && v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
-    el.innerHTML = `<video src="${escHtml(v.url)}" controls style="width:100%;height:100%"></video>`;
+  const embed=getEmbedUrl(v.url);
+  const el=document.getElementById('modalVideoContainer');
+  if(embed){
+    el.innerHTML=`<iframe src="${embed}" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;
+  } else if(v.url&&v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
+    el.innerHTML=`<video src="${escHtml(v.url)}" controls style="width:100%;height:100%"></video>`;
   } else {
-    el.innerHTML = `<div class="modal-video-placeholder">🎬<span>Clique em "Abrir Vídeo" abaixo</span></div>`;
+    el.innerHTML=`<div class="modal-video-placeholder">🎬<span>Clique em "Abrir Vídeo" abaixo</span></div>`;
   }
 
-  document.getElementById('modalTitle').textContent = v.title;
-  document.getElementById('modalMeta').innerHTML = `
+  document.getElementById('modalTitle').textContent=v.title;
+  document.getElementById('modalMeta').innerHTML=`
     <span>${escHtml(v.date)}</span><span>·</span><span>${escHtml(v.category)}</span>
-    ${v.duration ? `<span>·</span><span>${escHtml(v.duration)}</span>` : ''}
+    ${v.duration?`<span>·</span><span>${escHtml(v.duration)}</span>`:''}
     <span>·</span><span style="color:var(--yellow)">★ ${avgRating(v.id)||'Sem avaliações'}</span>`;
-  document.getElementById('modalDesc').textContent = v.description||'';
+  document.getElementById('modalDesc').textContent=v.description||'';
 
-  let actHtml = '';
-  if (v.url && !getEmbedUrl(v.url) && !v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
-    actHtml += `<a href="${escHtml(v.url)}" target="_blank" rel="noopener" class="download-btn">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      Abrir Vídeo</a>`;
+  // Ações: download e vídeo externo para logados; excluir só para admin
+  let actHtml='';
+  if(!state.loggedIn){
+    actHtml=`<div style="background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius2);padding:14px 18px;font-size:.875rem;color:var(--text3)">
+      <a onclick="closeModal('videoModal');openModal('loginModal')" style="color:var(--accent);cursor:pointer;font-weight:600">Faça login</a> para acessar downloads e comentários.
+    </div>`;
+  } else {
+    if(v.url&&!getEmbedUrl(v.url)&&!v.url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
+      actHtml+=`<a href="${escHtml(v.url)}" target="_blank" rel="noopener" class="download-btn">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Abrir Vídeo</a>`;
+    }
+    if(v.downloadUrl){
+      actHtml+=`<a href="${escHtml(v.downloadUrl)}" download class="download-btn" onclick="trackDownload()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Baixar Vídeo</a>`;
+    }
   }
-  if (v.downloadUrl) {
-    actHtml += `<a href="${escHtml(v.downloadUrl)}" download class="download-btn" onclick="trackDownload()">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Baixar Vídeo</a>`;
-  }
-  if (state.isOwner) {
-    actHtml += `<button class="download-btn" style="color:var(--red);border-color:var(--red)33" onclick="deleteVideo('${v.id}')">
+  if(state.isOwner){
+    actHtml+=`<button class="download-btn" style="color:var(--red);border-color:var(--red)33" onclick="deleteVideo('${v.id}')">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
       Excluir Vídeo</button>`;
   }
-  document.getElementById('modalActions').innerHTML = actHtml;
+  document.getElementById('modalActions').innerHTML=actHtml;
 
-  renderStars(v.id);
+  // Rating e comments: só para logados
+  const ratingSection=document.getElementById('ratingSection');
+  if(state.loggedIn){
+    ratingSection.innerHTML=`<div class="rating-title">Sua avaliação</div><div class="stars" id="starRating"></div>`;
+    renderStars(v.id);
+  } else {
+    ratingSection.innerHTML='';
+  }
+
   renderComments(v.id);
   openModal('videoModal');
 }
 
-function trackDownload() {
-  state.downloads = (state.downloads||0) + 1;
+function trackDownload(){
+  state.downloads=(state.downloads||0)+1;
   save(); updateStats();
 }
 
-function renderStars(vid) {
-  const container = document.getElementById('starRating');
-  const myRating = (state.ratings[vid]||{})[getSessionId()]||0;
-  container.innerHTML = Array.from({length:5},(_,i)=>`
-    <span class="star${i<myRating?' active':''}" data-val="${i+1}" onclick="rateVideo('${vid}',${i+1})" style="color:var(--yellow)">★</span>`).join('');
-  const stars = container.querySelectorAll('.star');
-  stars.forEach((s,i) => {
+function renderStars(vid){
+  const container=document.getElementById('starRating');
+  if(!container) return;
+  const myRating=(state.ratings[vid]||{})[getSessionId()]||0;
+  container.innerHTML=Array.from({length:5},(_,i)=>`
+    <span class="star${i<myRating?' active':''}" onclick="rateVideo('${vid}',${i+1})" style="color:var(--yellow)">★</span>`).join('');
+  const stars=container.querySelectorAll('.star');
+  stars.forEach((s,i)=>{
     s.addEventListener('mouseover',()=>stars.forEach((x,j)=>{x.style.filter=j<=i?'none':'grayscale(1)';x.style.opacity=j<=i?'1':'.3'}));
     s.addEventListener('mouseout',()=>{
       const cur=(state.ratings[vid]||{})[getSessionId()]||0;
@@ -767,41 +827,41 @@ function renderStars(vid) {
   });
 }
 
-function rateVideo(vid, val) {
-  if (!state.ratings[vid]) state.ratings[vid]={};
-  state.ratings[vid][getSessionId()] = val;
+function rateVideo(vid,val){
+  if(!state.loggedIn){ toast('Faça login para avaliar!','error'); return; }
+  if(!state.ratings[vid]) state.ratings[vid]={};
+  state.ratings[vid][getSessionId()]=val;
   save(); renderStars(vid); renderGrid(); updateStats();
-  const v = state.videos.find(x=>x.id===vid);
-  if (v) document.getElementById('modalMeta').innerHTML=`<span>${escHtml(v.date)}</span><span>·</span><span>${escHtml(v.category)}</span>${v.duration?`<span>·</span><span>${escHtml(v.duration)}</span>`:''}<span>·</span><span style="color:var(--yellow)">★ ${avgRating(vid)||'—'}</span>`;
+  const v=state.videos.find(x=>x.id===vid);
+  if(v) document.getElementById('modalMeta').innerHTML=`<span>${escHtml(v.date)}</span><span>·</span><span>${escHtml(v.category)}</span>${v.duration?`<span>·</span><span>${escHtml(v.duration)}</span>`:''}<span>·</span><span style="color:var(--yellow)">★ ${avgRating(vid)||'—'}</span>`;
   toast('Avaliação registrada!','success');
 }
 
-// ─── COMMENTS ─────────────────────────────────────────────────────────────────
-function renderComments(vid) {
-  const isBanned = state.banned.includes(getSessionId());
-  const formArea = document.getElementById('commentFormArea');
-  const list     = document.getElementById('commentsList');
-  const comments = state.comments[vid]||[];
+// ── COMMENTS ─────────────────────────────────────────────────────────────────
+function renderComments(vid){
+  const isBanned=state.banned.includes(getSessionId());
+  const formArea=document.getElementById('commentFormArea');
+  const list=document.getElementById('commentsList');
+  const comments=state.comments[vid]||[];
 
-  if (isBanned) {
-    formArea.innerHTML = `<div class="banned-notice">🚫 Você foi banido e não pode comentar.</div>`;
+  if(!state.loggedIn){
+    formArea.innerHTML='';
+  } else if(isBanned){
+    formArea.innerHTML=`<div class="banned-notice">🚫 Você foi banido e não pode comentar.</div>`;
   } else {
-    formArea.innerHTML = `
-      <div style="display:flex;gap:8px;margin-bottom:8px">
-        <input class="comment-name-input" id="commentName" placeholder="Seu nome (opcional)">
-      </div>
+    formArea.innerHTML=`
       <div class="comment-form">
         <textarea class="comment-input" id="commentText" placeholder="Deixe seu comentário..."></textarea>
         <button class="comment-send" onclick="submitComment('${vid}')">Enviar</button>
       </div>`;
   }
 
-  if (!comments.length) {
-    list.innerHTML = `<p style="color:var(--text3);font-size:.85rem;text-align:center;padding:20px 0">Seja o primeiro a comentar!</p>`;
+  if(!comments.length){
+    list.innerHTML=`<p style="color:var(--text3);font-size:.85rem;text-align:center;padding:20px 0">${state.loggedIn?'Seja o primeiro a comentar!':'Faça login para ver e deixar comentários.'}</p>`;
     return;
   }
 
-  list.innerHTML = comments.map(c=>`
+  list.innerHTML=comments.map(c=>`
     <div class="comment-item" id="comment-${c.id}">
       <div class="comment-header">
         <div class="comment-author">
@@ -812,140 +872,142 @@ function renderComments(vid) {
           </div>
         </div>
         <div class="comment-actions">
-          ${state.isOwner ? `
+          ${state.isOwner?`
             <button class="delete-comment-btn" onclick="deleteComment('${vid}','${c.id}')">Excluir</button>
             <button class="ban-btn" onclick="banUser('${vid}','${c.id}','${c.sessionId}')">🚫 Banir</button>
-          ` : ''}
+          `:''}
         </div>
       </div>
       <div class="comment-text">${escHtml(c.text)}</div>
     </div>`).join('');
 }
 
-function submitComment(vid) {
-  const textEl = document.getElementById('commentText');
-  const text   = (textEl?.value||'').trim();
-  if (!text) { toast('Escreva algo antes de enviar!','error'); return; }
-  const nameEl = document.getElementById('commentName');
-  const author = (nameEl?.value||'').trim() || 'Anônimo';
-  if (!state.comments[vid]) state.comments[vid]=[];
+function submitComment(vid){
+  if(!state.loggedIn){ toast('Faça login para comentar!','error'); return; }
+  const textEl=document.getElementById('commentText');
+  const text=(textEl?.value||'').trim();
+  if(!text){ toast('Escreva algo antes de enviar!','error'); return; }
+  if(!state.comments[vid]) state.comments[vid]=[];
   state.comments[vid].push({
     id: Date.now().toString(36),
-    author, text,
+    author: state.username||'Anônimo',
+    text,
     sessionId: getSessionId(),
     date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
   });
   save();
-  if (textEl) textEl.value='';
+  if(textEl) textEl.value='';
   renderComments(vid); renderGrid(); updateStats();
   toast('Comentário adicionado!','success');
 }
 
-function deleteComment(vid, cid) {
-  if (!state.isOwner) return;
-  state.comments[vid] = (state.comments[vid]||[]).filter(c=>c.id!==cid);
+function deleteComment(vid,cid){
+  if(!state.isOwner) return;
+  state.comments[vid]=(state.comments[vid]||[]).filter(c=>c.id!==cid);
   save(); renderComments(vid); renderGrid(); updateStats();
   toast('Comentário removido.','success');
 }
 
-function banUser(vid, cid, sessionId) {
-  if (!state.isOwner) return;
-  if (!confirm('Banir este usuário permanentemente?')) return;
-  if (!state.banned.includes(sessionId)) state.banned.push(sessionId);
-  deleteComment(vid, cid);
+function banUser(vid,cid,sessionId){
+  if(!state.isOwner) return;
+  if(!confirm('Banir este usuário permanentemente?')) return;
+  if(!state.banned.includes(sessionId)) state.banned.push(sessionId);
+  deleteComment(vid,cid);
   save();
   toast('Usuário banido.','error');
 }
 
-function deleteVideo(id) {
-  if (!state.isOwner) return;
-  if (!confirm('Excluir este vídeo permanentemente?')) return;
-  state.videos = state.videos.filter(v=>v.id!==id);
+function deleteVideo(id){
+  if(!state.isOwner) return;
+  if(!confirm('Excluir este vídeo permanentemente?')) return;
+  state.videos=state.videos.filter(v=>v.id!==id);
   delete state.comments[id]; delete state.ratings[id];
   save(); closeModal('videoModal'); renderAll();
   toast('Vídeo excluído.','success');
 }
 
-// ─── ADD VIDEO ────────────────────────────────────────────────────────────────
-function submitVideo() {
-  if (!state.isOwner) { toast('Sem permissão.','error'); return; }
-  const title = document.getElementById('f-title').value.trim();
-  const url   = document.getElementById('f-url').value.trim();
-  if (!title||!url) { toast('Título e URL são obrigatórios!','error'); return; }
+// ── ADD VIDEO ─────────────────────────────────────────────────────────────────
+function submitVideo(){
+  if(!state.isOwner){ toast('Sem permissão.','error'); return; }
+  const title=document.getElementById('f-title').value.trim();
+  const url=document.getElementById('f-url').value.trim();
+  if(!title||!url){ toast('Título e URL são obrigatórios!','error'); return; }
+  const thumbnail=state.pendingThumb||getYtThumb(url)||'';
   state.videos.unshift({
     id: Date.now().toString(36),
-    title, url,
-    thumbnail:   document.getElementById('f-thumb').value.trim() || getYtThumb(url) || '',
-    category:    document.getElementById('f-cat').value,
-    duration:    document.getElementById('f-dur').value.trim(),
+    title, url, thumbnail,
+    category: document.getElementById('f-cat').value,
+    duration: document.getElementById('f-dur').value.trim(),
     description: document.getElementById('f-desc').value.trim(),
     downloadUrl: document.getElementById('f-dl').value.trim(),
     date: new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}),
   });
   save();
   closeModal('addVideoModal');
-  ['f-title','f-url','f-thumb','f-dur','f-desc','f-dl'].forEach(id=>{document.getElementById(id).value='';});
+  ['f-title','f-url','f-dur','f-desc','f-dl'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('f-cat').value='Geral';
+  removeThumb();
   renderAll();
   toast('Vídeo publicado!','success');
 }
 
-// ─── MODALS ───────────────────────────────────────────────────────────────────
-function openModal(id) {
-  const el = document.getElementById(id);
-  el.style.display = 'flex';
+// ── MODALS ────────────────────────────────────────────────────────────────────
+function openModal(id){
+  if(id==='addVideoModal'&&!state.isOwner){ toast('Sem permissão.','error'); return; }
+  const el=document.getElementById(id);
+  el.style.display='flex';
   requestAnimationFrame(()=>el.classList.add('open'));
-  document.body.style.overflow = 'hidden';
-  if (id === 'loginModal') {
-    const errEl = document.getElementById('loginError');
-    if (errEl) errEl.style.display = 'none';
-    setTimeout(()=>document.getElementById('loginUser')?.focus(), 150);
+  document.body.style.overflow='hidden';
+  if(id==='loginModal'){
+    document.getElementById('loginError').style.display='none';
+    setTimeout(()=>document.getElementById('loginUser')?.focus(),150);
   }
 }
-function closeModal(id) {
-  const el = document.getElementById(id);
+function closeModal(id){
+  const el=document.getElementById(id);
   el.classList.remove('open');
-  setTimeout(()=>{ el.style.display='none'; document.body.style.overflow=''; }, 300);
-  if (id==='videoModal') document.getElementById('modalVideoContainer').innerHTML='';
+  setTimeout(()=>{el.style.display='none'; document.body.style.overflow='';},300);
+  if(id==='videoModal') document.getElementById('modalVideoContainer').innerHTML='';
 }
 
 document.querySelectorAll('.modal-overlay').forEach(o=>{
-  o.addEventListener('click', e=>{ if (e.target===o) closeModal(o.id); });
+  o.addEventListener('click',e=>{if(e.target===o) closeModal(o.id);});
 });
-document.addEventListener('keydown', e=>{
-  if (e.key==='Escape') ['videoModal','addVideoModal','loginModal'].forEach(id=>{
-    if (document.getElementById(id).classList.contains('open')) closeModal(id);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') ['videoModal','addVideoModal','loginModal'].forEach(id=>{
+    if(document.getElementById(id).classList.contains('open')) closeModal(id);
   });
 });
 
-// ─── TOAST ────────────────────────────────────────────────────────────────────
-function toast(msg, type='success') {
-  const container = document.getElementById('toastContainer');
-  const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.innerHTML = `<div class="toast-dot"></div><span>${escHtml(msg)}</span>`;
-  container.appendChild(el);
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function toast(msg,type='success'){
+  const c=document.getElementById('toastContainer');
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  el.innerHTML=`<div class="toast-dot"></div><span>${escHtml(msg)}</span>`;
+  c.appendChild(el);
   requestAnimationFrame(()=>setTimeout(()=>el.classList.add('show'),10));
-  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),400); }, 3000);
+  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},3000);
 }
 
-// ─── UTILS ────────────────────────────────────────────────────────────────────
-function getSessionId() {
-  let sid = sessionStorage.getItem('dm_sid') || localStorage.getItem('dm_sid');
-  if (!sid) {
-    sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
-    sessionStorage.setItem('dm_sid', sid);
-    localStorage.setItem('dm_sid', sid);
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function getSessionId(){
+  let sid=sessionStorage.getItem('dm_sid')||localStorage.getItem('dm_sid');
+  if(!sid){
+    sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    sessionStorage.setItem('dm_sid',sid);
+    localStorage.setItem('dm_sid',sid);
   }
   return sid;
 }
-function escHtml(s) {
+function escHtml(s){
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ─── BAN CHECK ────────────────────────────────────────────────────────────────
-(function() {
-  if (state.banned.includes(getSessionId())) {
-    document.getElementById('banned-page').style.display = 'flex';
+// ── BAN CHECK ─────────────────────────────────────────────────────────────────
+(function(){
+  if(state.banned.includes(getSessionId())){
+    document.getElementById('banned-page').style.display='flex';
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   }
 })();
